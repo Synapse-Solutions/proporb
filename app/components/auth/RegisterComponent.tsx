@@ -8,39 +8,39 @@ export default function RegisterComponent() {
       <AuthLeftSide />
       <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] pt-[calc(5vh)] px-[calc(5vw)]">
         <h1 className="text-[30px] font-bold">Sign up!</h1>
-        <p className="">Get started by entering your details</p>
+        <p className="mt-5">Get started by entering your details</p>
         <form action="submit" className="mt-5">
           <div>
             <p>Full Name</p>
             <input
               type="text"
-              className="border border-black rounded h-8 w-[100%]"
+              className="border border-black rounded h-10 w-[100%]"
             />
           </div>
-          <div>
+          <div className="mt-5">
             <p>Email Address</p>
             <input
               type="email"
-              className="border border-black rounded h-8 w-[100%]"
+              className="border border-black rounded h-10 w-[100%]"
             />
           </div>
-          <div>
+          <div className="mt-5">
             <p>Mobile Number</p>
             <input
               type="number"
-              className="border border-black rounded h-8 w-[100%]"
+              className="border border-black rounded h-10 w-[100%]"
             />
           </div>
-          <div className="">
+          <div className="mt-5">
             <p>Password</p>
 
             <input
               type="password"
-              className="border border-black rounded h-8 w-[100%]"
+              className="border border-black rounded h-10 w-[100%]"
             />
           </div>
-          <div className="">
-            <button className="bg-[#1ED760] text-white rounded h-8 w-[100%] mt-7">
+          <div className="mt-5">
+            <button className="bg-[#1ED760] text-white rounded h-10 w-[100%] mt-7">
               Buy Subscription
             </button>
           </div>
