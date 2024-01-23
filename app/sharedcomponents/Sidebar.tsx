@@ -164,7 +164,7 @@ export default function Sidebar(props: Props) {
             </div>
           </div>
           <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5">
-            <p> ← Properties</p>
+            <p> ← {props.activeTab}</p>
 
             {nestedMenuItems.map((item, index) => (
               <div key={index} className="flex gap-3 items-center mt-5">
