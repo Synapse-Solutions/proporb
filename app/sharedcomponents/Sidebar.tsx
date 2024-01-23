@@ -8,7 +8,7 @@ export default function Sidebar() {
         <Image src="/logo.webp" alt="Logo" width={80} height={80} />
       </div>
       <div className="flex w-full justify-center my-10">
-        <button className="bg-[#1ED760] text-white text-semibold rounded-3xl px-6 py-2 w-[80%] flex justify-center items-center">
+        <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[90%] flex justify-center items-center">
           + Create
         </button>
       </div>
