@@ -28,7 +28,7 @@ export default function NotificationsComponent(props: Props) {
           </div>
           <div className="mt-10">
             <div className="flex space-x-3">
-              <p
+              <div
                 style={{
                   color: props.activeTab === "all" ? "#1ED760" : "#000000",
                 }}
@@ -39,8 +39,8 @@ export default function NotificationsComponent(props: Props) {
                 {props.activeTab === "all" && (
                   <div className="bg-[#1ED760] absolute bottom-[-10px] w-[50px] h-[2px] z-10" />
                 )}
-              </p>
-              <p
+              </div>
+              <div
                 style={{
                   color: props.activeTab === "new" ? "#1ED760" : "#000000",
                 }}
@@ -51,8 +51,8 @@ export default function NotificationsComponent(props: Props) {
                 {props.activeTab === "new" && (
                   <div className="bg-[#1ED760] absolute bottom-[-10px] w-[50px] h-[2px] z-10" />
                 )}
-              </p>
-              <p
+              </div>
+              <div
                 style={{
                   color: props.activeTab === "unread" ? "#1ED760" : "#000000",
                 }}
@@ -63,7 +63,7 @@ export default function NotificationsComponent(props: Props) {
                 {props.activeTab === "unread" && (
                   <div className="bg-[#1ED760] absolute bottom-[-10px] w-[50px] h-[2px] z-10" />
                 )}
-              </p>
+              </div>
             </div>
             <div className="h-[2px] w-[100%] bg-gray-400 rounded mt-[8px] " />
             <div className="">
