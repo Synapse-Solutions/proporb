@@ -11,7 +11,7 @@ export default function GetStartedComponent(props: Props) {
   return (
     <div>
       <Sidebar />
-      <div className="w-[calc(85vw)] ml-[calc(15vw)] h-[calc(100vh)] p-[4%]">
+      <div className="w-[calc(85vw)] ml-[calc(15vw)] h-[calc(100vh)] p-[4%] overflow-x-hidden">
         <Navbar />
 
         <div className="flex w-full my-12">
@@ -134,23 +134,25 @@ export default function GetStartedComponent(props: Props) {
             </div>
             {isCompanyInfoOpen && (
               <div className="p-6">
-                <div className="border-[#D8D8D8] border-[0.1px] w-full h-0"></div>
+                <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
                 <div className="flex justify-between items-center py-5">
-                  <div>
+                  <div className="w-[50%]">
                     <p className="text-[#797979] max-w-[500px]">
                       Customize your company settings and add your company name,
                       contact into, and more
                     </p>
-                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-[40%] flex justify-center items-center mt-5">
+                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
                       Add Company info
                     </button>
                   </div>
-                  <Image
-                    src="/youtubeThumbnail.webp"
-                    alt="Image"
-                    height={150}
-                    width={300}
-                  />
+                  <div className="flex justify-end">
+                    <Image
+                      src="/youtubeThumbnail.webp"
+                      alt="Image"
+                      height={150}
+                      width={280}
+                    />
+                  </div>
                 </div>
               </div>
             )}
