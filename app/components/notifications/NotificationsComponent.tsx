@@ -3,6 +3,7 @@ import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React from "react";
 import PersonaInformation from "../profileinformation/PersonaInformation";
+import LoginAndPasswordModal from "../loginandpasswordsettings/LoginAndPasswordModal";
 
 interface Props {
   notifications: any;
@@ -104,7 +105,6 @@ export default function NotificationsComponent(props: Props) {
           </div>
         </div>
       </div>
-      <PersonaInformation />
     </div>
   );
 }
