@@ -1,16 +1,75 @@
+"use client";
+import EmptyView from "@/app/sharedcomponents/EmptyView";
 import Navbar from "@/app/sharedcomponents/Navbar";
+import SearchView from "@/app/sharedcomponents/SearchView";
 import Sidebar from "@/app/sharedcomponents/Sidebar";
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 
-export default function AllPropertiesComponent() {
+const tabs = [
+  "All Properties",
+  "Resedential Properties",
+  "Commercial Properties",
+];
+interface Props {
+  array: any[];
+}
+export default function AllPropertiesComponent(props: Props) {
+  const [activeTab, setActiveTab] = useState("All Properties");
   return (
     <div className="h-screen overflow-y-scroll">
-      <Sidebar activeTab="properties" />
+      <Sidebar activeTab="Properties" />
       <div className="flex">
         <div className="w-[calc(15vw)]" />
-        <div className="w-[calc(85vw)] px-10">
+        <div className="w-[calc(85vw)] px-10 mt-10">
           <Navbar />
-          AllPropertiesComponent
+          <div className="flex items-center w-full justify-between mt-10">
+            <h1 className="text-black text-[30px]">Properties</h1>
+            <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+              + New Property
+            </div>
+          </div>
+          <div className="h-[1px] w-full bg-gray-400 mt-5" />
+
+          {props.array.length === 0 && <EmptyView />}
+
+          <div className="flex justify-between items-center">
+            {tabs.map((item, index) => (
+              <button
+                onClick={() => setActiveTab(item)}
+                className={`flex items-center justify-center pb-3 mt-5 w-1/3 border-b ${
+                  activeTab === item ? "border-[#1ED760]" : "border-gray-400"
+                }`}
+              >
+                <h1 className="text-black text-[20px]">{item}</h1>
+              </button>
+            ))}
+          </div>
+          <div className="flex justify-center p-5 w-full bg-white rounded border border-gray-400 mt-5">
+            <div className="flex space-x-2">
+              <Image src="/house.webp" alt="house" width={300} height={300} />
+              <div>
+                <h1 className="text-[#1ED760] text-[30px] font-bold mt-5">
+                  PKR 1.2 Crore
+                </h1>
+                <p className="text-black text-[20px] ">
+                  10 Marla House For Sale
+                </p>
+                <div className="flex items-center">
+                  <Image
+                    src="/location_icon.webp"
+                    alt="rupee"
+                    width={25}
+                    height={25}
+                    style={{ filter: "invert(1)" }}
+                  />
+                  <p className="text-black text-[20px] ml-2">
+                    F-11 Markaz, Islamabad
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
