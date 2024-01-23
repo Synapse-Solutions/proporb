@@ -42,6 +42,13 @@ export default function GetStartedComponent(props: Props) {
             </button>
           </div>
         </div>
+
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
   );
