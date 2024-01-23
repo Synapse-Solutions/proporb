@@ -41,7 +41,7 @@ export default function PersonaInformation() {
     ]);
   };
   return (
-    <div className="w-[calc(90vw)] h-[calc(90vh)] fixed bg-white border border-black mx-[calc(5vw)] my-[calc(5vh)] top-0 z-10 flex">
+    <div className="w-[calc(70vw)] h-[calc(90vh)] fixed bg-white border border-black mx-[calc(5vw)] my-[calc(5vh)] top-0 z-10 flex">
       <ProfileInfoSidebar activeTab="contact" />
       {screenName === "contact" && (
         <div className="text-black w-[calc(75vw)] px-10 pt-10 relative">
