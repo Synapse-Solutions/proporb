@@ -55,10 +55,10 @@ export default function Sidebar(props: Props) {
   return (
     <div
       className={`w-[calc(15vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
-        props.activeTab === "" ? "px-5 py-10" : "pl-5"
+        !props.activeTab ? "px-5 py-10" : "pl-5"
       } fixed top-0 left-0`}
     >
-      {props.activeTab === "" ? (
+      {!props.activeTab ? (
         <>
           <div className="flex w-full justify-start my-10">
             <Image src="/logo.webp" alt="Logo" width={80} height={80} />
