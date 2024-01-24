@@ -65,8 +65,8 @@ const balanceSheetArray = [
 
 const SingleRow = ({ title, isFavourite }: any) => {
   return (
-    <div className="flex w-[48%] justify-between border-b border-gray-400 pb-3 mt-5">
-      <h1>{title}</h1>
+    <div className="flex w-[48%] justify-between border-b border-gray-400 text-black pb-3 mt-5">
+      <h1 className="text-black">{title}</h1>
       <Image
         src={isFavourite ? "/filled_star.webp" : "/empty_star.webp"}
         width={25}

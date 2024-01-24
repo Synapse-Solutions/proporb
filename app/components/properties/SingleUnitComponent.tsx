@@ -18,7 +18,7 @@ const tabs = [
   "Files",
   "Settings",
 ];
-export default function SinglePropertyComponents() {
+export default function SingleUnitComponent() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   return (
     <div className="h-screen overflow-y-scroll">
