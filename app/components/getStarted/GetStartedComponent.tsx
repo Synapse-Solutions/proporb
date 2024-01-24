@@ -14,7 +14,7 @@ export default function GetStartedComponent(props: Props) {
       <div className="w-[calc(85vw)] ml-[calc(15vw)] h-[calc(100vh)] p-[4%] overflow-x-hidden">
         <Navbar />
 
-        <div className="flex w-full my-12">
+        <div className="flex gap-5 w-full my-12">
           <div className="w-[70%] py-8">
             <p className="text-black text-3xl font-bold">Get Started</p>
             <p className="text-[#797979] text-base my-5">

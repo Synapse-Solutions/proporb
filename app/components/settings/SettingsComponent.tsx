@@ -55,7 +55,11 @@ export default function SettingsComponent(props: Props) {
               description="Change your company name, logo, address, login URL, and account owner."
               icon="/company.webp"
             />
-            {isCompanyInfoOpen && <CompanyInformationModal />}
+            {isCompanyInfoOpen && (
+              <CompanyInformationModal
+                onClose={() => setIsCompanyInfoOpen(false)}
+              />
+            )}
             <SettingsCard
               onClick={() => setIsLoginAndPasswordOpen(true)}
               title="Region & Currency"
