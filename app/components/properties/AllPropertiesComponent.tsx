@@ -45,31 +45,68 @@ export default function AllPropertiesComponent(props: Props) {
               </button>
             ))}
           </div>
-          <div className="flex justify-center p-5 w-full bg-white rounded border border-gray-400 mt-5">
-            <div className="flex space-x-2">
-              <Image src="/house.webp" alt="house" width={300} height={300} />
-              <div>
-                <h1 className="text-[#1ED760] text-[30px] font-bold mt-5">
-                  PKR 1.2 Crore
-                </h1>
-                <p className="text-black text-[20px] ">
-                  10 Marla House For Sale
-                </p>
-                <div className="flex items-center">
-                  <Image
-                    src="/location_icon.webp"
-                    alt="rupee"
-                    width={25}
-                    height={25}
-                    style={{ filter: "invert(1)" }}
-                  />
-                  <p className="text-black text-[20px] ml-2">
-                    F-11 Markaz, Islamabad
-                  </p>
+          {props.array.map((item, index) => (
+            <div
+              key={index}
+              className="flex justify-between p-5 w-full bg-white rounded-2xl border border-gray-400 mt-5"
+            >
+              <div className="flex space-x-2 gap-5">
+                <Image src="/house.webp" alt="house" width={400} height={400} />
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <h1 className="text-[#1ED760] text-[30px] font-bold ">
+                      PKR 1.2 Crore
+                    </h1>
+                    <p className="text-black text-[20px] ">
+                      10 Marla House For Sale
+                    </p>
+                    <div className="flex items-center">
+                      <Image
+                        src="/location_icon.webp"
+                        alt="rupee"
+                        width={25}
+                        height={25}
+                        style={{ filter: "invert(1)" }}
+                      />
+                      <p className="text-black text-[20px] ml-2">
+                        F-11 Markaz, Islamabad
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex space-x-4">
+                    <div className="flex space-x-3">
+                      <Image
+                        src={"/bed.webp"}
+                        alt="bed"
+                        width={25}
+                        height={25}
+                      />
+                      <p className="text-black text-[20px] ml-2">3</p>
+                    </div>
+                    <div className="flex space-x-3">
+                      <Image
+                        src={"/toilet.webp"}
+                        alt="bed"
+                        width={25}
+                        height={25}
+                      />
+                      <p className="text-black text-[20px] ml-2">3</p>
+                    </div>
+                  </div>
                 </div>
+              </div>{" "}
+              <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12 pr-10 cursor-pointer">
+                <Image
+                  src={"/notepencil.webp"}
+                  alt="heart"
+                  width={25}
+                  height={25}
+                  className="object-contain"
+                />
+                <p>Edit Property</p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
