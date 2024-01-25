@@ -5,6 +5,13 @@ import Image from "next/image";
 import React from "react";
 import OverViewSingleProperty from "./OverViewSingleProperty";
 import ReportsSingleProperty from "./ReportsSingleProperty";
+import UnitsSingleComponent from "./UnitsSingleComponent";
+import RentalSingleComponent from "./RentalSingleComponent";
+import TenantSingleComponent from "./TenantSingleComponent";
+import RentApplicationSingleComponent from "./RentApplicationSingleComponent";
+import TasksSingleComponent from "./TasksSingleComponent";
+import NotesSingleComponent from "@/app/sharedcomponents/NotesSingleComponent";
+import FilesSingleComponent from "@/app/sharedcomponents/FilesSingleComponent";
 
 const tabs = [
   "Overview",
@@ -70,6 +77,13 @@ export default function SinglePropertyComponents() {
             </div>
             {activeIndex === 0 && <OverViewSingleProperty />}
             {activeIndex === 1 && <ReportsSingleProperty />}
+            {activeIndex === 2 && <UnitsSingleComponent />}
+            {activeIndex === 3 && <RentalSingleComponent />}
+            {activeIndex === 4 && <TenantSingleComponent />}
+            {activeIndex === 5 && <RentApplicationSingleComponent />}
+            {activeIndex === 6 && <TasksSingleComponent />}
+            {activeIndex === 7 && <NotesSingleComponent />}
+            {activeIndex === 8 && <FilesSingleComponent />}
           </div>
         </div>
       </div>

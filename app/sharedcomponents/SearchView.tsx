@@ -1,10 +1,17 @@
 import Image from "next/image";
 import React from "react";
 
-export default function SearchView() {
+interface Props {
+  width?: string;
+}
+export default function SearchView(props: Props) {
   return (
     <div className="mt-5 flex space-x-5">
-      <div className="w-[45%] rounded-full border border-gray-400 flex h-12">
+      <div
+        className={`${
+          props.width || "w-[calc(45vw)]"
+        } rounded-full border border-gray-400 flex h-12`}
+      >
         <input
           type="text"
           placeholder="Search"
