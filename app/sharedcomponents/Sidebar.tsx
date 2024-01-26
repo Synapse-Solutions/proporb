@@ -1,52 +1,65 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const muneItems = [
   {
     icon: "/dashBoardIcon.webp",
     name: "Dashboard",
+    link: "/generalSettings",
   },
   {
     icon: "/propertiesIcon.webp",
     name: "Properties",
+    link: "/allproperties",
   },
   {
     icon: "/rentalsIcon.webp",
     name: "Rentals",
+    link: "/rentals",
   },
   {
     icon: "/peopleIcon.webp",
     name: "People",
+    link: "/people",
   },
   {
     icon: "/tasksIcon.webp",
     name: "Tasks & Maintenance",
+    link: "/tasks",
   },
   {
     icon: "/accountingIcon.webp",
     name: "Accounting",
+    link: "/accounting",
   },
   {
     icon: "/communicationIcon.webp",
     name: "Communication",
+    link: "/communication",
   },
   {
     icon: "/notesIcon.webp",
     name: "Notes",
+    link: "/notes",
   },
   {
     icon: "/filesIcon.webp",
     name: "Files",
+    link: "/files",
   },
   {
     icon: "/reportsIcon.webp",
     name: "Reports",
+    link: "/reports",
   },
 ];
 interface Props {
   activeTab?: string;
 }
 export default function Sidebar(props: Props) {
+  const router = useRouter();
   const nestedMenuItems = [
     "All Properties",
     "Resedential Properties",
@@ -70,10 +83,12 @@ export default function Sidebar(props: Props) {
           </div>
           <div className="flex flex-col gap-5">
             {muneItems.map((item, index) => (
-              <div key={index} className="flex gap-3 items-center">
-                <Image src={item.icon} alt="Icon" width={25} height={25} />
-                <p>{item.name}</p>
-              </div>
+              <Link href={item.link}>
+                <button key={index} className="flex gap-3 items-center">
+                  <Image src={item.icon} alt="Icon" width={25} height={25} />
+                  <p>{item.name}</p>
+                </button>
+              </Link>
             ))}
           </div>
 
@@ -163,12 +178,12 @@ export default function Sidebar(props: Props) {
               </div>
             </div>
           </div>
-          <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5">
-            <p> ← {props.activeTab}</p>
+          <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5 text-white">
+            <button onClick={() => router.back()}> ← {props.activeTab}</button>
 
             {nestedMenuItems.map((item, index) => (
               <div key={index} className="flex gap-3 items-center mt-5">
-                <p>{item}</p>
+                <p className="text-[13px]">{item}</p>
               </div>
             ))}
           </div>

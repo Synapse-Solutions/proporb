@@ -2,10 +2,13 @@
 import AuthLeftSide from "@/app/sharedcomponents/AuthLeftSide";
 import React, { useState } from "react";
 
-export default function SubscriptionDetails() {
+interface Props {
+  setScreenName: React.Dispatch<React.SetStateAction<any>>;
+}
+export default function SubscriptionDetails(props: Props) {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <div className="h-screen flex p-6">
+    <div className="h-screen flex p-6 bg-white">
       <AuthLeftSide />
       <div className="w-[calc(50vw)] px-10 ">
         <h1 className="text-[40px] font-bold ">Subscription Details</h1>
@@ -17,7 +20,10 @@ export default function SubscriptionDetails() {
               Landlord & Agent
             </h1>
             <p className="text-[#797979]">Plan Price $15.00 /month</p>
-            <div className="bg-[#1ED760] text-center text-white py-3 rounded-full">
+            <div
+              onClick={() => props.setScreenName("paymentdetails")}
+              className="bg-[#1ED760] text-center text-white py-3 rounded-full"
+            >
               Buy Plan
             </div>
           </div>
@@ -41,7 +47,11 @@ export default function SubscriptionDetails() {
               </div>
               <p className="text-[#797979]">Master Card</p>
             </div>
-            <div className="bg-[#1ED760] text-center text-white py-3 rounded-full">
+
+            <div
+              onClick={() => props.setScreenName("paymentdetails")}
+              className="bg-[#1ED760] text-center text-white py-3 rounded-full"
+            >
               Buy Plan
             </div>
           </div>

@@ -65,10 +65,10 @@ export default function SinglePropertyComponents() {
                 <button
                   onClick={() => setActiveIndex(index)}
                   key={index}
-                  className={`w-[10%] border-b flex justify-center pb-2 ${
+                  className={`w-[10%] text-[15px] border-b flex justify-center pb-2 ${
                     index === activeIndex
                       ? "border-[#1ED760] text-[#1ED760] border-b-4"
-                      : "border-gray-400 text-black"
+                      : "border-gray-400 text-[#344054]"
                   }`}
                 >
                   {tab}

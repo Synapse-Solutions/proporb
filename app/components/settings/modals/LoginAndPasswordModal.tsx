@@ -2,8 +2,11 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function LoginAndPasswordModal() {
-  const [activeScreen, setActiveScreen] = useState(2);
+interface Props {
+  onClose?: () => void;
+}
+export default function LoginAndPasswordModal(props: Props) {
+  const [activeScreen, setActiveScreen] = useState(1);
   return (
     <div
       style={{
@@ -25,6 +28,7 @@ export default function LoginAndPasswordModal() {
             alt="Icon"
             width={50}
             height={50}
+            onClick={props.onClose}
           />
         </div>
         {activeScreen === 1 && (
@@ -116,7 +120,12 @@ export default function LoginAndPasswordModal() {
           <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full mt-10">
             Cancel
           </button>
-          <button className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full mt-10">
+          <button
+            onClick={() =>
+              activeScreen === 1 ? setActiveScreen(activeScreen + 1) : ""
+            }
+            className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full mt-10"
+          >
             {activeScreen === 1 ? "Next" : "Save"}
           </button>
         </div>

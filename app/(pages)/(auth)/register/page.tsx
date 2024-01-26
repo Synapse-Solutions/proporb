@@ -7,16 +7,16 @@ import SubscriptionDetails from "@/app/components/auth/SubscriptionDetails";
 import React, { useState } from "react";
 
 export default function Register() {
-  const [screenName, setScreenName] = useState("paymentfail");
+  const [screenName, setScreenName] = useState("singup");
 
   return (
     <>
       {screenName === "singup" ? (
-        <RegisterComponent />
+        <RegisterComponent setScreenName={setScreenName} />
       ) : screenName === "subscriptiondetails" ? (
-        <SubscriptionDetails />
+        <SubscriptionDetails setScreenName={setScreenName} />
       ) : screenName === "paymentdetails" ? (
-        <PaymentDetails />
+        <PaymentDetails setScreenName={setScreenName} />
       ) : screenName === "paymentsuccessful" ? (
         <PaymentSuccessfull />
       ) : screenName === "paymentfail" ? (

@@ -3,7 +3,7 @@ import ForgotpasswordComponent from "@/app/components/auth/ForgotpasswordCompone
 import React, { useState } from "react";
 
 export default function page() {
-  const [screenName, setScreenName] = useState("enternewpassword");
+  const [screenName, setScreenName] = useState("enteremail");
   const [otp, setOtp] = useState({
     otpOne: "",
     otpTwo: "",

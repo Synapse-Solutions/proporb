@@ -34,14 +34,22 @@ export default function SettingsComponent(props: Props) {
               description="Change your name, picture, phone, email, & mailing address."
               icon="/personalInfoIcon.webp"
             />
-            {isPersonalInfoOpen && <PersonaInformation />}
+            {isPersonalInfoOpen && (
+              <PersonaInformation
+                onClose={() => setIsPersonalInfoOpen(false)}
+              />
+            )}
             <SettingsCard
               onClick={() => setIsLoginAndPasswordOpen(true)}
               title="Login & Password"
               description="Change your email and password"
               icon="/loginSettingIcon.webp"
             />
-            {isLoginAndPasswordOpen && <LoginAndPasswordModal />}
+            {isLoginAndPasswordOpen && (
+              <LoginAndPasswordModal
+                onClose={() => setIsLoginAndPasswordOpen(false)}
+              />
+            )}
           </div>
         </div>
         <div>

@@ -1,5 +1,8 @@
+import AuthButton from "@/app/sharedcomponents/AuthButton";
+import AuthInput from "@/app/sharedcomponents/AuthInput";
 import AuthLeftSide from "@/app/sharedcomponents/AuthLeftSide";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -16,28 +19,26 @@ export default function ForgotpasswordComponent(props: Props) {
     <div className="flex justify-between p-10 h-screen overflow-hidden">
       <AuthLeftSide />
       {props.screenName === "enteremail" ? (
-        <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] px-[calc(5vw)] h-screen justify-center">
+        <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] px-[calc(5vw)] h-screen justify-center text-black">
           <h1 className="text-[30px] font-bold text-[#1ED760]">
             Forgot Password
           </h1>
-          <p className="font-bold">Enter your email</p>
-          <form action="submit" className="mt-10">
+          <p className="mt-2">Enter your email</p>
+          <div className="mt-10">
             <div>
-              <p>Email Address</p>
-              <input
-                type="email"
-                className="border border-black rounded h-10 w-[100%]"
-              />
+              <p className="mb-2">Email Address</p>
+              <AuthInput type="email" placeholder="Enter email address" />
             </div>
             <div className="mt-5">
               <p>Back to sign-in</p>
             </div>
             <div className="">
-              <button className="bg-[#1ED760] text-white rounded h-10 w-[100%] mt-10">
-                Send Code
-              </button>
+              <AuthButton
+                onClick={() => props.setScreenName("otp")}
+                text="Send OTP"
+              />
             </div>
-          </form>
+          </div>
         </div>
       ) : props.screenName === "enternewpassword" ? (
         <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] px-[calc(5vw)] h-screen justify-center">
@@ -48,25 +49,20 @@ export default function ForgotpasswordComponent(props: Props) {
           <form action="submit" className="mt-10">
             <div>
               <p>Enter New password</p>
-              <input
-                type="email"
-                className="border border-black rounded h-10 w-[100%]"
-              />
+              <AuthInput type="email" />
             </div>
             <div className="mt-5">
               <p>Confirm New password</p>
-              <input
-                type="email"
-                className="border border-black rounded h-10 w-[100%]"
-              />
+              <AuthInput type="email" />
             </div>
             <div className="mt-5">
               <p>Back to sign-in</p>
             </div>
             <div className="">
-              <button className="bg-[#1ED760] text-white rounded h-10 w-[100%] mt-10">
-                Confirm
-              </button>
+              <AuthButton
+                text="Confirm"
+                onClick={() => props.setScreenName("last")}
+              />
             </div>
           </form>
         </div>
@@ -109,21 +105,24 @@ export default function ForgotpasswordComponent(props: Props) {
               <p>Back to sign-in</p>
             </div>
             <div className="">
-              <button className="bg-[#1ED760] text-white rounded h-10 w-[100%] mt-10">
-                Confirm
-              </button>
+              <AuthButton
+                text="Confirm"
+                onClick={() => props.setScreenName("enternewpassword")}
+              />
             </div>
           </form>
         </div>
       ) : (
         <div className="w-[calc(50vw)] flex flex-col items-center space-y-5 pl-[calc(5vw)] px-[calc(5vw)] h-screen justify-center">
           <Image src={"/checkcircle.webp"} width={60} height={60} alt="check" />
-          <h1 className="text-[20px] font-bold text-[#1ED760]">
+          <h1 className="text-[20px]  text-[#000]">
             Account password successfully changed
           </h1>
-          <div className="bg-[#1ED760] rounded-full py-2 px-5 text-white">
-            Continue
-          </div>
+          <Link href={"/signin"}>
+            <button className="bg-[#1ED760] rounded-full py-2 px-5 text-white">
+              Continue
+            </button>
+          </Link>
         </div>
       )}
     </div>

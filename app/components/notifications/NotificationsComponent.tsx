@@ -2,8 +2,6 @@ import Navbar from "@/app/sharedcomponents/Navbar";
 import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React from "react";
-import PersonaInformation from "../settings/modals/PersonaInformation";
-import LoginAndPasswordModal from "../settings/modals/LoginAndPasswordModal";
 
 interface Props {
   notifications: any;

@@ -11,17 +11,12 @@ export default function RentApplicationSingleComponent() {
           + New Unit
         </div>
       </div>
-      <div className="flex flex-col items-center mt-10 gap-3">
-        <Image
-          src="/error_icon.webp"
-          alt="properties"
-          height={100}
-          width={100}
-        />
-        <p className="text-black font-bold text-[25px] text-center">
+      <div className="flex flex-col items-center mt-12 gap-3">
+        <Image src="/error_icon.webp" alt="properties" height={80} width={80} />
+        <p className="text-black font-bold text-[25px] text-center mt-5">
           Property Not Set Up <br /> for Rentals Applications
         </p>
-        <div className="bg-[#CF5D65] rounded-full text-white w-[35%] text-center py-2">
+        <div className="bg-[#CF5D65] rounded-full text-white w-[35%] text-center h-12 flex items-center justify-center mt-5">
           View Settings
         </div>
       </div>

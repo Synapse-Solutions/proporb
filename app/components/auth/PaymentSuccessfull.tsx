@@ -1,5 +1,6 @@
 import AuthLeftSide from "@/app/sharedcomponents/AuthLeftSide";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function PaymentSuccessfull() {
@@ -17,10 +18,11 @@ export default function PaymentSuccessfull() {
         <p className="text-[#797979]">
           Paid by : <span className="text-[#1ED760]">XYZ</span>
         </p>
-
-        <div className="bg-[#1ED760] rounded-full py-2 px-5 text-white">
-          Continue
-        </div>
+        <Link href="/signin">
+          <div className="bg-[#1ED760] rounded-full py-2 px-5 text-white">
+            Continue
+          </div>
+        </Link>
       </div>
     </div>
   );
