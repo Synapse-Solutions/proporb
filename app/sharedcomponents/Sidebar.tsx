@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import CreateNewPopup from "../components/CreateNewPopup";
 
 const muneItems = [
   {
@@ -60,6 +62,7 @@ interface Props {
 }
 export default function Sidebar(props: Props) {
   const router = useRouter();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const nestedMenuItems = [
     "All Properties",
     "Resedential Properties",
@@ -77,7 +80,10 @@ export default function Sidebar(props: Props) {
             <Image src="/logo.webp" alt="Logo" width={80} height={80} />
           </div>
           <div className="flex w-full justify-center my-10">
-            <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[90%] flex justify-center items-center">
+            <button
+              onClick={() => setIsPopupOpen(true)}
+              className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[90%] flex justify-center items-center"
+            >
               + Create
             </button>
           </div>
@@ -189,6 +195,7 @@ export default function Sidebar(props: Props) {
           </div>
         </div>
       )}
+      {isPopupOpen && <CreateNewPopup onClose={() => setIsPopupOpen(false)} />}
     </div>
   );
 }
