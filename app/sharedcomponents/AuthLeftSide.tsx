@@ -3,8 +3,8 @@ import React from "react";
 
 export default function AuthLeftSide() {
   return (
-    <div className="w-[calc(50vw)] bg-black text-white rounded-2xl p-10">
-      <h1 className="text-[50px] px-10 font-bold">
+    <div className="w-[calc(50vw)] bg-black text-white rounded-2xl px-10 pt-10 pb-0 overflow-hidden">
+      <h1 className="text-[25px] 2xl:text-[45px] px-10 font-bold">
         Your smart <span className="text-[#1ED760]"> Property Management </span>{" "}
         <br /> System
       </h1>
@@ -27,7 +27,7 @@ export default function AuthLeftSide() {
           width={1000}
           height={1000}
           alt="dashboard"
-          className="object-contain p-0 w-[100%] h-[calc(40vh)]"
+          className="object-contain p-0 w-[100%] h-[calc(70vh)] mt-14 absolute -top-20 "
         />
         <Image
           src={"/dashboard_singin.webp"}

@@ -31,7 +31,7 @@ export default function SigninComponent() {
             <Link href={"/getStarted1"}>
               <AuthButton text="Log in" />
             </Link>
-            <p className="text-[#645D5D] text-center mt-10">
+            <p className="text-[#645D5D] text-center mt-5 2xl:mt-10">
               Forgot Password?
               <Link href={"/forgotpassword"}>
                 <span className="text-[#1ED760] pl-5 cursor-pointer">
@@ -40,12 +40,12 @@ export default function SigninComponent() {
               </Link>
             </p>
           </div>
-          <div className="flex items-center mt-10">
+          <div className="flex items-center mt-5 2xl:mt-10">
             <div className="h-[1px] w-[45%] bg-[#645D5D]" />
             <p className="w-[10%] text-center">OR</p>
             <div className="h-[1px] w-[45%] bg-[#645D5D]" />
           </div>
-          <div className="flex justify-between mt-10">
+          <div className="flex justify-between mt-5 2xl:mt-10">
             <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12">
               <Image
                 src={"/google.webp"}

@@ -36,17 +36,17 @@ const data = [
     headerTitle: "Properties",
     items: [
       {
-        icon: "/propertiesIcon.webp",
+        icon: "/payment_icon.webp",
         name: "All Properties",
         link: "/property",
       },
       {
-        icon: "/propertiesIcon.webp",
+        icon: "/ion_home_outline.webp",
         name: "Residential Property",
         link: "/unit",
       },
       {
-        icon: "/propertiesIcon.webp",
+        icon: "/building_icon.webp",
         name: "Commercial Property",
         link: "/building",
       },
@@ -56,12 +56,12 @@ const data = [
     headerTitle: "Rentals",
     items: [
       {
-        icon: "/rentalsIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Rentals",
         link: "/rentals",
       },
       {
-        icon: "/rentalsIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Rent Applications",
         link: "/vacancies",
       },
@@ -126,22 +126,22 @@ const data = [
     headerTitle: "Vendor Transactions",
     items: [
       {
-        icon: "/peopleIcon.webp",
+        icon: "/task_icon.webp",
         name: "Create Bill",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/task_icon.webp",
         name: "pay Bill",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/task_icon.webp",
         name: "Add Credit",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/task_icon.webp",
         name: "Management Fees",
         link: "/postcharge",
       },
@@ -151,12 +151,12 @@ const data = [
     headerTitle: "Owner Transactions",
     items: [
       {
-        icon: "/peopleIcon.webp",
+        icon: "/payment_icon.webp",
         name: "Owner Contributions",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/ion_home_outline.webp",
         name: "Owner Distributions",
         link: "/postcharge",
       },
@@ -166,27 +166,27 @@ const data = [
     headerTitle: "Other Transactions",
     items: [
       {
-        icon: "/peopleIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Journal Entry",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Bank Transfer",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Bank Deposit",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Expense",
         link: "/postcharge",
       },
       {
-        icon: "/peopleIcon.webp",
+        icon: "/mail_icon.webp",
         name: "Check",
         link: "/postcharge",
       },

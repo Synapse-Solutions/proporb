@@ -70,16 +70,22 @@ export default function Sidebar(props: Props) {
   ];
   return (
     <div
-      className={`w-[calc(15vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
-        !props.activeTab ? "px-5 py-10" : "pl-5"
+      className={`w-[calc(16vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
+        !props.activeTab ? "px-5 py-5" : "pl-5"
       } fixed top-0 left-0`}
     >
       {!props.activeTab ? (
         <>
-          <div className="flex w-full justify-start my-10">
-            <Image src="/logo.webp" alt="Logo" width={80} height={80} />
+          <div className="flex w-full justify-start my-5">
+            <Image
+              src="/logo.webp"
+              alt="Logo"
+              width={80}
+              height={80}
+              className="h-[30px] object-contain"
+            />
           </div>
-          <div className="flex w-full justify-center my-10">
+          <div className="flex w-full justify-center my-7">
             <button
               onClick={() => setIsPopupOpen(true)}
               className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[90%] flex justify-center items-center"
@@ -87,18 +93,24 @@ export default function Sidebar(props: Props) {
               + Create
             </button>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
             {muneItems.map((item, index) => (
               <Link href={item.link}>
                 <button key={index} className="flex gap-3 items-center">
-                  <Image src={item.icon} alt="Icon" width={25} height={25} />
-                  <p>{item.name}</p>
+                  <Image
+                    src={item.icon}
+                    alt="Icon"
+                    width={25}
+                    height={25}
+                    className="h-[16px] object-contain"
+                  />
+                  <p className="text-white text-[10px]">{item.name}</p>
                 </button>
               </Link>
             ))}
           </div>
 
-          <div className="flex flex-col gap-3 fixed bottom-0 pb-20">
+          <div className="flex flex-col gap-1 fixed bottom-0 pb-5">
             <div className="flex gap-2 items-center text-[#ffffff]">
               <Image
                 src="/getStartedIcon.webp"
@@ -106,7 +118,7 @@ export default function Sidebar(props: Props) {
                 width={20}
                 height={20}
               />
-              <p>Get Started</p>
+              <p className="text-[12px]">Get Started</p>
               <div className="flex gap-1 items-center text-[#ffffff] ml-1">
                 <Image
                   src="/completePercentIcon.webp"
@@ -114,7 +126,7 @@ export default function Sidebar(props: Props) {
                   width={15}
                   height={15}
                 />
-                <p className="text-xs">33% Complete</p>
+                <p className="text-[10px]">33% Complete</p>
               </div>
             </div>
             <div className="flex gap-2 items-center text-[#ffffff]">
@@ -124,11 +136,11 @@ export default function Sidebar(props: Props) {
                 width={20}
                 height={20}
               />
-              <p>Setting</p>
+              <p className="text-[12px]">Setting</p>
             </div>
             <div className="flex gap-2 items-center text-[#ffffff]">
               <Image src="/logoutIcon.webp" alt="Icon" width={20} height={20} />
-              <p>Logout</p>
+              <p className="text-[12px]">Logout</p>
             </div>
           </div>
         </>

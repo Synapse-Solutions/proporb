@@ -5,10 +5,10 @@ export default function Navbar() {
   return (
     <div className="flex w-full items-center">
       <div className="w-[50%]">
-        <p className="text-black text-3xl font-bold">Welcome, Ahsan👋</p>
+        <p className="text-black text-[20px] font-bold">Welcome, Ahsan👋</p>
       </div>
-      <div className="w-[50%] flex justify-evenly">
-        <div className="flex justify-between bg-white mx-5 py-2 px-5 rounded-lg">
+      <div className="w-[50%] flex justify-evenly text-[15px]">
+        <div className="flex justify-between bg-white mx-5 py-2 px-5 rounded-lg ">
           <p className="text-black">Filter 1</p>
           <Image
             src="/dropDownArrowBlack.webp"

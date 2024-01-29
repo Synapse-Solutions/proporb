@@ -10,7 +10,7 @@ export default function AuthInput(props: Props) {
       <input
         type={props.type}
         placeholder={props.placeholder}
-        className="border-[1px] border-[#d0d5dd] rounded h-14 w-[100%] px-3"
+        className="border-[1px] border-[#d0d5dd] rounded h-10 2xl:h-14 w-[100%] px-3"
       />
     </div>
   );
