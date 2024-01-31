@@ -28,7 +28,7 @@ export default function SigninComponent() {
             <AuthInput type="password" />
           </div>
           <div className="">
-            <Link href={"/getStarted1"}>
+            <Link href={"/getStarted"}>
               <AuthButton text="Log in" />
             </Link>
             <p className="text-[#645D5D] text-center mt-5 2xl:mt-10">

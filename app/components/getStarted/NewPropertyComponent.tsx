@@ -3,6 +3,7 @@ import Navbar from "@/app/sharedcomponents/Navbar";
 import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React, { useState } from "react";
+import CreateAccountModal from "./modals/CreateAccountModal";
 
 let tabs = [
   {
@@ -149,11 +150,24 @@ const communityProperties = [
     name: "Others",
   },
 ];
+const bankDetails = [
+  {
+    name: "Company default account",
+    ActiveIcon: "/bank_active.webp",
+    InactiveIcon: "/bank_inactive.webp",
+  },
+  {
+    name: "Specify Bank Account",
+    ActiveIcon: "/bank_active.webp",
+    InactiveIcon: "/bank_inactive.webp",
+  },
+];
 export default function NewPropertyComponent() {
   const [activeTab, setActiveTab] = useState(0);
   const [propertyType, setPropertyType] = useState(0);
   const [selectedPropertyName, setSelectedPropertyName] = useState("Home");
   const [unitsArray, setUnitsArray] = useState([{ beds: 0 }]);
+  const [createAccountModal, setCreateAccountModal] = useState(false);
 
   const onAddSingleUnit = () => {
     setUnitsArray((prev) => [...prev, { beds: 0 }]);
@@ -438,6 +452,107 @@ export default function NewPropertyComponent() {
                   ))}
                 </div>
               )}
+              {activeTab === 4 && (
+                <div className="mt-10">
+                  <p className="font-bold text-black text-[23px]">
+                    Add Property Bank Accounts
+                  </p>
+                  <div className="flex gap-7 justify-center mt-10">
+                    {bankDetails.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setPropertyType(index)}
+                        className={`border ${
+                          propertyType === index
+                            ? "border-[#1ED760]"
+                            : "border-gray-400"
+                        } p-5 flex flex-col items-center justify-center rounded-lg w-[17%] relative`}
+                      >
+                        {propertyType === index && (
+                          <Image
+                            src={"/completedIcon.webp"}
+                            alt="tick"
+                            height={100}
+                            width={100}
+                            className="absolute top-3 -right-[15px] h-[40px] object-contain w-[40px]"
+                          />
+                        )}
+                        <Image
+                          alt={item.name}
+                          src={
+                            propertyType === index
+                              ? item.ActiveIcon
+                              : item.InactiveIcon
+                          }
+                          height={100}
+                          width={100}
+                        />
+                        <p className="mt-3 text-black">{item.name}</p>
+                      </button>
+                    ))}
+                  </div>
+                  {propertyType === 0 && (
+                    <div className="w-full items-center flex justify-center mt-10">
+                      <div className="border border-[#1ED760] rounded-xl w-[50%] p-3 flex items-center justify-between px-5">
+                        <div className="flex gap-5 items-center">
+                          <Image
+                            src={"/bank_active.webp"}
+                            alt="bank"
+                            height={100}
+                            width={100}
+                            className="h-[60px] object-contain w-[60px] "
+                          />
+                          <p className="text-black text-[20px] ">
+                            Operating Account
+                          </p>
+                        </div>
+                        <div className="bg-[#EAFAE5] rounded-full text-[#1Ed760] px-5 h-10 flex items-center gap-4">
+                          <Image
+                            src={"/completedIcon.webp"}
+                            alt="tick"
+                            height={25}
+                            width={25}
+                          />
+                          <p>Default account</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {propertyType === 1 && (
+                    <div className="w-full items-center flex flex-col justify-center mt-10">
+                      <p className="text-black font-bold">
+                        Which account should we use as the main account for this
+                        property
+                      </p>
+                      <select
+                        onChange={(e) => {
+                          console.log(e.target.value);
+                          if (
+                            (e.target as HTMLSelectElement).value ===
+                            "newaccount"
+                          ) {
+                            setCreateAccountModal(true);
+                          }
+                        }}
+                        name="account"
+                        id=""
+                        className="border border-[gray] rounded-xl w-[50%] p-3 flex items-center justify-between px-5 mt-7 h-12"
+                      >
+                        <option value="option1">Ubl bank account</option>
+                        <option value="option1">Ubl bank account</option>
+                        <option value="option1">Ubl bank account</option>
+                        <option
+                          onClick={() => setCreateAccountModal(true)}
+                          value="newaccount"
+                          className="bg-[#1ED760] text-white py-2 px-5 rounded-xl"
+                        >
+                          + Create new account
+                        </option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="w-full flex justify-between mt-10">
                 <button
                   onClick={() => setActiveTab(activeTab - 1)}
@@ -456,6 +571,9 @@ export default function NewPropertyComponent() {
           </div>
         </div>
       </div>
+      {createAccountModal && (
+        <CreateAccountModal setIsCreateAccountModal={setCreateAccountModal} />
+      )}
     </div>
   );
 }
