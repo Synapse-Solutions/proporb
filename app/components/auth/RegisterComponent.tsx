@@ -11,39 +11,39 @@ export default function RegisterComponent(props: Props) {
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
-      <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] pt-[calc(5vh)] px-[calc(5vw)]">
+      <div className="w-[calc(50vw)] flex flex-col pl-[calc(5vw)] 2xl:pt-[calc(5vh)] px-[calc(5vw)]">
         <h1 className="text-[30px] font-bold">Sign up!</h1>
-        <p className="mt-5">Get started by entering your details</p>
-        <div className="mt-5">
+        <p className="2xl:mt-5">Get started by entering your details</p>
+        <div className="mt-2 2xl:mt-5">
           <div>
             <p>Full Name</p>
             <AuthInput type="text" />
           </div>
-          <div className="mt-5">
+          <div className="mt-2 2xl:mt-5">
             <p>Email Address</p>
             <AuthInput type="email" />
           </div>
-          <div className="mt-5">
+          <div className="mt-2 2xl:mt-5">
             <p>Mobile Number</p>
             <AuthInput type="number" />
           </div>
-          <div className="mt-5">
+          <div className="mt-2 2xl:mt-5">
             <p>Password</p>
 
             <AuthInput type="password" />
           </div>
-          <div className="mt-5">
+          <div className="mt-0 2xl:mt-5">
             <AuthButton
               onClick={() => props.setScreenName("subscriptiondetails")}
               text="Buy Subscription"
             />
           </div>
-          <div className="flex items-center mt-5">
+          <div className="flex items-center mt-2 2xl:mt-5">
             <div className="h-[1px] w-[45%] bg-black" />
             <p className="w-[10%] text-center">OR</p>
             <div className="h-[1px] w-[45%] bg-black" />
           </div>
-          <div className="flex justify-between mt-10">
+          <div className="flex justify-between mt-5 2xl:mt-10">
             <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12">
               <Image
                 src={"/google.webp"}

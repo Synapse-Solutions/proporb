@@ -9,7 +9,7 @@ const muneItems = [
   {
     icon: "/dashBoardIcon.webp",
     name: "Dashboard",
-    link: "/generalSettings",
+    link: "/dashboard",
   },
   {
     icon: "/propertiesIcon.webp",
@@ -129,15 +129,18 @@ export default function Sidebar(props: Props) {
                 <p className="text-[10px]">33% Complete</p>
               </div>
             </div>
-            <div className="flex gap-2 items-center text-[#ffffff]">
-              <Image
-                src="/settingIcon.webp"
-                alt="Icon"
-                width={20}
-                height={20}
-              />
-              <p className="text-[12px]">Setting</p>
-            </div>
+            <Link href="/generalSettings">
+              <div className="flex gap-2 items-center text-[#ffffff]">
+                <Image
+                  src="/settingIcon.webp"
+                  alt="Icon"
+                  width={20}
+                  height={20}
+                />
+
+                <p className="text-[12px]">Setting</p>
+              </div>
+            </Link>
             <div className="flex gap-2 items-center text-[#ffffff]">
               <Image src="/logoutIcon.webp" alt="Icon" width={20} height={20} />
               <p className="text-[12px]">Logout</p>
