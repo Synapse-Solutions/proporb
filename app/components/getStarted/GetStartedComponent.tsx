@@ -2,11 +2,13 @@
 import Navbar from "@/app/sharedcomponents/Navbar";
 import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface Props {}
 export default function GetStartedComponent(props: Props) {
   const [isCompanyInfoOpen, setIsCompanyInfoOpen] = useState(false);
+  const [isAddPropertyOpen, setIsAddPropertyOpen] = useState(false);
 
   return (
     <div>
@@ -157,7 +159,13 @@ export default function GetStartedComponent(props: Props) {
               </div>
             )}
           </div>
-          <div className="bg-white rounded-xl overflow-hidden my-5">
+
+          <div
+            className="bg-white rounded-xl overflow-hidden mt-5"
+            onClick={() => {
+              setIsAddPropertyOpen(!isAddPropertyOpen);
+            }}
+          >
             <div className="flex justify-between p-5">
               <div className="w-[50%] flex gap-8 items-center justify-start">
                 <Image
@@ -174,12 +182,42 @@ export default function GetStartedComponent(props: Props) {
                   alt="Icon"
                   height={25}
                   width={25}
+                  style={
+                    isAddPropertyOpen
+                      ? { transform: "rotate(180deg)" }
+                      : { transform: "rotate(0deg)" }
+                  }
                 />
               </div>
-              <div className="w-[50%] flex gap-5 justify-end items-center">
-                <p className="text-[#1ED760] font-medium text-base">1/1</p>
-              </div>
+              <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
+            {isAddPropertyOpen && (
+              <div className="p-6">
+                <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
+                <div className="flex justify-between items-center pt-5">
+                  <div className="w-[50%]">
+                    <p className="text-[#797979] max-w-[500px]">
+                      Creating your properties is the first step towards
+                      managing them better. Soon you’ll be automating rent
+                      collection and managing your tenant.
+                    </p>
+                    <Link href="/newproperty">
+                      <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
+                        Add Property
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="flex justify-end">
+                    <Image
+                      src="/youtubeThumbnail.webp"
+                      alt="Image"
+                      height={150}
+                      width={280}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -93,7 +93,7 @@ export default function Sidebar(props: Props) {
               + Create
             </button>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 2xl:gap-5">
             {muneItems.map((item, index) => (
               <Link href={item.link}>
                 <button key={index} className="flex gap-3 items-center">
@@ -102,33 +102,38 @@ export default function Sidebar(props: Props) {
                     alt="Icon"
                     width={25}
                     height={25}
-                    className="h-[16px] object-contain"
+                    className="h-[16px] 2xl:h-[25px] object-contain"
                   />
-                  <p className="text-white text-[10px]">{item.name}</p>
+                  <p className="text-white text-[10px] 2xl:text-[15px]">
+                    {item.name}
+                  </p>
                 </button>
               </Link>
             ))}
           </div>
 
           <div className="flex flex-col gap-1 fixed bottom-0 pb-5">
-            <div className="flex gap-2 items-center text-[#ffffff]">
-              <Image
-                src="/getStartedIcon.webp"
-                alt="Icon"
-                width={20}
-                height={20}
-              />
-              <p className="text-[12px]">Get Started</p>
-              <div className="flex gap-1 items-center text-[#ffffff] ml-1">
+            <Link href="/getStarted">
+              <button className="flex gap-2 items-center text-[#ffffff]">
                 <Image
-                  src="/completePercentIcon.webp"
+                  src="/getStartedIcon.webp"
                   alt="Icon"
-                  width={15}
-                  height={15}
+                  width={20}
+                  height={20}
                 />
-                <p className="text-[10px]">33% Complete</p>
-              </div>
-            </div>
+                <p className="text-[12px] 2xl:text-[15px]">Get Started</p>
+                <div className="flex gap-1 items-center text-[#ffffff] ml-1">
+                  <Image
+                    src="/completePercentIcon.webp"
+                    alt="Icon"
+                    width={25}
+                    height={25}
+                    className="h-[16px] 2xl:h-[25px] object-contain"
+                  />
+                  <p className="text-[10px]">33% Complete</p>
+                </div>
+              </button>
+            </Link>
             <Link href="/generalSettings">
               <div className="flex gap-2 items-center text-[#ffffff]">
                 <Image
@@ -136,13 +141,20 @@ export default function Sidebar(props: Props) {
                   alt="Icon"
                   width={20}
                   height={20}
+                  className="h-[16px] 2xl:h-[25px] object-contain"
                 />
 
-                <p className="text-[12px]">Setting</p>
+                <p className="text-[12px] 2xl:text-[15px]">Setting</p>
               </div>
             </Link>
             <div className="flex gap-2 items-center text-[#ffffff]">
-              <Image src="/logoutIcon.webp" alt="Icon" width={20} height={20} />
+              <Image
+                src="/logoutIcon.webp"
+                alt="Icon"
+                width={20}
+                height={20}
+                className="h-[16px] 2xl:h-[25px] object-contain"
+              />
               <p className="text-[12px]">Logout</p>
             </div>
           </div>
