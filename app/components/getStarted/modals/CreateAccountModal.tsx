@@ -1,10 +1,13 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import PropertyAddedModal from "./PropertyAddedModal";
 
 interface Props {
   setIsCreateAccountModal: (value: boolean) => void;
 }
 export default function CreateAccountModal({ setIsCreateAccountModal }: Props) {
+  const [isAccountCompleted, setIsAccountCompleted] = useState(false);
   return (
     <div
       className="h-full w-full flex items-center justify-center fixed top-0 right-0"
@@ -144,11 +147,20 @@ export default function CreateAccountModal({ setIsCreateAccountModal }: Props) {
           >
             Cancel
           </button>
-          <button className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl">
+          <button
+            onClick={() => setIsAccountCompleted(true)}
+            className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
+          >
             Save
           </button>
         </div>
       </div>
+      {isAccountCompleted && (
+        <PropertyAddedModal
+          setIsPropertyAddedModal={setIsAccountCompleted}
+          title="Account created successfully"
+        />
+      )}
     </div>
   );
 }

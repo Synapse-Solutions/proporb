@@ -102,9 +102,9 @@ export default function Sidebar(props: Props) {
                     alt="Icon"
                     width={25}
                     height={25}
-                    className="h-[16px] 2xl:h-[25px] object-contain"
+                    className="h-[18px] 2xl:h-[25px] object-contain"
                   />
-                  <p className="text-white text-[10px] 2xl:text-[15px]">
+                  <p className="text-white text-[12px] 2xl:text-[15px]">
                     {item.name}
                   </p>
                 </button>

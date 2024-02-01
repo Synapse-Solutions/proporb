@@ -78,7 +78,7 @@ export default function PersonaInformation({ onClose }: Props) {
                 width={100}
                 height={100}
               />
-              <button className="flex gap-3 border-2 border-[#1ED760] rounded px-4 py-1 items-center">
+              <button className="flex gap-3 border-2 border-[#1ED760] rounded-md px-3 py-1 items-center">
                 <Image
                   src={"/icon_image_add.webp"}
                   alt="Icon"

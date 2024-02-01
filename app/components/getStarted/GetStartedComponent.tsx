@@ -18,8 +18,10 @@ export default function GetStartedComponent(props: Props) {
 
         <div className="flex gap-5 w-full my-7">
           <div className="w-[70%] py-8">
-            <p className="text-black text-[18px] font-bold">Get Started</p>
-            <p className="text-[#797979] text-[13px] my-5">
+            <p className="text-black text-[18px] 2xl:text-[25px] font-bold">
+              Get Started
+            </p>
+            <p className="text-[#797979] text-[13px] 2xl:text-[20px] my-5">
               We're thrilled to have you join our property management family.
               Let's kick off this exciting journey together. With just a few
               simple steps, you'll be well on your way to becoming a property
@@ -35,14 +37,14 @@ export default function GetStartedComponent(props: Props) {
           <div className="w-[30%] bg-white rounded-xl px-6 py-6">
             <div className="flex gap-4 items-center">
               <p className="text-4xl">👋</p>
-              <p className="text-[15px] text-black font-bold">
+              <p className="text-[15px]  2xl:text-[20px] text-black font-bold">
                 Welcome to Property Management system
               </p>
             </div>
-            <p className="text-[#797979] text-[11px] my-4">
+            <p className="text-[#797979] text-[11px]  2xl:text-[17px] my-4">
               If you need any help, we’re here to help you!
             </p>
-            <button className="bg-[#1ED760] text-white text-[12px] text-bold rounded-3xl py-2 w-full flex justify-center items-center mt-5">
+            <button className="bg-[#1ED760] text-white text-[12px]  2xl:text-[20px] text-bold rounded-3xl py-2 w-full flex justify-center items-center mt-5">
               Ask us anything
             </button>
           </div>
@@ -58,7 +60,7 @@ export default function GetStartedComponent(props: Props) {
                   height={50}
                   width={50}
                 />
-                <p className="text-black font-bold text-[14px]">
+                <p className="text-black font-bold text-[14px]  2xl:text-[20px]">
                   Subscribe to Property Management System
                 </p>
                 <Image
@@ -75,7 +77,7 @@ export default function GetStartedComponent(props: Props) {
                   height={25}
                   width={25}
                 />
-                <p className="text-[#1ED760] font-medium text-[14px]">
+                <p className="text-[#1ED760] font-medium text-[14px] 2xl:text-[20px]">
                   Completed
                 </p>
               </div>
@@ -90,7 +92,7 @@ export default function GetStartedComponent(props: Props) {
                   height={50}
                   width={50}
                 />
-                <p className="text-black font-bold text-[14px]">
+                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
                   Schedule an Onboarding session
                 </p>
                 <Image
@@ -117,7 +119,7 @@ export default function GetStartedComponent(props: Props) {
                   height={50}
                   width={50}
                 />
-                <p className="text-black font-bold text-[14px]">
+                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
                   Add your Company Information
                 </p>
                 <Image
@@ -174,7 +176,7 @@ export default function GetStartedComponent(props: Props) {
                   height={50}
                   width={50}
                 />
-                <p className="text-black font-bold text-[14px]">
+                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
                   Add your Properties
                 </p>
                 <Image

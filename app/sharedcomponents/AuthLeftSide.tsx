@@ -4,7 +4,7 @@ import React from "react";
 export default function AuthLeftSide() {
   return (
     <div className="w-[calc(50vw)] bg-black text-white rounded-2xl px-10 pt-10 pb-0 overflow-hidden">
-      <h1 className="text-[25px] 2xl:text-[45px] px-10 font-bold">
+      <h1 className="text-[25px] 2xl:text-[47px] px-10 font-bold">
         Your smart <span className="text-[#1ED760]"> Property Management </span>{" "}
         <br /> System
       </h1>

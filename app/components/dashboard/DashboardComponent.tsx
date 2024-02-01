@@ -63,7 +63,9 @@ export default function DashboardComponent() {
         <Navbar />
         <div className="flex gap-5 w-full mt-10">
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto">
-            <p>Profit and Loss</p>
+            <p className="text-[15px] 2xl:text-[20px] font-bold">
+              Profit and Loss
+            </p>
             <div className="flex gap-5 mt-10 ">
               {dataWithPercentages.map((item, index) => (
                 <div key={index}>
@@ -101,7 +103,9 @@ export default function DashboardComponent() {
           </div>
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto">
             <div className="flex items-center gap-3">
-              <p>Maintenance Requests </p>
+              <p className="text-[15px] 2xl:text-[20px] font-bold">
+                Maintenance Requests{" "}
+              </p>
               <div className="bg-black h-4 w-4 rounded items-center flex justify-center text-[10px] text-white">
                 2
               </div>
@@ -141,7 +145,7 @@ export default function DashboardComponent() {
         </div>
         <div className="flex w-full gap-5 items-center mt-5">
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto h-[calc(40vh)]">
-            <p>Properties</p>
+            <p className="text-[15px] 2xl:text-[20px] font-bold">Properties</p>
             <div className="mt-5">
               <div className="flex items-center text-[12px] border border-gray-400 rounded-lg p-2">
                 <p style={{ flex: 1 }}>Properties</p>
@@ -187,7 +191,7 @@ export default function DashboardComponent() {
             </div>
           </div>
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto h-[calc(40vh)]">
-            <p className="text-[15px] font-bold">Rent amount</p>
+            <p className="text-[15px] 2xl:text-[20px] font-bold">Rent amount</p>
             <div className="mt-10">
               <div className="h-10 flex gap-3 items-center">
                 <div style={{ width: 40, height: 40 }}>
@@ -212,7 +216,7 @@ export default function DashboardComponent() {
         </div>
         <div className="flex w-full gap-5 items-center mt-5">
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto h-[calc(40vh)]">
-            <p>Properties</p>
+            <p className="text-[15px] 2xl:text-[20px] font-bold">Properties</p>
             <div className="mt-5">
               <div className="flex items-center text-[12px] border border-gray-400 rounded-lg p-2">
                 <p style={{ flex: 1 }}>Tenant</p>
@@ -259,7 +263,9 @@ export default function DashboardComponent() {
           </div>
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto">
             <div className="flex items-center gap-3">
-              <p>Occupancy Rate </p>
+              <p className="text-[15px] 2xl:text-[20px] font-bold">
+                Occupancy Rate{" "}
+              </p>
             </div>
             <div className="flex items-center gap-5 justify-between mt-10">
               <div className="flex flex-col gap-3">

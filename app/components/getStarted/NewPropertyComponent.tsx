@@ -4,6 +4,7 @@ import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React, { useState } from "react";
 import CreateAccountModal from "./modals/CreateAccountModal";
+import PropertyAddedModal from "./modals/PropertyAddedModal";
 
 let tabs = [
   {
@@ -162,12 +163,25 @@ const bankDetails = [
     InactiveIcon: "/bank_inactive.webp",
   },
 ];
+const reserveFunds = [
+  {
+    name: "Set Property Reserve",
+    ActiveIcon: "/dollar_active.webp",
+    InactiveIcon: "/dollar_inactive.webp",
+  },
+  {
+    name: "Don’t Set Property Reserve",
+    ActiveIcon: "/dollar_active.webp",
+    InactiveIcon: "/dollar_inactive.webp",
+  },
+];
 export default function NewPropertyComponent() {
   const [activeTab, setActiveTab] = useState(0);
   const [propertyType, setPropertyType] = useState(0);
   const [selectedPropertyName, setSelectedPropertyName] = useState("Home");
   const [unitsArray, setUnitsArray] = useState([{ beds: 0 }]);
   const [createAccountModal, setCreateAccountModal] = useState(false);
+  const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
 
   const onAddSingleUnit = () => {
     setUnitsArray((prev) => [...prev, { beds: 0 }]);
@@ -215,7 +229,7 @@ export default function NewPropertyComponent() {
               {activeTab === 0 && (
                 <>
                   <div className="mt-5">
-                    <p className="font-bold text-black text-[23px]">
+                    <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                       Select your property type
                     </p>
                     <div className="flex gap-5 mt-5">
@@ -245,7 +259,7 @@ export default function NewPropertyComponent() {
                     </div>
                   </div>
                   <div className="mt-10">
-                    <p className="font-bold text-black text-[23px]">
+                    <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                       Select what best describes your Property
                     </p>
                     <div className="flex flex-wrap items-center gap-5 mt-5">
@@ -289,7 +303,7 @@ export default function NewPropertyComponent() {
               )}
               {activeTab === 1 && (
                 <div className="mt-10">
-                  <p className="font-bold text-black text-[23px]">
+                  <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property owner information
                   </p>
                   <div className="mt-5">
@@ -338,7 +352,7 @@ export default function NewPropertyComponent() {
               )}
               {activeTab === 2 && (
                 <div className="mt-10">
-                  <p className="font-bold text-black text-[23px]">
+                  <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property Property Address
                   </p>
                   <div className="mt-5">
@@ -390,7 +404,7 @@ export default function NewPropertyComponent() {
               {activeTab === 3 && (
                 <div className="mt-10">
                   <div className="flex items-center justify-between w-full">
-                    <p className="font-bold text-black text-[23px]">
+                    <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                       Add units of property
                     </p>
                     <div className="flex items-center gap-3">
@@ -454,7 +468,7 @@ export default function NewPropertyComponent() {
               )}
               {activeTab === 4 && (
                 <div className="mt-10">
-                  <p className="font-bold text-black text-[23px]">
+                  <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Add Property Bank Accounts
                   </p>
                   <div className="flex gap-7 justify-center mt-10">
@@ -553,15 +567,107 @@ export default function NewPropertyComponent() {
                   )}
                 </div>
               )}
+              {activeTab === 5 && (
+                <div className="mt-10">
+                  <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
+                    Add Reserve funds
+                  </p>
+                  <div className="flex gap-7 justify-center mt-10">
+                    {reserveFunds.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setPropertyType(index)}
+                        className={`border ${
+                          propertyType === index
+                            ? "border-[#1ED760]"
+                            : "border-gray-400"
+                        } p-5 flex flex-col items-center justify-center rounded-lg w-[17%] relative`}
+                      >
+                        {propertyType === index && (
+                          <Image
+                            src={"/completedIcon.webp"}
+                            alt="tick"
+                            height={100}
+                            width={100}
+                            className="absolute top-3 -right-[15px] h-[40px] object-contain w-[40px]"
+                          />
+                        )}
+                        <Image
+                          alt={item.name}
+                          src={
+                            propertyType === index
+                              ? item.ActiveIcon
+                              : item.InactiveIcon
+                          }
+                          height={100}
+                          width={100}
+                        />
+                        <p className="mt-3 text-black">{item.name}</p>
+                      </button>
+                    ))}
+                  </div>
+                  {/* {propertyType === 0 && (
+                    <div className="w-full items-center flex justify-center mt-10">
+                      <div className="border border-[#1ED760] rounded-xl w-[50%] p-3 flex items-center justify-between px-5">
+                        <div className="flex gap-5 items-center">
+                          <Image
+                            src={"/bank_active.webp"}
+                            alt="bank"
+                            height={100}
+                            width={100}
+                            className="h-[60px] object-contain w-[60px] "
+                          />
+                          <p className="text-black text-[20px] ">
+                            Operating Account
+                          </p>
+                        </div>
+                        <div className="bg-[#EAFAE5] rounded-full text-[#1Ed760] px-5 h-10 flex items-center gap-4">
+                          <Image
+                            src={"/completedIcon.webp"}
+                            alt="tick"
+                            height={25}
+                            width={25}
+                          />
+                          <p>Default account</p>
+                        </div>
+                      </div>
+                    </div>
+                  )} */}
+                  {propertyType === 1 && (
+                    <div className="w-full items-center flex flex-col justify-center mt-10">
+                      <p className="text-black font-bold text-start w-[50%]">
+                        Reserve Funds Amount
+                      </p>
+                      <select
+                        name="account"
+                        id=""
+                        className="border border-[gray] rounded-xl w-[50%] p-3 flex items-center justify-between px-5 mt-3 h-12"
+                      >
+                        <option value="option1">20000 $</option>
+                        <option value="option1">20000 $</option>
+                        <option value="option1">20000 $</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="w-full flex justify-between mt-10">
+                {activeTab === 0 ? (
+                  <div />
+                ) : (
+                  <button
+                    onClick={() => setActiveTab(activeTab - 1)}
+                    className="border-[#1ED760] border text-black text-base font-semibold px-8 py-2 rounded-3xl"
+                  >
+                    Back
+                  </button>
+                )}
                 <button
-                  onClick={() => setActiveTab(activeTab - 1)}
-                  className="border-[#1ED760] border text-black text-base font-semibold px-8 py-2 rounded-3xl"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={() => setActiveTab(activeTab + 1)}
+                  onClick={() =>
+                    activeTab === 5
+                      ? setIsSuccessModalShow(true)
+                      : setActiveTab(activeTab + 1)
+                  }
                   className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
                 >
                   Next
@@ -573,6 +679,12 @@ export default function NewPropertyComponent() {
       </div>
       {createAccountModal && (
         <CreateAccountModal setIsCreateAccountModal={setCreateAccountModal} />
+      )}
+      {isSuccessModalShow && (
+        <PropertyAddedModal
+          setIsPropertyAddedModal={setIsSuccessModalShow}
+          title="Property Added Successfully"
+        />
       )}
     </div>
   );
