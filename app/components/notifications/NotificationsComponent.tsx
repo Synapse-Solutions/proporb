@@ -14,7 +14,7 @@ export default function NotificationsComponent(props: Props) {
       <Sidebar />
       <div className="flex">
         <div className="w-[calc(15vw)]" />
-        <div className="w-[calc(85vw)] px-10">
+        <div className="w-[calc(85vw)] px-10 pt-10">
           <Navbar />
           <div className="flex w-[100%] justify-between mt-10 items-center">
             <div>

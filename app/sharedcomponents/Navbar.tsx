@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Navbar() {
@@ -30,12 +31,14 @@ export default function Navbar() {
           <Image src="/searchIcon.webp" alt="Icon" height={40} width={40} />
         </div>
         <div>
-          <Image
-            src="/notificationIcon.webp"
-            alt="Icon"
-            height={40}
-            width={40}
-          />
+          <Link href="/notifications">
+            <Image
+              src="/notificationIcon.webp"
+              alt="Icon"
+              height={40}
+              width={40}
+            />
+          </Link>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-black font-semibold">Ahsan</p>
