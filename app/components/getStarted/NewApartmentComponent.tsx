@@ -148,7 +148,7 @@ export default function NewApartmentComponent() {
       <div className="flex">
         <div className="w-[calc(15vw)]" />
         <div className="w-[calc(85vw)] px-10 mt-10">
-          <Navbar />
+          <Navbar isSearchBarVisible={true} />
 
           <div className="mt-10">
             <p className="text-[25px] font-bold">New Property</p>
