@@ -50,7 +50,7 @@ export default function PersonaInformation({ onClose }: Props) {
       }}
       className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-10 flex items-center justify-center"
     >
-      <div className="w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex">
+      <div className="w-[90%] 2xl:w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex">
         <ProfileInfoSidebar
           activeTab={screenName}
           setActiveTab={setScreenName}
@@ -68,7 +68,7 @@ export default function PersonaInformation({ onClose }: Props) {
                 alt="Icon"
                 width={50}
                 height={50}
-                className="cursor-pointer"
+                className="cursor-pointer object-contain"
               />
             </div>
             <div className="flex gap-5 items-center mt-5">

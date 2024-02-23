@@ -17,8 +17,10 @@ export default function SettingsCard(props: Props) {
         <Image src={props.icon} alt="Icon" height={40} width={40} />
       </div>
       <div className="w-[75%] bg-white flex flex-col gap-2 justify-center items-start px-5 py-8">
-        <p className="text-black text-2xl">{props.title}</p>
-        <p className="text-[#797979] text-base">{props.description}</p>
+        <p className="text-black text-xl 2xl:text-2xl">{props.title}</p>
+        <p className="text-[#797979] text-sm 2xl:text-base">
+          {props.description}
+        </p>
       </div>
     </div>
   );
