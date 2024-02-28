@@ -14,7 +14,7 @@ export default function LoginAndPasswordModal(props: Props) {
       }}
       className="w-[calc(100vw)] h-[calc(100vh)] fixed left-0 top-0 text-black z-10 flex items-center justify-center"
     >
-      <div className="w-[calc(60vw)] h-[calc(80vh)] bg-white top-0 text-black z-10 p-10 flex flex-col items-center relative">
+      <div className="w-[calc(60vw)] h-[calc(90vh)] 2xl:h-[calc(80vh)] bg-white top-0 text-black z-10 p-10 flex flex-col items-center relative">
         <div className="flex justify-between w-full">
           <div>
             <h1 className="text-[32px] font-bold">
@@ -23,7 +23,7 @@ export default function LoginAndPasswordModal(props: Props) {
             <div className="h-[2px] bg-[#1ED760] w-[100px]" />
           </div>
           <Image
-            className="cursor-pointer"
+            className="cursor-pointer h-[50px] object-contain"
             src="/cross_icon.webp"
             alt="Icon"
             width={50}
@@ -33,14 +33,20 @@ export default function LoginAndPasswordModal(props: Props) {
         </div>
         {activeScreen === 1 && (
           <div className="flex flex-col items-center w-[60%] mt-10">
-            <Image src="/password.webp" alt="Icon" width={100} height={100} />
+            <Image
+              src="/password.webp"
+              alt="Icon"
+              width={100}
+              height={100}
+              className="h-[80px] 2xl:h-[100px] object-contain"
+            />
             <h1 className="font-bold text-[30px]">Unlock Settings</h1>
             <p className="text-center mt-5">
               To enter the login and password settings, <br /> please provide
               your current password.
             </p>
             <div className="w-full mt-5">
-              <p className="my-5">* Current Password</p>
+              <p className="my-3 2xl:my-5 ">* Current Password</p>
               <input
                 required
                 type="password"
@@ -51,7 +57,7 @@ export default function LoginAndPasswordModal(props: Props) {
           </div>
         )}
         {activeScreen === 2 && (
-          <div className="w-full mt-10">
+          <div className="w-full mt-10 h-full overflow-auto">
             <div className="w-[100%] flex justify-between">
               <div className="w-[48%]">
                 <p>Full Name</p>
@@ -114,17 +120,18 @@ export default function LoginAndPasswordModal(props: Props) {
                 className="border border-black rounded h-10 w-[100%]"
               />
             </div>
+            <div className="h-24" />
           </div>
         )}
-        <div className="flex justify-between absolute bottom-10 w-[100%] left-0 px-[calc(3vw)]">
-          <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full mt-10">
+        <div className="flex justify-between absolute bottom-10 w-[100%] left-0 px-[calc(3vw)] bg-white">
+          <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full">
             Cancel
           </button>
           <button
             onClick={() =>
               activeScreen === 1 ? setActiveScreen(activeScreen + 1) : ""
             }
-            className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full mt-10"
+            className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full"
           >
             {activeScreen === 1 ? "Next" : "Save"}
           </button>

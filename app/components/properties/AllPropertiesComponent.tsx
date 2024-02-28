@@ -12,6 +12,13 @@ const tabs = [
   "Resedential Properties",
   "Commercial Properties",
 ];
+
+const nestedMenuItems = [
+  "All Properties",
+  "Resedential Properties",
+  "Commercial Properties",
+];
+
 interface Props {
   array: any[];
 }
@@ -19,7 +26,7 @@ export default function AllPropertiesComponent(props: Props) {
   const [activeTab, setActiveTab] = useState("All Properties");
   return (
     <div className="h-screen overflow-y-scroll">
-      <Sidebar activeTab="Properties" />
+      <Sidebar activeTab="Properties" nestedMenuItems={nestedMenuItems} />
       <div className="flex">
         <div className="w-[calc(15vw)]" />
         <div className="w-[calc(85vw)] px-10 mt-10">
@@ -37,6 +44,7 @@ export default function AllPropertiesComponent(props: Props) {
           <div className="flex justify-between items-center">
             {tabs.map((item, index) => (
               <button
+                key={index}
                 onClick={() => setActiveTab(item)}
                 className={`flex items-center justify-center pb-3 mt-5 w-1/3 border-b ${
                   activeTab === item ? "border-[#1ED760]" : "border-gray-400"

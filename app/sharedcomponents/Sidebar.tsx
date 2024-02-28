@@ -59,15 +59,12 @@ const muneItems = [
 ];
 interface Props {
   activeTab?: string;
+  nestedMenuItems?: string[];
 }
 export default function Sidebar(props: Props) {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const nestedMenuItems = [
-    "All Properties",
-    "Resedential Properties",
-    "Commercial Properties",
-  ];
+
   return (
     <div
       className={`w-[calc(16vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
@@ -95,7 +92,7 @@ export default function Sidebar(props: Props) {
           </div>
           <div className="flex flex-col gap-3 2xl:gap-5">
             {muneItems.map((item, index) => (
-              <Link href={item.link}>
+              <Link key={index} href={item.link}>
                 <button key={index} className="flex gap-3 items-center">
                   <Image
                     src={item.icon}
@@ -214,7 +211,7 @@ export default function Sidebar(props: Props) {
           <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5 text-white">
             <button onClick={() => router.back()}> ← {props.activeTab}</button>
 
-            {nestedMenuItems.map((item, index) => (
+            {props.nestedMenuItems?.map((item, index) => (
               <div key={index} className="flex gap-3 items-center mt-5">
                 <p className="text-[13px]">{item}</p>
               </div>

@@ -95,9 +95,9 @@ export default function CompanyInformationModal(props: Props) {
             </div>
           </div>
         </div>
-        <div className="w-[75%] 2xl:w-[80%] overflow-auto relative">
+        <div className="w-[75%] 2xl:w-[80%]  relative h-full">
           {activeScreen === 1 && (
-            <div className="w-full px-8 py-8 relative">
+            <div className="w-full px-8 py-8 overflow-auto h-[100%]">
               <div className="flex justify-between">
                 <div>
                   <h1 className="text-[25px] 2xl:text-[32px] font-bold">
@@ -229,6 +229,7 @@ export default function CompanyInformationModal(props: Props) {
                   />
                 </div>
               </div>
+              <div className="h-20 w-full" />
             </div>
           )}
 
@@ -324,7 +325,7 @@ export default function CompanyInformationModal(props: Props) {
               </div>
             </div>
           )}
-          <div className="h-20" />
+
           <div className="w-full flex justify-between px-8 mb-10 absolute bottom-0 right-0">
             <button
               onClick={onClickBack}

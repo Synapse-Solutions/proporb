@@ -4,6 +4,7 @@ import React from "react";
 interface Props {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  title?: string;
 }
 
 export default function ProfileInfoSidebar(props: Props) {
@@ -18,7 +19,7 @@ export default function ProfileInfoSidebar(props: Props) {
             height={40}
             className="object-contain"
           />
-          <h1>Personal Information</h1>
+          {props.title ? <h1>{props.title}</h1> : <h1>Personal Information</h1>}
         </div>
         <div className="px-5 space-y-5 text-base">
           <div

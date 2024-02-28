@@ -1,4 +1,5 @@
 "use client";
+import EmptyViewComponent from "@/app/sharedcomponents/EmptyViewComponent";
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
 import { on } from "events";
 import Image from "next/image";
@@ -7,9 +8,9 @@ import React, { useState } from "react";
 interface Props {
   onClose?: () => void;
 }
-export default function PersonaInformation({ onClose }: Props) {
+export default function AddTenant({ onClose }: Props) {
   // ******* States *******
-  const [screenName, setScreenName] = useState("contact");
+  const [screenName, setScreenName] = useState("");
   const [contactNumbers, setContactNumbers] = useState([
     {
       type: "mobile",
@@ -43,6 +44,21 @@ export default function PersonaInformation({ onClose }: Props) {
       },
     ]);
   };
+
+  const onClickNext = () => {
+    if (screenName === "personal") {
+      setScreenName("contact");
+    } else if (screenName === "contact") {
+      setScreenName("address");
+    }
+  };
+  const onClickBack = () => {
+    if (screenName === "contact") {
+      setScreenName("personal");
+    } else if (screenName === "address") {
+      setScreenName("contact");
+    }
+  };
   return (
     <div
       style={{
@@ -51,18 +67,58 @@ export default function PersonaInformation({ onClose }: Props) {
       className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-10 flex items-center justify-center"
     >
       <div className="w-[90%] 2xl:w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex ">
-        <ProfileInfoSidebar
-          activeTab={screenName}
-          setActiveTab={setScreenName}
-        />
-        <div className="w-[75%] 2xl:w-[80%]  relative h-full">
-          {screenName === "personal" && (
+        {screenName !== "" && (
+          <ProfileInfoSidebar
+            activeTab={screenName}
+            setActiveTab={setScreenName}
+            title="New Tenant"
+          />
+        )}
+        <div className="w-[100%]  relative h-full">
+          {screenName === "" && (
             <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
               <div className="flex justify-between ">
                 <div>
                   <h1 className="text-[32px] font-bold">
-                    Personal Information
+                    Add To Tenant To Rental
                   </h1>
+                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
+                </div>
+              </div>
+              <div className="flex justify-between mt-10">
+                <div
+                  className={`w-[50%] rounded-full border border-gray-400 flex h-12`}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="outline-none w-[90%] px-5 bg-transparent"
+                  />
+                  <div className="bg-[#1ED760] w-[10%] rounded-r-full flex items-center justify-center">
+                    <Image
+                      src="/search_icon.webp"
+                      alt="searchIcon"
+                      height={30}
+                      width={30}
+                    />
+                  </div>
+                </div>
+                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+                  + New Tenant
+                </div>
+              </div>
+              <EmptyViewComponent
+                onClick={() => setScreenName("personal")}
+                title="No Property found"
+                buttonTitle="New Property"
+              />
+            </div>
+          )}
+          {screenName === "personal" && (
+            <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
+              <div className="flex justify-between ">
+                <div>
+                  <h1 className="text-[32px] font-bold">New Tenant</h1>
                   <div className="h-[2px] bg-[#1ED760] w-[100px]" />
                 </div>
                 <Image
@@ -271,17 +327,22 @@ export default function PersonaInformation({ onClose }: Props) {
               </div>
             </div>
           )}
-          <div className="flex justify-between absolute bottom-0 pb-10 bg-white pt-3 w-[100%] left-0 px-[calc(3vw)] ">
-            <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full">
-              Back
-            </button>
-            <button
-              onClick={() => setScreenName("address")}
-              className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
-            >
-              Next
-            </button>
-          </div>
+          {screenName !== "" && (
+            <div className="flex justify-between absolute bottom-0 pb-10 bg-white pt-3 w-[100%] left-0 px-[calc(3vw)] ">
+              <button
+                onClick={onClickBack}
+                className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full"
+              >
+                Back
+              </button>
+              <button
+                onClick={onClickNext}
+                className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
