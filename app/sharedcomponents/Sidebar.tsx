@@ -29,7 +29,7 @@ const muneItems = [
   {
     icon: "/tasksIcon.webp",
     name: "Tasks & Maintenance",
-    link: "/tasks",
+    link: "/alltasks",
   },
   {
     icon: "/accountingIcon.webp",

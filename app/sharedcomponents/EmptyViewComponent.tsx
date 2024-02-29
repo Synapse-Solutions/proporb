@@ -8,7 +8,7 @@ interface EmptyViewProps {
 }
 export default function EmptyViewComponent(props: EmptyViewProps) {
   return (
-    <div className="flex flex-col justify-center items-center space-y-4 mt-28">
+    <div className="flex flex-col justify-center items-center space-y-4 my-28">
       <Image
         src="/empty_state.webp"
         alt="properties"
