@@ -12,6 +12,7 @@ import RentApplicationSingleComponent from "./RentApplicationSingleComponent";
 import TasksSingleComponent from "./TasksSingleComponent";
 import NotesSingleComponent from "@/app/sharedcomponents/NotesSingleComponent";
 import FilesSingleComponent from "@/app/sharedcomponents/FilesSingleComponent";
+import PropertySetting from "./PropertySetting";
 
 const tabs = [
   "Overview",
@@ -84,6 +85,7 @@ export default function SinglePropertyComponents() {
             {activeIndex === 6 && <TasksSingleComponent />}
             {activeIndex === 7 && <NotesSingleComponent />}
             {activeIndex === 8 && <FilesSingleComponent />}
+            {activeIndex === 9 && <PropertySetting />}
           </div>
         </div>
       </div>

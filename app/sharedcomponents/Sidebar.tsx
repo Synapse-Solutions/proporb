@@ -39,7 +39,7 @@ const muneItems = [
   {
     icon: "/communicationIcon.webp",
     name: "Communication",
-    link: "/communication",
+    link: "/communicationslogs",
   },
   {
     icon: "/notesIcon.webp",
