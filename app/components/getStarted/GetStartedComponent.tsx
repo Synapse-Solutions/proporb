@@ -4,11 +4,18 @@ import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import SubscriptionModal from "./modals/SubscriptionModal";
+import PremiumPlanModal from "./modals/PremiumPlanModal";
+import CustomizeTenantModal from "./modals/CustomizeTenantModal";
 
 interface Props {}
 export default function GetStartedComponent(props: Props) {
   const [isCompanyInfoOpen, setIsCompanyInfoOpen] = useState(false);
   const [isAddPropertyOpen, setIsAddPropertyOpen] = useState(false);
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
+  const [premiumModalShow, setPremiumModalShow] = useState(false);
+  const [customizeTenantPortalModal, setCustomizeTenantPortalModal] =
+    useState(false);
 
   return (
     <div>
@@ -52,7 +59,10 @@ export default function GetStartedComponent(props: Props) {
 
         <div>
           <div className="bg-white rounded-xl overflow-hidden mt-5">
-            <div className="flex justify-between p-5">
+            <div
+              onClick={() => setIsSubscriptionModalOpen(true)}
+              className="flex justify-between p-5"
+            >
               <div className="w-[50%] flex gap-8 items-center justify-start">
                 <Image
                   src="/thumbsUpIconGreen.webp"
@@ -221,8 +231,53 @@ export default function GetStartedComponent(props: Props) {
               </div>
             )}
           </div>
+          <div
+            className="bg-white rounded-xl overflow-hidden mt-5"
+            onClick={() => {
+              setCustomizeTenantPortalModal(true);
+            }}
+          >
+            <div className="flex justify-between p-5">
+              <div className="w-[50%] flex gap-8 items-center justify-start">
+                <Image
+                  src="/tenant_icon.webp"
+                  alt="Icon"
+                  height={50}
+                  width={50}
+                />
+                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
+                  Customize your Tenant Portal
+                </p>
+                <Image
+                  src="/dropDownArrowBlack.webp"
+                  alt="Icon"
+                  height={25}
+                  width={25}
+                />
+              </div>
+              <div className="w-[50%] flex gap-5 justify-end items-center"></div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* 
+       modals
+       */}
+      {isSubscriptionModalOpen && (
+        <SubscriptionModal
+          setPremiumModalShow={setPremiumModalShow}
+          onClose={() => setIsSubscriptionModalOpen(false)}
+        />
+      )}
+      {premiumModalShow && (
+        <PremiumPlanModal onClose={() => setPremiumModalShow(false)} />
+      )}
+      {customizeTenantPortalModal && (
+        <CustomizeTenantModal
+          onClose={() => setCustomizeTenantPortalModal(false)}
+        />
+      )}
     </div>
   );
 }

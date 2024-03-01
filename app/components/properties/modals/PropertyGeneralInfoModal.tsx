@@ -3,45 +3,157 @@ import { on } from "events";
 import Image from "next/image";
 import React, { useState } from "react";
 import GeneralInfoSidebar from "./GeneralInfoSidebar";
+import UploadPhotoBox from "@/app/sharedcomponents/UploadPhotoBox";
+
+let properties = [
+  {
+    name: "House",
+  },
+  {
+    name: "Shop",
+  },
+  {
+    name: "Warehouse",
+  },
+  {
+    name: "Factory",
+  },
+  {
+    name: "Building",
+  },
+  {
+    name: "Other",
+  },
+];
+let propertyTypes = [
+  {
+    name: "Residential Property",
+    ActiveIcon: "/green_outlilne_home.webp",
+    InactiveIcon: "/gray_outline_home.webp",
+  },
+  {
+    name: "Commercial Property",
+    ActiveIcon: "/property_green.webp",
+    InactiveIcon: "/property_gray.webp",
+  },
+];
+let commercialProperties = [
+  {
+    name: "Office",
+  },
+  {
+    name: "Rental Space",
+  },
+  {
+    name: "Buildings",
+  },
+  {
+    name: "Warehouse",
+  },
+  {
+    name: "Factory",
+  },
+  {
+    name: "Restaurant",
+  },
+  {
+    name: "Others",
+  },
+];
+const amenities = [
+  {
+    name: "Other",
+    isSelected: false,
+  },
+  {
+    name: "Availability 24 Hours",
+    isSelected: false,
+  },
+  {
+    name: "Accent Walls",
+    isSelected: false,
+  },
+  {
+    name: "Basketball Court",
+    isSelected: false,
+  },
+  {
+    name: "Bilingual",
+    isSelected: false,
+  },
+  {
+    name: "Boat Docks",
+    isSelected: false,
+  },
+  {
+    name: "Business Center",
+    isSelected: false,
+  },
+  {
+    name: "Car Wash Area",
+    isSelected: false,
+  },
+  {
+    name: "Child Care",
+    isSelected: false,
+  },
+  {
+    name: "Club Discount",
+    isSelected: false,
+  },
+  {
+    name: "Club House",
+    isSelected: false,
+  },
+  {
+    name: "Conference Room",
+    isSelected: false,
+  },
+  {
+    name: "Availability 24 Hours",
+    isSelected: false,
+  },
+  {
+    name: "Accent Walls",
+    isSelected: false,
+  },
+  {
+    name: "Boat Docks",
+    isSelected: false,
+  },
+  {
+    name: "Other",
+    isSelected: false,
+  },
+];
+
+const petPolicyArray = [
+  {
+    name: "Pet Allowed",
+    ActiveIcon: "/pet_active.webp",
+    InactiveIcon: "/pet_inactive.webp",
+  },
+  {
+    name: "Pet Not Allowed",
+    ActiveIcon: "/pet_active.webp",
+    InactiveIcon: "/pet_inactive.webp",
+  },
+];
 
 interface Props {
   onClose?: () => void;
 }
 export default function PropertyGeneralInfoModal({ onClose }: Props) {
   // ******* States *******
-  const [screenName, setScreenName] = useState("contact");
-  const [contactNumbers, setContactNumbers] = useState([
-    {
-      type: "mobile",
-      number: "",
-    },
-  ]);
-  const [emails, setEmails] = useState([
-    {
-      type: "personal",
-      email: "",
-    },
-  ]);
+  const [screenName, setScreenName] = useState("general information");
+  const [propertyType, setPropertyType] = useState(0);
+  const [selectedPropertyName, setSelectedPropertyName] = useState("");
+  const [amenitedArray, setAmenitedArray] = useState(amenities);
 
-  // ******* Functions *******
-  const onAddNumber = () => {
-    setContactNumbers([
-      ...contactNumbers,
-      {
-        type: "mobile",
-        number: "",
-      },
-    ]);
-  };
-
-  const onAddEmail = () => {
-    setEmails([
-      ...emails,
-      {
-        type: "personal",
-        email: "",
-      },
-    ]);
+  const toggleSelected: any = (index: number) => {
+    let temp = [...amenities];
+    temp[index].isSelected = !temp[index].isSelected;
+    setAmenitedArray(temp);
   };
   return (
     <div
@@ -94,47 +206,63 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                   />
                 </div>
-                <div className="flex justify-between">
-                  <div className="w-[47%]">
-                    <p>Last Name</p>
-                    <input
-                      required
-                      type="text"
-                      placeholder="Enter your Last Name"
-                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-                    />
-                  </div>
-                </div>
               </div>
 
-              <div className="flex justify-between mt-5">
+              <div className="flex justify-between mt-5 gap-3">
                 <div className="w-[47%]">
-                  <p>First Name</p>
+                  <p>City</p>
                   <input
                     type="text"
-                    placeholder="Enter your First Name"
+                    placeholder="Enter City Name"
                     required
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                   />
                 </div>
                 <div className="w-[47%]">
-                  <p>Last Name</p>
+                  <p>Province</p>
                   <input
                     required
                     type="text"
-                    placeholder="Enter your Last Name"
+                    placeholder="Enter Province Name"
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                   />
                 </div>
+                <div className="w-[47%]">
+                  <p>Country</p>
+                  <input
+                    type="text"
+                    placeholder="Enter Country Name"
+                    required
+                    className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
+                  />
+                </div>
+                <div className="w-[47%]">
+                  <p>ZIP Code</p>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Enter ZIP Code"
+                    className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
+                  />
+                </div>
+              </div>
+              <div className="mt-5">
+                <p>Description</p>
+                <textarea
+                  name=""
+                  id=""
+                  rows={10}
+                  className="border border-black rounded-lg w-full pl-3 mt-4"
+                ></textarea>
               </div>
               <div className="h-24" />
             </div>
           )}
-          {screenName === "contact" && (
+          {screenName === "photos" && (
             <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
-                  <h1 className="text-[32px] font-bold">Contact Information</h1>
+                  <h1 className="text-[32px] font-bold">Photos</h1>
                   <div className="h-[2px] bg-[#1ED760] w-[100px]" />
                 </div>
                 <Image
@@ -147,62 +275,21 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
                 />
               </div>
 
-              <div className="mt-10 space-y-2">
-                <p>Phone Number</p>
-                {contactNumbers.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile"> Mobile Number</option>
-
-                      <option value="phone"> Phone Number</option>
-                    </select>
-                    <input
-                      required
-                      type="number"
-                      placeholder="Enter your phone number"
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
-              </div>
-              <p
-                onClick={onAddNumber}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
+              <p className="text-[#656D76] mt-5">
+                Upload, rearrange, or delete photos that appear in your online
+                listings.
               </p>
-              <div className="mt-10 space-y-2">
-                <p>Email</p>
-                {emails.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile">Primary</option>
-
-                      <option value="phone">Secondary</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Enter your Email"
-                      required
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
+              <div className="flex justify-center mt-10">
+                <UploadPhotoBox />
               </div>
-              <p
-                onClick={onAddEmail}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
-              </p>
               <div className="h-24" />
             </div>
           )}
-          {screenName === "address" && (
-            <div className="text-black w-full px-10 pt-10 relative">
+          {screenName === "property type" && (
+            <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
-                  <h1 className="text-[32px] font-bold">Address</h1>
+                  <h1 className="text-[32px] font-bold">Property Type</h1>
                   <div className="h-[2px] bg-[#1ED760] w-[100px]" />
                 </div>
                 <Image
@@ -214,54 +301,178 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
                   height={50}
                 />
               </div>
+              <p className="text-[#656D76] mt-5">
+                Upload, rearrange, or delete photos that appear in your online
+                listings.
+              </p>
 
-              <div className="mt-10 space-y-2">
-                <p>Street</p>
-                <div className="flex justify-between">
-                  <input
-                    required
-                    type="text"
-                    placeholder="Enter your street location"
-                    className="border border-black rounded-lg h-10 w-[100%] pl-3"
-                  />
+              <div className="mt-5">
+                <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
+                  Which kind of property do you manage?
+                </p>
+                <div className="flex gap-5 mt-5">
+                  {propertyTypes.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setPropertyType(index)}
+                      className={`border ${
+                        propertyType === index
+                          ? "border-[#1ED760]"
+                          : "border-gray-400"
+                      } p-5 flex flex-col items-center justify-center rounded-lg w-[17%]`}
+                    >
+                      <Image
+                        alt={item.name}
+                        src={
+                          propertyType === index
+                            ? item.ActiveIcon
+                            : item.InactiveIcon
+                        }
+                        height={100}
+                        width={100}
+                      />
+                      <p className="mt-3 text-black">{item.name}</p>
+                    </button>
+                  ))}
                 </div>
               </div>
-              <div className="mt-10 space-y-2">
-                <div className="flex justify-between">
-                  <div className="w-[45%] space-y-2">
-                    <p>City</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
-                  <div className="w-[45%] space-y-2">
-                    <p>Province</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
+              <div className="mt-10">
+                <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
+                  Which type best describes your property?
+                </p>
+                <div className="flex flex-wrap items-center gap-5 mt-5">
+                  {(propertyType === 0
+                    ? properties
+                    : commercialProperties
+                  )?.map((item, index) => (
+                    <button
+                      key={index}
+                      style={{
+                        backgroundColor:
+                          item.name === selectedPropertyName
+                            ? "#E8FBEF"
+                            : "white",
+                      }}
+                      onClick={() => setSelectedPropertyName(item.name)}
+                      className={`border ${
+                        item.name === selectedPropertyName
+                          ? "border-[#1ED760]"
+                          : "border-gray-500"
+                      } px-4 p-2 rounded-xl flex gap-3 items-center`}
+                    >
+                      <Image
+                        src={"/mdi_house.webp"}
+                        alt="Icon"
+                        width={30}
+                        height={30}
+                      />
+                      <p className="text-black">{item.name}</p>
+                    </button>
+                  ))}
                 </div>
               </div>
-              <div className="mt-10 space-y-2">
-                <div className="flex justify-between">
-                  <div className="w-[45%] space-y-2">
-                    <p>Country</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
-                  <div className="w-[45%] space-y-2">
-                    <p>Zip Code</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
+
+              <div className="h-24" />
+            </div>
+          )}
+          {screenName === "amenities" && (
+            <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
+              <div className="flex justify-between ">
+                <div>
+                  <h1 className="text-[32px] font-bold">Amenities</h1>
+                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
                 </div>
+                <Image
+                  onClick={onClose}
+                  src="/cross_icon.webp"
+                  alt="Icon"
+                  width={50}
+                  className="cursor-pointer"
+                  height={50}
+                />
               </div>
+              <p className="text-[#656D76] mt-5">
+                Please select which amenities are included in this property.
+              </p>
+
+              <div className="flex gap-7 justify-between mt-10 flex-wrap">
+                {amenitedArray.map((item, index) => (
+                  <div key={index} className="flex items-center gap-3 w-[25%]">
+                    {item.isSelected ? (
+                      <div
+                        onClick={() => toggleSelected(index)}
+                        className="border border-gray-400 bg-[#1ED760] rounded h-5 w-5 cursor-pointer"
+                      />
+                    ) : (
+                      <div
+                        onClick={() => toggleSelected(index)}
+                        className="border border-gray-400 rounded h-5 w-5 cursor-pointer"
+                      />
+                    )}
+                    <p>{item.name}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="h-24" />
+            </div>
+          )}
+          {screenName === "pet policy" && (
+            <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
+              <div className="flex justify-between ">
+                <div>
+                  <h1 className="text-[32px] font-bold">Amenities</h1>
+                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
+                </div>
+                <Image
+                  onClick={onClose}
+                  src="/cross_icon.webp"
+                  alt="Icon"
+                  width={50}
+                  className="cursor-pointer"
+                  height={50}
+                />
+              </div>
+              <p className="text-[#656D76] mt-5">
+                Please select which amenities are included in this property.
+              </p>
+
+              <div className="flex gap-7 justify-center mt-10">
+                {petPolicyArray.map((item, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setPropertyType(index)}
+                    className={`border ${
+                      propertyType === index
+                        ? "border-[#1ED760]"
+                        : "border-gray-400"
+                    } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
+                  >
+                    {propertyType === index && (
+                      <Image
+                        src={"/completedIcon.webp"}
+                        alt="tick"
+                        height={100}
+                        width={100}
+                        className="absolute top-3 right-[15px] h-[40px] object-contain w-[40px]"
+                      />
+                    )}
+                    <Image
+                      alt={item.name}
+                      src={
+                        propertyType === index
+                          ? item.ActiveIcon
+                          : item.InactiveIcon
+                      }
+                      height={100}
+                      width={100}
+                    />
+                    <p className="mt-3 text-black">{item.name}</p>
+                  </button>
+                ))}
+              </div>
+
+              <div className="h-24" />
             </div>
           )}
           <div className="flex justify-between absolute bottom-0 pb-10 bg-white pt-3 w-[100%] left-0 px-[calc(3vw)] ">

@@ -2,6 +2,13 @@
 import SettingsCard from "@/app/sharedcomponents/SettingsCard";
 import React, { useState } from "react";
 import PropertyGeneralInfoModal from "./modals/PropertyGeneralInfoModal";
+import PropertyBankAccountModal from "./modals/PropertyBankAccountModal";
+import PropertyRentPayModal from "./modals/PropertyRentPayModal";
+import PropertyReserveFundsModal from "./modals/PropertyReserveFundsModal";
+import PropertyTenantRequestModal from "./modals/PropertyTenantRequestModal";
+import PropertyLateFeesModal from "./modals/PropertyLateFeesModal";
+import PropertyPaymentInstructionsModal from "./modals/PropertyPaymentInstructionsModal";
+import PropertyPaymentAllocationModal from "./modals/PropertyPaymentAllocationModal";
 
 let array = [
   {
@@ -81,6 +88,10 @@ let array = [
 export default function PropertySetting() {
   const [selectedModalName, setSelectedModalName] = useState("");
 
+  const onCloseModal = () => {
+    setSelectedModalName("");
+  };
+
   return (
     <div className="mt-5">
       <div className="flex flex-wrap gap-10">
@@ -95,7 +106,28 @@ export default function PropertySetting() {
         ))}
       </div>
       {selectedModalName === "General Information" && (
-        <PropertyGeneralInfoModal />
+        <PropertyGeneralInfoModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Bank Accounts" && (
+        <PropertyBankAccountModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Notifications" && (
+        <PropertyRentPayModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Reserve Funds" && (
+        <PropertyReserveFundsModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Tenant Requests" && (
+        <PropertyTenantRequestModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Late Fees" && (
+        <PropertyLateFeesModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Payment Instructions" && (
+        <PropertyPaymentInstructionsModal onClose={onCloseModal} />
+      )}
+      {selectedModalName === "Payment Allocation" && (
+        <PropertyPaymentAllocationModal onClose={onCloseModal} />
       )}
     </div>
   );

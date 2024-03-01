@@ -1,11 +1,14 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+import { Logout, PersonOutline, Settings } from "@mui/icons-material";
 
 interface NavbarProps {
   isSearchBarVisible?: boolean;
 }
 export default function Navbar(props: NavbarProps) {
+  const [isprofileClicked, setIsprofileClicked] = useState(false);
   return (
     <div className="flex w-full items-center">
       <div className="w-[50%]">
@@ -59,7 +62,35 @@ export default function Navbar(props: NavbarProps) {
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-black font-semibold">Ahsan</p>
-          <Image src="/profileIcon.webp" alt="Icon" height={40} width={40} />
+          <div className="relative">
+            <Image
+              onClick={() => setIsprofileClicked(!isprofileClicked)}
+              src="/profileIcon.webp"
+              alt="Icon"
+              height={40}
+              width={40}
+            />
+            {isprofileClicked && (
+              <div className="bg-black rounded-2xl py-5 px-5 absolute top-full right-0 w-[200px] text-white">
+                <div className="flex gap-2 items-center text-base cursor-pointer">
+                  <PersonOutline fontSize={"medium"} />
+                  <p>Profile</p>
+                </div>
+                <Link href="/generalSettings">
+                  <div className="flex gap-2 items-center text-base mt-3 cursor-pointer">
+                    <Settings />
+                    <p>Settings</p>
+                  </div>
+                </Link>
+                <Link href="/ ">
+                  <div className="flex gap-2 items-center text-base mt-3 cursor-pointer">
+                    <Logout />
+                    <p>Logout</p>
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
