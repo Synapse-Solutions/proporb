@@ -54,7 +54,7 @@ const muneItems = [
   {
     icon: "/reportsIcon.webp",
     name: "Reports",
-    link: "/reports",
+    link: "/singleproperty",
   },
 ];
 interface Props {

@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import CreateAccountModal from "./modals/CreateAccountModal";
 import PropertyAddedModal from "./modals/PropertyAddedModal";
+import AddMultipleProModal from "./modals/AddMultipleProModal";
 
 let tabs = [
   {
@@ -182,9 +183,15 @@ export default function NewPropertyComponent() {
   const [unitsArray, setUnitsArray] = useState([{ beds: 0 }]);
   const [createAccountModal, setCreateAccountModal] = useState(false);
   const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
+  const [multipleUnitsModal, setMultipleUnitsModal] = useState(false);
 
   const onAddSingleUnit = () => {
     setUnitsArray((prev) => [...prev, { beds: 0 }]);
+  };
+
+  const onAddMultipleUnits = () => {
+    setMultipleUnitsModal(true);
+    // setUnitsArray((prev) => [...prev, { beds: 0 }, { beds: 0 }]);
   };
   return (
     <div className="h-screen overflow-y-scroll">
@@ -411,7 +418,10 @@ export default function NewPropertyComponent() {
                       <button className="bg-[#1ED760] rounded-full px-5 text-white py-2">
                         Submit CSV file
                       </button>
-                      <button className="border border-[#1ED760] rounded-full px-5 text-black py-2">
+                      <button
+                        onClick={onAddMultipleUnits}
+                        className="border border-[#1ED760] rounded-full px-5 text-black py-2"
+                      >
                         + Add multiple units
                       </button>
                       <button
@@ -685,6 +695,9 @@ export default function NewPropertyComponent() {
           setIsPropertyAddedModal={setIsSuccessModalShow}
           title="Property Added Successfully"
         />
+      )}
+      {multipleUnitsModal && (
+        <AddMultipleProModal onClose={() => setMultipleUnitsModal(false)} />
       )}
     </div>
   );

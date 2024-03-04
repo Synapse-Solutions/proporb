@@ -11,9 +11,18 @@ interface Props {
 export default function CustomizeTenantModal({ onClose }: Props) {
   const [selectedTenant, setSelectedTenant] = useState<null | number>(null);
   const [deletedItem, setDeletedItem] = useState<null | number>(null);
+  const [viewModal, setViewModal] = useState<null | number>(null);
 
   const onDelete = (index: number) => {
     setDeletedItem(index);
+  };
+
+  const onClickOption = (index: number) => {
+    if (selectedTenant === index) {
+      setSelectedTenant(null);
+    } else {
+      setSelectedTenant(index);
+    }
   };
   return (
     <div
@@ -22,7 +31,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
       }}
       className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-10 flex items-center justify-center"
     >
-      <div className="w-[90%] 2xl:w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex ">
+      <div className="w-[90%] 2xl:w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex relative">
         <div className="w-[100%]  relative h-full">
           <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
             <div className="flex justify-between ">
@@ -61,7 +70,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                       </div>
                     </div>
                     <button
-                      onClick={() => setSelectedTenant(index)}
+                      onClick={() => onClickOption(index)}
                       className="relative"
                     >
                       <MoreVert
@@ -75,7 +84,10 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                             <BorderColor fontSize={"medium"} />
                             <p>Edit</p>
                           </div>
-                          <div className="flex gap-2 items-center text-base mt-3 cursor-pointer">
+                          <div
+                            onClick={() => setViewModal(index)}
+                            className="flex gap-2 items-center text-base mt-3 cursor-pointer"
+                          >
                             <Visibility />
                             <p>View</p>
                           </div>
@@ -137,9 +149,67 @@ export default function CustomizeTenantModal({ onClose }: Props) {
             </button>
           </div>
         </div>
+        {deletedItem !== null && (
+          <div
+            style={{
+              backgroundColor: "rgba(0,0,0,0.3)",
+            }}
+            className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-20 flex items-center justify-center "
+          >
+            <div className="bg-white p-10 rounded-2xl shadow-md items-center justify-center flex flex-col gap-3">
+              <Image src="/info_icon.webp" width={70} height={70} alt="icon" />
+              <p>Are you sure you want to delete this record ?</p>
+              <div className="flex justify-between  bg-white pt-3 w-[100%] gap-7 ">
+                <button
+                  onClick={() => setDeletedItem(null)}
+                  className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full w-1/2"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {}}
+                  className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full w-1/2"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {viewModal !== null && (
+          <div
+            style={{
+              backgroundColor: "rgba(0,0,0,0.3)",
+            }}
+            className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-20 flex items-center justify-center "
+          >
+            <div className="bg-white p-10 rounded-2xl shadow-md items-center justify-center flex flex-col w-[40%]">
+              <Image
+                src="/profileIcon.webp"
+                width={70}
+                height={70}
+                alt="icon"
+              />
+              <div className="mt-5">
+                <p>Abdullah Dilawar</p>
+                <p className="text-[#AAAAAA]">abd123@gmail.com</p>
+              </div>
+              <div className="mt-5">
+                <p>Abdullah Dilawar</p>
+                <p className="text-[#AAAAAA]">abd123@gmail.com</p>
+              </div>
+              <div className="flex justify-center  bg-white pt-3 w-[100%] gap-7 ">
+                <button
+                  onClick={() => setViewModal(null)}
+                  className="bg-[#1ED760] text-white border h-10 px-8 mt-5 py-1 rounded-full"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-
-      <div></div>
     </div>
   );
 }

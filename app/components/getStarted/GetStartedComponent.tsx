@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import SubscriptionModal from "./modals/SubscriptionModal";
 import PremiumPlanModal from "./modals/PremiumPlanModal";
 import CustomizeTenantModal from "./modals/CustomizeTenantModal";
+import AddLeaseModal from "./modals/AddLeaseModal";
 
 interface Props {}
 export default function GetStartedComponent(props: Props) {
@@ -14,6 +15,7 @@ export default function GetStartedComponent(props: Props) {
   const [isAddPropertyOpen, setIsAddPropertyOpen] = useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
   const [premiumModalShow, setPremiumModalShow] = useState(false);
+  const [leaseModal, setLeaseModal] = useState(false);
   const [customizeTenantPortalModal, setCustomizeTenantPortalModal] =
     useState(false);
 
@@ -258,6 +260,33 @@ export default function GetStartedComponent(props: Props) {
               <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
           </div>
+          <div
+            className="bg-white rounded-xl overflow-hidden mt-5"
+            onClick={() => {
+              setLeaseModal(true);
+            }}
+          >
+            <div className="flex justify-between p-5">
+              <div className="w-[50%] flex gap-8 items-center justify-start">
+                <Image
+                  src="/tenant_icon.webp"
+                  alt="Icon"
+                  height={50}
+                  width={50}
+                />
+                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
+                  Add your lease
+                </p>
+                <Image
+                  src="/dropDownArrowBlack.webp"
+                  alt="Icon"
+                  height={25}
+                  width={25}
+                />
+              </div>
+              <div className="w-[50%] flex gap-5 justify-end items-center"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -278,6 +307,7 @@ export default function GetStartedComponent(props: Props) {
           onClose={() => setCustomizeTenantPortalModal(false)}
         />
       )}
+      {leaseModal && <AddLeaseModal onClose={() => setLeaseModal(false)} />}
     </div>
   );
 }
