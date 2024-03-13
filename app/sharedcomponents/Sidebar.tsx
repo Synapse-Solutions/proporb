@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import CreateNewPopup from "../components/CreateNewPopup";
 
@@ -63,6 +63,7 @@ interface Props {
 }
 export default function Sidebar(props: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
@@ -93,15 +94,34 @@ export default function Sidebar(props: Props) {
           <div className="flex flex-col gap-3 2xl:gap-5">
             {muneItems.map((item, index) => (
               <Link key={index} href={item.link}>
-                <button key={index} className="flex gap-3 items-center">
+                <button
+                  key={index}
+                  style={{
+                    color: pathname === item.link ? "#1ED760" : "",
+                  }}
+                  className="flex gap-3 items-center px-1 rounded-2xl"
+                >
                   <Image
                     src={item.icon}
                     alt="Icon"
                     width={25}
                     height={25}
                     className="h-[18px] 2xl:h-[25px] object-contain"
+                    style={
+                      pathname === item.link
+                        ? {
+                            filter:
+                              "invert(63%) sepia(93%) saturate(1352%) hue-rotate(83deg) brightness(103%) contrast(101%)",
+                          }
+                        : {}
+                    }
                   />
-                  <p className="text-white text-[12px] 2xl:text-[15px]">
+                  <p
+                    className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer"
+                    style={{
+                      color: pathname === item.link ? "#1ED760" : "white",
+                    }}
+                  >
                     {item.name}
                   </p>
                 </button>
@@ -176,7 +196,20 @@ export default function Sidebar(props: Props) {
             <div className="flex flex-col gap-5">
               {muneItems.map((item, index) => (
                 <div key={index} className="flex gap-3 items-center">
-                  <Image src={item.icon} alt="Icon" width={25} height={25} />
+                  <Image
+                    src={item.icon}
+                    alt="Icon"
+                    width={25}
+                    height={25}
+                    style={
+                      pathname === item.link
+                        ? {
+                            filter:
+                              "invert(63%) sepia(93%) saturate(1352%) hue-rotate(83deg) brightness(103%) contrast(101%)",
+                          }
+                        : {}
+                    }
+                  />
                 </div>
               ))}
             </div>
