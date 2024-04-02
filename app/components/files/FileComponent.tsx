@@ -6,6 +6,7 @@ import Sidebar from "@/app/sharedcomponents/Sidebar";
 import React, { useState } from "react";
 import AddFileModal from "./modals/AddFileModal";
 import ShowFileModal from "./modals/ShowFileModal";
+import Image from "next/image";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 export default function FileComponent() {
@@ -40,20 +41,38 @@ export default function FileComponent() {
               >
                 + Add File
               </button>
-              <div className="flex flex-wrap gap-5 pt-5">
+              <div className="flex flex-col gap-5 pt-5">
                 {array.map((item, index) => (
-                  <button
-                    onClick={() => setSelectedfile(item)}
-                    key={index}
-                    className="rounded-xl p-5 flex flex-col gap-5 shadow shadow-black w-[calc(15vw)]"
-                  >
-                    <p className="text-[12px] text-[#808191]">27 June, 2017</p>
-                    <p>Go to Town Hall</p>
-                    <p className="text-[15px] text-[#808191] text-start">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                    </p>
-                  </button>
+                  <div className="bg-[#D9F4E5] w-full flex py-3 rounded-lg justify-between px-5">
+                    <div className="flex">
+                      <Image
+                        src={"/file_icon.webp"}
+                        width={50}
+                        height={50}
+                        alt="file icon"
+                      />
+                      <div>
+                        <p>MyProperty.mp4</p>
+                        <p className="text-[#797979] text-[12px]">
+                          March 11, 2012 at 12;42pm
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-7 items-center">
+                      <button className="bg-[#1ED760] rounded-md px-7 py-2 text-white">
+                        View
+                      </button>
+                      <button className="bg-[#FBEFEC] rounded-md px-7 py-2 text-[#CF5D65] flex gap-2 items-center">
+                        <Image
+                          src={"/trash.webp"}
+                          width={20}
+                          height={20}
+                          alt="delete"
+                        />
+                        <p>Delete</p>
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
