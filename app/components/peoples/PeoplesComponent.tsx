@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import TenantDetailsModal from "./modals/TenantDetailsModal";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 const nestedMenuItems = ["Tenants", "Vendors", "Prospects"];
@@ -43,40 +44,53 @@ export default function PeoplesComponent() {
               <SearchView />
               <div className="mt-10">
                 <EmptyViewComponent
-                  onClick={() => setIsTenantShow(true)}
+                  // onClick={() => setIsTenantShow(true)}
                   title="No Tenant found"
                   buttonTitle="New Tenant"
                 />
               </div>
             </>
           ) : (
-            <div>
-              <div className="border border-gray-600 p-5 rounded-md flex flex-col items-center">
-                <Image
-                  src="/black_suit.webp"
-                  alt="properties"
-                  height={150}
-                  width={150}
-                />
-                <p className="text-[#000] text-[16px] mt-3">Name</p>
-                <p className="text-[#000] text-[15px]">
-                  100 Southeast Alder Street
-                </p>
-                <p className="text-[#8D8D8D] text-[13px]">Portland, QR 97724</p>
-                <p className="text-[#1ED760] text-[14px] mt-3">
-                  (924) 333 6456
-                </p>
-                <p className="text-[#1ED760] text-[12px] mt-3">
-                  Info@Email.com
-                </p>
-                <button className="bg-[#1ED760] rounded-full px-7 py-2 text-white mt-5">
-                  View Tenant
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-10 mt-10">
+              {array.map((item, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-600 p-5 w-[20%] rounded-md flex flex-col items-center"
+                >
+                  <Image
+                    src="/black_suit.webp"
+                    alt="properties"
+                    height={150}
+                    width={150}
+                  />
+                  <p className="text-[#000] text-[16px] mt-3">Name</p>
+                  <p className="text-[#000] text-[15px]">
+                    100 Southeast Alder Street
+                  </p>
+                  <p className="text-[#8D8D8D] text-[13px]">
+                    Portland, QR 97724
+                  </p>
+                  <p className="text-[#1ED760] text-[14px] mt-3">
+                    (924) 333 6456
+                  </p>
+                  <p className="text-[#1ED760] text-[12px] mt-3">
+                    Info@Email.com
+                  </p>
+                  <button
+                    onClick={() => setIsTenantShow(true)}
+                    className="bg-[#1ED760] rounded-full px-7 py-2 text-white mt-5"
+                  >
+                    View Tenant
+                  </button>
+                </div>
+              ))}
             </div>
           )}
         </div>
       </div>
+      {isTenantShow && (
+        <TenantDetailsModal onClose={() => setIsTenantShow(false)} />
+      )}
     </div>
   );
 }
