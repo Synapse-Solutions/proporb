@@ -11,7 +11,10 @@ export default function ShowFileModal({ onClose }: { onClose: any }) {
     >
       <div className="w-[40%]  bg-white border border-gray-400 rounded-xl  p-10 ">
         <div className="flex justify-between ">
-          <div></div>
+          <div>
+            <h1 className="text-[32px] font-bold">Note</h1>
+            <div className="h-[2px] bg-[#1ED760] w-[100px]" />
+          </div>
           <Image
             onClick={onClose}
             src="/cross_icon.webp"
@@ -24,28 +27,40 @@ export default function ShowFileModal({ onClose }: { onClose: any }) {
         <div className="flex justify-between  w-full mt-10">
           <p className="text-[14px] text-[#808191]">27 June, 2017</p>
           <div className="flex gap-5 items-center">
-            <Image
+            {/* <Image
               src="/tag.webp"
               alt="Edit"
               width={20}
               height={20}
               className="h-[30px] w-auto object-contain"
             />
-            <p>Tags</p>
+            <p>Tags</p> */}
           </div>
         </div>
-        <p>Go to Town Hall</p>
+        <div className="flex items-center gap-3">
+          <div className="h-3 w-3 bg-[#1ED760] rounded-full"></div>
+          <p> Go to Town Hall</p>
+        </div>
         <p className="text-[15px] text-[#808191]">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's
         </p>
-        <Image
-          src="/house.webp"
-          alt="File"
-          width={1000}
-          height={1000}
-          className="w-full h-auto mt-10"
-        />
+        <div className="flex justify-center gap-5 mb-5">
+          <Image
+            src="/house.webp"
+            alt="File"
+            width={1000}
+            height={1000}
+            className="w-[250px] h-auto mt-10"
+          />
+          <Image
+            src="/house.webp"
+            alt="File"
+            width={1000}
+            height={1000}
+            className="w-[250px] h-auto mt-10"
+          />
+        </div>
       </div>
     </div>
   );

@@ -178,7 +178,7 @@ export default function Sidebar(props: Props) {
         </>
       ) : (
         <div className="flex">
-          <div className="w-[20%]">
+          <div className="w-[20%] h-screen ">
             <div className="mr-5 my-10">
               <Image
                 src="/logo.webp"
@@ -189,18 +189,26 @@ export default function Sidebar(props: Props) {
               />
             </div>
             <div className="flex w-full justify-center my-10 mr-5">
-              <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[100%] flex justify-center items-center mr-2">
+              <button
+                onClick={() => setIsPopupOpen(true)}
+                className="bg-[#1ED760] text-white text-bold rounded-3xl py-2 w-[100%] flex justify-center items-center mr-2"
+              >
                 +
               </button>
             </div>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3 2xl:gap-5">
               {muneItems.map((item, index) => (
-                <div key={index} className="flex gap-3 items-center">
+                <Link
+                  href={item.link}
+                  key={index}
+                  className="flex  items-center"
+                >
                   <Image
                     src={item.icon}
                     alt="Icon"
                     width={25}
                     height={25}
+                    className="h-[18px] 2xl:h-[25px] object-contain"
                     style={
                       pathname === item.link
                         ? {
@@ -210,11 +218,11 @@ export default function Sidebar(props: Props) {
                         : {}
                     }
                   />
-                </div>
+                </Link>
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 absolute bottom-0 pb-20">
+            <div className="flex flex-col gap-3 absolute bottom-0 pb-5 2xl:pb-20 ">
               <div className="flex gap-2 items-center text-[#ffffff]">
                 <Image
                   src="/getStartedIcon.webp"
@@ -242,7 +250,13 @@ export default function Sidebar(props: Props) {
             </div>
           </div>
           <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5 text-white">
-            <button onClick={() => router.back()}> ← {props.activeTab}</button>
+            <button
+              className="text-[13px] 2xl:text-[15px]"
+              onClick={() => router.back()}
+            >
+              {" "}
+              ← {props.activeTab}
+            </button>
 
             {props.nestedMenuItems?.map((item, index) => (
               <div key={index} className="flex gap-3 items-center mt-5">

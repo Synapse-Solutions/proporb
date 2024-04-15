@@ -1,7 +1,7 @@
 "use client";
 import { BorderColor, Delete, MoreVert, Visibility } from "@mui/icons-material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const tenantArray = [1, 2, 3, 4, 5];
 interface Props {
@@ -12,6 +12,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
   const [selectedTenant, setSelectedTenant] = useState<null | number>(null);
   const [deletedItem, setDeletedItem] = useState<null | number>(null);
   const [viewModal, setViewModal] = useState<null | number>(null);
+  const [TwoXlSize, setTwoXlSize] = useState(false);
 
   const onDelete = (index: number) => {
     setDeletedItem(index);
@@ -24,6 +25,12 @@ export default function CustomizeTenantModal({ onClose }: Props) {
       setSelectedTenant(index);
     }
   };
+
+  useEffect(() => {
+    if (window.innerWidth > 1536) {
+      setTwoXlSize(true);
+    }
+  }, []);
   return (
     <div
       style={{
@@ -60,6 +67,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                         src="/profileIcon.webp"
                         width={60}
                         height={60}
+                        className="w-[45px] 2xl:w-[60px] h-[45px] 2xl:h-[60px] rounded-full"
                         alt="icon"
                       />
                       <div>
@@ -75,7 +83,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                     >
                       <MoreVert
                         style={{
-                          fontSize: "60px",
+                          fontSize: TwoXlSize ? "60px" : "40px",
                         }}
                       />
                       {selectedTenant === index && (

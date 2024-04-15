@@ -26,7 +26,7 @@ export default function AllTasksComponent() {
   return (
     <div className="h-screen overflow-y-scroll">
       <Sidebar
-        activeTab="Tasks and Maintenance"
+        activeTab="Tasks & Maintenance"
         nestedMenuItems={nestedMenuItems}
       />
       <div className="flex">

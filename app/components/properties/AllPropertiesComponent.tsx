@@ -32,7 +32,9 @@ export default function AllPropertiesComponent(props: Props) {
         <div className="w-[calc(85vw)] px-10 mt-10">
           <Navbar />
           <div className="flex items-center w-full justify-between mt-10">
-            <h1 className="text-black text-[30px]">Properties</h1>
+            <h1 className="text-black text-[26px] 2xl:text-[32px]">
+              Properties
+            </h1>
             <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
               + New Property
             </div>
@@ -50,7 +52,9 @@ export default function AllPropertiesComponent(props: Props) {
                   activeTab === item ? "border-[#1ED760]" : "border-gray-400"
                 }`}
               >
-                <h1 className="text-black text-[20px]">{item}</h1>
+                <h1 className="text-black text-[18px] 2xl:text-[20px] ">
+                  {item}
+                </h1>
               </button>
             ))}
           </div>
@@ -69,10 +73,10 @@ export default function AllPropertiesComponent(props: Props) {
                   />
                   <div className="flex flex-col justify-between">
                     <div>
-                      <h1 className="text-[#1ED760] text-[30px] font-bold ">
+                      <h1 className="text-[#1ED760] text-[26px] 2xl:text-[32px] font-bold ">
                         PKR 1.2 Crore
                       </h1>
-                      <p className="text-black text-[20px] ">
+                      <p className="text-black text-[18px] 2xl:text-[20px] ">
                         10 Marla House For Sale
                       </p>
                       <div className="flex items-center">
@@ -83,7 +87,7 @@ export default function AllPropertiesComponent(props: Props) {
                           height={25}
                           style={{ filter: "invert(1)" }}
                         />
-                        <p className="text-black text-[20px] ml-2">
+                        <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
                           F-11 Markaz, Islamabad
                         </p>
                       </div>
@@ -96,7 +100,9 @@ export default function AllPropertiesComponent(props: Props) {
                           width={25}
                           height={25}
                         />
-                        <p className="text-black text-[20px] ml-2">3</p>
+                        <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
+                          3
+                        </p>
                       </div>
                       <div className="flex space-x-3">
                         <Image
@@ -105,7 +111,9 @@ export default function AllPropertiesComponent(props: Props) {
                           width={25}
                           height={25}
                         />
-                        <p className="text-black text-[20px] ml-2">3</p>
+                        <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
+                          3
+                        </p>
                       </div>
                     </div>
                   </div>

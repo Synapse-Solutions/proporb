@@ -51,11 +51,11 @@ export default function PeoplesComponent() {
               </div>
             </>
           ) : (
-            <div className="flex flex-wrap gap-10 mt-10">
+            <div className="flex flex-wrap gap-5 2xl:gap-10 mt-10">
               {array.map((item, index) => (
                 <div
                   key={index}
-                  className="border border-gray-600 p-5 w-[20%] rounded-md flex flex-col items-center"
+                  className="border border-gray-600 p-5 w-[23%] 2xl:w-[20%] rounded-md flex flex-col items-center text-center"
                 >
                   <Image
                     src="/black_suit.webp"

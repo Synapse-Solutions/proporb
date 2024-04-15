@@ -16,6 +16,7 @@ export default function GetStartedComponent(props: Props) {
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
   const [premiumModalShow, setPremiumModalShow] = useState(false);
   const [leaseModal, setLeaseModal] = useState(false);
+  const [scheduleCall, setScheduleCall] = useState(false);
   const [customizeTenantPortalModal, setCustomizeTenantPortalModal] =
     useState(false);
 
@@ -95,7 +96,10 @@ export default function GetStartedComponent(props: Props) {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl overflow-hidden mt-5">
+          <div
+            onClick={() => setScheduleCall(!scheduleCall)}
+            className="bg-white rounded-xl overflow-hidden mt-5"
+          >
             <div className="flex justify-between p-5">
               <div className="w-[50%] flex gap-8 items-center justify-start">
                 <Image
@@ -116,6 +120,31 @@ export default function GetStartedComponent(props: Props) {
               </div>
               <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
+            {scheduleCall && (
+              <div className="p-6">
+                <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
+                <div className="flex justify-between items-center pt-5">
+                  <div className="w-[50%]">
+                    <p className="text-[#797979] max-w-[500px]">
+                      Get a free training on Zoom and learn the best tips and
+                      tricks to get the most of it.
+                    </p>
+
+                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
+                      Schedule a Call
+                    </button>
+                  </div>
+                  <div className="flex justify-end">
+                    <Image
+                      src="/schedulcall.webp"
+                      alt="Image"
+                      height={150}
+                      width={280}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div
             className="bg-white rounded-xl overflow-hidden mt-5"
