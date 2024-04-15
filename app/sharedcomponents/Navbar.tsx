@@ -26,7 +26,7 @@ export default function Navbar(props: NavbarProps) {
           </div>
         ) : (
           <>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <div className="flex justify-between bg-white mx-5 py-2 px-2 rounded-lg">
                 <select name="" id="" className="outline-none px-2">
                   <option value="option1">Filter 1</option>
@@ -41,7 +41,7 @@ export default function Navbar(props: NavbarProps) {
                   <option value="option1">Option 1</option>
                 </select>
               </div>
-            </div>
+            </div> */}
             <div>
               <Image src="/searchIcon.webp" alt="Icon" height={40} width={40} />
             </div>

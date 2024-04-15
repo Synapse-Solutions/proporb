@@ -69,11 +69,13 @@ let propertyTypes = [
     name: "Student Housing",
     ActiveIcon: "/property_green.webp",
     InactiveIcon: "/property_gray.webp",
+    isDisabled: true,
   },
   {
     name: "Vocational Rentals",
     ActiveIcon: "/property_green.webp",
     InactiveIcon: "/property_gray.webp",
+    isDisabled: true,
   },
   {
     name: "Community association",
@@ -206,7 +208,7 @@ export default function NewPropertyComponent() {
             <div className="bg-white rounded-xl p-6 mt-5">
               <div className="flex items-center">
                 {tabs.map((item, index) => (
-                  <div>
+                  <div className="text-start">
                     <div key={index} className="flex items-center">
                       {activeTab === index ? (
                         <Image
@@ -237,18 +239,25 @@ export default function NewPropertyComponent() {
                 <>
                   <div className="mt-5">
                     <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
-                      Select your property type
+                      Property Type
                     </p>
                     <div className="flex gap-5 mt-5">
                       {propertyTypes.map((item, index) => (
                         <button
                           key={index}
+                          disabled={item.isDisabled}
                           onClick={() => setPropertyType(index)}
                           className={`border ${
                             propertyType === index
                               ? "border-[#1ED760]"
                               : "border-gray-400"
-                          } p-5 flex flex-col items-center justify-center rounded-lg w-[17%]`}
+                          } p-5 flex flex-col items-center justify-center rounded-lg w-[17%] 
+                          ${
+                            item.isDisabled
+                              ? "cursor-not-allowed opacity-50"
+                              : ""
+                          }
+                          `}
                         >
                           <Image
                             alt={item.name}
@@ -267,7 +276,7 @@ export default function NewPropertyComponent() {
                   </div>
                   <div className="mt-10">
                     <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
-                      Select what best describes your Property
+                      What best describes your Property
                     </p>
                     <div className="flex flex-wrap items-center gap-5 mt-5">
                       {(propertyType === 0

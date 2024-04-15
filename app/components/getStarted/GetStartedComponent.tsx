@@ -62,10 +62,7 @@ export default function GetStartedComponent(props: Props) {
 
         <div>
           <div className="bg-white rounded-xl overflow-hidden mt-5">
-            <div
-              onClick={() => setIsSubscriptionModalOpen(true)}
-              className="flex justify-between p-5"
-            >
+            <div className="flex justify-between p-5">
               <div className="w-[50%] flex gap-8 items-center justify-start">
                 <Image
                   src="/thumbsUpIconGreen.webp"
@@ -161,7 +158,7 @@ export default function GetStartedComponent(props: Props) {
                   width={50}
                 />
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Add your Company Information
+                  Add Company Information
                 </p>
                 <Image
                   src="/dropDownArrowBlack.webp"
@@ -218,7 +215,7 @@ export default function GetStartedComponent(props: Props) {
                   width={50}
                 />
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Add your Properties
+                  Add Properties
                 </p>
                 <Image
                   src="/dropDownArrowBlack.webp"
@@ -277,7 +274,7 @@ export default function GetStartedComponent(props: Props) {
                   width={50}
                 />
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Customize your Tenant Portal
+                  Customize Tenant Portal
                 </p>
                 <Image
                   src="/dropDownArrowBlack.webp"
@@ -304,7 +301,7 @@ export default function GetStartedComponent(props: Props) {
                   width={50}
                 />
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Add your lease
+                  Add Lease
                 </p>
                 <Image
                   src="/dropDownArrowBlack.webp"
