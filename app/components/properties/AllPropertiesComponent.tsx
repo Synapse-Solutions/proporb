@@ -49,12 +49,12 @@ export default function AllPropertiesComponent(props: Props) {
                 key={index}
                 onClick={() => setActiveTab(item)}
                 className={`flex items-center justify-center pb-3 mt-5 w-1/3 border-b ${
-                  activeTab === item ? "border-[#1ED760]" : "border-gray-400"
+                  activeTab === item
+                    ? "border-[#1ED760] text-[#1ED760]"
+                    : "border-gray-400 text-black"
                 }`}
               >
-                <h1 className="text-black text-[18px] 2xl:text-[20px] ">
-                  {item}
-                </h1>
+                <h1 className=" text-[18px] 2xl:text-[20px] ">{item}</h1>
               </button>
             ))}
           </div>
