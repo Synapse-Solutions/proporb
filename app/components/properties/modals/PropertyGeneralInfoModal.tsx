@@ -145,7 +145,7 @@ interface Props {
 }
 export default function PropertyGeneralInfoModal({ onClose }: Props) {
   // ******* States *******
-  const [screenName, setScreenName] = useState("general information");
+  const [screenName, setScreenName] = useState<any>(0);
   const [propertyType, setPropertyType] = useState(0);
   const [selectedPropertyName, setSelectedPropertyName] = useState("");
   const [amenitedArray, setAmenitedArray] = useState(amenities);
@@ -154,6 +154,18 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
     let temp = [...amenities];
     temp[index].isSelected = !temp[index].isSelected;
     setAmenitedArray(temp);
+  };
+
+  const onClickNext = () => {
+    if (screenName < 4) {
+      setScreenName(screenName + 1);
+    }
+  };
+
+  const onClickBack = () => {
+    if (screenName > 0) {
+      setScreenName(screenName - 1);
+    }
   };
   return (
     <div
@@ -168,7 +180,7 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
           setActiveTab={setScreenName}
         />
         <div className="w-[75%] 2xl:w-[80%]  relative h-full">
-          {screenName === "General Information".toLocaleLowerCase() && (
+          {screenName === 0 && (
             <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
               <div className="flex justify-between ">
                 <div>
@@ -258,7 +270,7 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
               <div className="h-24" />
             </div>
           )}
-          {screenName === "photos" && (
+          {screenName === 1 && (
             <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
@@ -285,7 +297,7 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
               <div className="h-24" />
             </div>
           )}
-          {screenName === "property type" && (
+          {screenName === 2 && (
             <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
@@ -375,7 +387,7 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
               <div className="h-24" />
             </div>
           )}
-          {screenName === "amenities" && (
+          {screenName === 3 && (
             <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
@@ -417,7 +429,7 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
               <div className="h-24" />
             </div>
           )}
-          {screenName === "pet policy" && (
+          {screenName === 4 && (
             <div className="text-black w-full px-10 pt-10 overflow-auto h-full">
               <div className="flex justify-between ">
                 <div>
@@ -476,15 +488,26 @@ export default function PropertyGeneralInfoModal({ onClose }: Props) {
             </div>
           )}
           <div className="flex justify-between absolute bottom-0 pb-10 bg-white pt-3 w-[100%] left-0 px-[calc(3vw)] ">
-            <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full">
-              Back
-            </button>
-            <button
-              onClick={() => setScreenName("address")}
-              className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
-            >
-              Next
-            </button>
+            {screenName !== 0 ? (
+              <button
+                onClick={onClickBack}
+                className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full"
+              >
+                Back
+              </button>
+            ) : (
+              <div />
+            )}
+            {screenName < 4 ? (
+              <button
+                onClick={onClickNext}
+                className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
+              >
+                Next
+              </button>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>

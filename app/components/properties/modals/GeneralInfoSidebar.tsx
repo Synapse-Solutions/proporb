@@ -35,15 +35,13 @@ export default function GeneralInfoSidebar(props: Props) {
           <h1>{props.title || "Edit Property"}</h1>
         </div>
         <div className="px-5 space-y-5 text-base">
-          {tabs.map((tab, index) => (
+          {tabs.map((tab, index: any) => (
             <div
               key={index}
-              onClick={() => props.setActiveTab(tab.name.toLowerCase())}
+              onClick={() => props.setActiveTab(index)}
               style={{
                 backgroundColor:
-                  props.activeTab === tab.name.toLowerCase()
-                    ? "#5e5a5a"
-                    : "#191414",
+                  props.activeTab === index ? "#5e5a5a" : "#191414",
                 padding: "10px",
               }}
               className="flex gap-3 items-center rounded-lg"

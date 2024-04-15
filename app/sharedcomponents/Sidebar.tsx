@@ -164,7 +164,7 @@ export default function Sidebar(props: Props) {
                 <p className="text-[12px] 2xl:text-[15px]">Setting</p>
               </div>
             </Link>
-            <div className="flex gap-2 items-center text-[#ffffff]">
+            <Link href={"/"} className="flex gap-2 items-center text-[#ffffff]">
               <Image
                 src="/logoutIcon.webp"
                 alt="Icon"
@@ -173,7 +173,7 @@ export default function Sidebar(props: Props) {
                 className="h-[16px] 2xl:h-[25px] object-contain"
               />
               <p className="text-[12px]">Logout</p>
-            </div>
+            </Link>
           </div>
         </>
       ) : (
@@ -239,14 +239,17 @@ export default function Sidebar(props: Props) {
                   height={20}
                 />
               </div>
-              <div className="flex gap-2 items-center text-[#ffffff]">
+              <Link
+                href={"/"}
+                className="flex gap-2 items-center text-[#ffffff]"
+              >
                 <Image
                   src="/logoutIcon.webp"
                   alt="Icon"
                   width={20}
                   height={20}
                 />
-              </div>
+              </Link>
             </div>
           </div>
           <div className="bg-[#302b2b] w-[85%] h-[calc(100vh)] z-10 pt-20 px-5 text-white">

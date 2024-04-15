@@ -26,7 +26,7 @@ export default function NotificationsComponent(props: Props) {
             </div>
           </div>
           <div className="mt-10">
-            <div className="flex space-x-3">
+            <div className="flex space-x-5">
               <div
                 style={{
                   color: props.activeTab === "all" ? "#1ED760" : "#000000",
@@ -79,7 +79,9 @@ export default function NotificationsComponent(props: Props) {
                       alt="check"
                     />
                     <div>
-                      <p className="text-black">Subscription Renewal</p>
+                      <p className="text-black font-semibold">
+                        Subscription Renewal
+                      </p>
                       <p className="text-[#797979]">
                         Your subscription will renew in 3 days
                       </p>
