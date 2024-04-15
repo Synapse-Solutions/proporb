@@ -14,7 +14,7 @@ export default function Navbar(props: NavbarProps) {
       <div className="w-[50%]">
         <p className="text-black text-[20px] font-bold">Welcome, Ahsan👋</p>
       </div>
-      <div className="w-[50%] flex justify-evenly text-[15px]">
+      <div className="w-[50%] flex justify-end gap-10 text-[15px]">
         {props.isSearchBarVisible ? (
           <div className="bg-white border border-gray-300 rounded-lg px-2 h-12 flex items-center justify-between w-[calc(20vw)]">
             <input
@@ -26,24 +26,21 @@ export default function Navbar(props: NavbarProps) {
           </div>
         ) : (
           <>
-            <div className="flex justify-between bg-white mx-5 py-2 px-5 rounded-lg ">
-              <p className="text-black">Filter 1</p>
-              <Image
-                src="/dropDownArrowBlack.webp"
-                alt="Icon"
-                height={5}
-                width={20}
-              />
-            </div>
-
-            <div className="flex justify-between bg-white mx-5 py-2 px-5 rounded-lg">
-              <p className="text-black">Filter 2</p>
-              <Image
-                src="/dropDownArrowBlack.webp"
-                alt="Icon"
-                height={5}
-                width={20}
-              />
+            <div className="flex items-center">
+              <div className="flex justify-between bg-white mx-5 py-2 px-2 rounded-lg">
+                <select name="" id="" className="outline-none px-2">
+                  <option value="option1">Filter 1</option>
+                  <option value="option1">Option 1</option>
+                  <option value="option1">Option 1</option>
+                </select>
+              </div>
+              <div className="flex justify-between bg-white mx-5 py-2 px-2 rounded-lg">
+                <select name="" id="" className="outline-none px-2">
+                  <option value="option1">Filter 1</option>
+                  <option value="option1">Option 1</option>
+                  <option value="option1">Option 1</option>
+                </select>
+              </div>
             </div>
             <div>
               <Image src="/searchIcon.webp" alt="Icon" height={40} width={40} />

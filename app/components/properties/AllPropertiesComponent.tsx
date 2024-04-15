@@ -118,7 +118,7 @@ export default function AllPropertiesComponent(props: Props) {
                     </div>
                   </div>
                 </div>{" "}
-                <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12 pr-10 cursor-pointer">
+                <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12  cursor-pointer">
                   <Image
                     src={"/notepencil.webp"}
                     alt="heart"

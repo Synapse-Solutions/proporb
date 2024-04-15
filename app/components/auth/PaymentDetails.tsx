@@ -11,7 +11,7 @@ export default function PaymentDetails(props: Props) {
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
-      <div className="w-[calc(50vw)] px-10 ">
+      <div className="w-[calc(50vw)] px-10 overflow-auto pb-10">
         <h1 className="text-[12px] 2xl:text-[40px] font-bold ">
           Subscription Details
         </h1>
@@ -19,7 +19,7 @@ export default function PaymentDetails(props: Props) {
           Get started by entering your details
         </p>
         <div className="w-[90%] pl-[3%]">
-          <div className="mt-2 2xl:mt-5 text-[12px] 2xl:text-[20px]">
+          <div className="mt-2 2xl:mt-5 ">
             <div>
               <p className="">Plan Details</p>
               <select className="border-[1px] border-[#d0d5dd] rounded  h-10 2xl:h-14 w-[100%] px-3">

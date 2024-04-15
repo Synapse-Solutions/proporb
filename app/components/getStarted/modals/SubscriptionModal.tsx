@@ -53,7 +53,7 @@ export default function SubscriptionModal({
       }}
       className="w-[calc(100vw)] h-[calc(100vh)] fixed top-0 left-0 z-10 flex items-center justify-center"
     >
-      <div className="w-[90%] 2xl:w-[calc(80vw)] h-[calc(90vh)]  bg-white border border-black  flex ">
+      <div className="w-[80%] 2xl:w-[calc(75vw)] h-[calc(90vh)]  bg-white border border-black  flex ">
         <div className="w-[100%]  relative h-full">
           <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
             <div className="flex justify-between ">
@@ -71,7 +71,7 @@ export default function SubscriptionModal({
               />
             </div>
             <div className="flex justify-center gap-10 mt-10">
-              <div className="bg-[#F7F7F7] rounded-xl p-7 flex flex-col gap-3 w-[24%]">
+              <div className="bg-[#F7F7F7] rounded-xl p-7 flex flex-col gap-3 w-[28%] 2xl:w-[24%]">
                 <p>Starter Plan</p>
                 <p className="text-[#797979] text-[12px]">
                   Plan Price $59.00 /month
@@ -83,7 +83,7 @@ export default function SubscriptionModal({
                   upgrade plan
                 </button>
               </div>
-              <div className="bg-[#F7F7F7] rounded-xl p-7 flex flex-col gap-3 w-[24%]">
+              <div className="bg-[#F7F7F7] rounded-xl p-7 flex flex-col gap-3 w-[28%] 2xl:w-[24%]">
                 <p>Payment Method</p>
                 <div className="flex gap-3">
                   <div className="h-[23px] w-[23px] rounded-full border border-[#1ED760] flex items-center justify-center">

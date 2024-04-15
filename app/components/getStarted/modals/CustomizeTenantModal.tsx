@@ -83,7 +83,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                     >
                       <MoreVert
                         style={{
-                          fontSize: TwoXlSize ? "60px" : "40px",
+                          fontSize: TwoXlSize ? "50px" : "40px",
                         }}
                       />
                       {selectedTenant === index && (
@@ -178,7 +178,7 @@ export default function CustomizeTenantModal({ onClose }: Props) {
                   onClick={() => {}}
                   className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full w-1/2"
                 >
-                  Save
+                  Yes
                 </button>
               </div>
             </div>
