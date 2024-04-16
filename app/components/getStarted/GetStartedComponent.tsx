@@ -259,60 +259,6 @@ export default function GetStartedComponent(props: Props) {
               </div>
             )}
           </div>
-          <div
-            className="bg-white rounded-xl overflow-hidden mt-5"
-            onClick={() => {
-              setCustomizeTenantPortalModal(true);
-            }}
-          >
-            <div className="flex justify-between p-5">
-              <div className="w-[50%] flex gap-8 items-center justify-start">
-                <Image
-                  src="/tenant_icon.webp"
-                  alt="Icon"
-                  height={50}
-                  width={50}
-                />
-                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Customize Tenant Portal
-                </p>
-                <Image
-                  src="/dropDownArrowBlack.webp"
-                  alt="Icon"
-                  height={25}
-                  width={25}
-                />
-              </div>
-              <div className="w-[50%] flex gap-5 justify-end items-center"></div>
-            </div>
-          </div>
-          <div
-            className="bg-white rounded-xl overflow-hidden mt-5"
-            onClick={() => {
-              setLeaseModal(true);
-            }}
-          >
-            <div className="flex justify-between p-5">
-              <div className="w-[50%] flex gap-8 items-center justify-start">
-                <Image
-                  src="/tenant_icon.webp"
-                  alt="Icon"
-                  height={50}
-                  width={50}
-                />
-                <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
-                  Add Lease
-                </p>
-                <Image
-                  src="/dropDownArrowBlack.webp"
-                  alt="Icon"
-                  height={25}
-                  width={25}
-                />
-              </div>
-              <div className="w-[50%] flex gap-5 justify-end items-center"></div>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -9,20 +9,15 @@ import React, { useState } from "react";
 import NewTaskModal from "./models/NewTaskModal";
 
 const nestedMenuItems = [
-  "Unassigned Tasks",
-  "My Tasks",
-  "Tenant Requests",
-  "Recurring Tasks",
   "All Tasks",
+  "Tenant Requests",
+  "My Tasks",
+  "Unassigned Tasks",
 ];
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 export default function AllTasksComponent() {
   const [isTenantShow, setIsTenantShow] = useState(false);
-  const router = useRouter();
 
-  const onClickNewRental = () => {
-    router.push("/newtenant");
-  };
   return (
     <div className="h-screen overflow-y-scroll">
       <Sidebar
@@ -37,7 +32,7 @@ export default function AllTasksComponent() {
             <h1 className="text-black text-[30px]">All Tasks</h1>
             <div className="flex items-center gap-5">
               <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
-                + New Request
+                + New Task
               </div>
             </div>
           </div>

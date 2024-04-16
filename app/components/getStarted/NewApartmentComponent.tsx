@@ -177,8 +177,9 @@ export default function NewApartmentComponent() {
                         <div className="h-[1px] border border-dashed border-[gray] w-[calc(10vw)]" />
                       )}
                     </div>
-
-                    <p className="text-black text-sm mt-2 ">{item.name}</p>
+                    <div className="w-[150px] text-center -ml-[45px] ">
+                      <p className="text-black text-sm mt-2 ">{item.name}</p>
+                    </div>
                   </div>
                 ))}
               </div>

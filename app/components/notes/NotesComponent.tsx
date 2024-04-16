@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import AddNoteModal from "./modal/AddNoteModal";
 import ShowFileModal from "../files/modals/ShowFileModal";
+import Image from "next/image";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 export default function NotesComponent() {
@@ -24,19 +25,26 @@ export default function NotesComponent() {
           <div className="flex items-center w-full justify-between mt-10">
             <h1 className="text-black text-[30px]">All Notes</h1>
             <div className="flex items-center gap-5">
-              <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
-                + New Request
-              </div>
+              <button
+                onClick={() => setIsTenantShow(true)}
+                className="text-[#1ED760] gap-2 items-center  flex"
+              >
+                <Image
+                  src="/plus_circle.webp"
+                  width={20}
+                  height={20}
+                  alt="plus"
+                  className="object-contain"
+                />
+                <p> Add New Note</p>
+              </button>
             </div>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
           {array.length > 0 ? (
             <div className="mt-10">
-              <button
-                onClick={() => setIsTenantShow(true)}
-                className="bg-[#1ED760] rounded-full px-7 py-3 text-white"
-              >
-                + Add File
+              <button className="bg-[#1ED760] rounded-full px-7 py-3 text-white">
+                All
               </button>
               <div className="flex flex-wrap gap-5 pt-5">
                 {array.map((item, index) => (

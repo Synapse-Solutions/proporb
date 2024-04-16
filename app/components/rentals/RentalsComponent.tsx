@@ -18,7 +18,7 @@ export default function () {
   };
   return (
     <div className="h-screen overflow-y-scroll">
-      <Sidebar activeTab="Rental" nestedMenuItems={nestedMenuItems} />
+      <Sidebar />
       <div className="flex">
         <div className="w-[calc(15vw)]" />
         <div className="w-[calc(85vw)] px-10 mt-10">

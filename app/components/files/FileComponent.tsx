@@ -41,7 +41,7 @@ export default function FileComponent() {
               >
                 + Add File
               </button>
-              <div className="flex flex-col gap-5 pt-5">
+              <div className="flex flex-col gap-5 py-5">
                 {array.map((item, index) => (
                   <div className="bg-[#D9F4E5] w-full flex py-3 rounded-lg justify-between px-5">
                     <div className="flex">

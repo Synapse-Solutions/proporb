@@ -45,7 +45,7 @@ export default function CommunicationLogsComponent() {
               </div>
             </>
           ) : (
-            <div className=" mt-5">
+            <div className=" my-5">
               <div className="flex w-full border-b border-gray-600">
                 {tabs.map((tab, index) => (
                   <div key={index}>

@@ -4,8 +4,10 @@ import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React, { useState } from "react";
 import CreateAccountModal from "./modals/CreateAccountModal";
-import PropertyAddedModal from "./modals/PropertyAddedModal";
 import AddMultipleProModal from "./modals/AddMultipleProModal";
+import PropertyAddedSuccessModal from "../properties/modals/PropertyAddedSuccessModal";
+import AssociationBasisModal from "./modals/AssociationBasisModal";
+import CommunityRulesModal from "./modals/CommunityRulesModal";
 
 let tabs = [
   {
@@ -39,19 +41,10 @@ let properties = [
     name: "House",
   },
   {
-    name: "Shop",
+    name: "Apartment",
   },
   {
-    name: "Warehouse",
-  },
-  {
-    name: "Factory",
-  },
-  {
-    name: "Building",
-  },
-  {
-    name: "Other",
+    name: "Farm House",
   },
 ];
 let propertyTypes = [
@@ -102,9 +95,6 @@ let commercialProperties = [
   {
     name: "Restaurant",
   },
-  {
-    name: "Others",
-  },
 ];
 const studentProperties = [
   {
@@ -143,15 +133,19 @@ const vocationalProperties = [
 const communityProperties = [
   {
     name: "Residential Homes",
+    isDisabled: true,
   },
   {
     name: "Apartments",
+    isDisabled: false,
   },
   {
     name: "Villas",
+    isDisabled: true,
   },
   {
     name: "Others",
+    isDisabled: true,
   },
 ];
 const bankDetails = [
@@ -186,6 +180,7 @@ export default function NewPropertyComponent() {
   const [createAccountModal, setCreateAccountModal] = useState(false);
   const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
   const [multipleUnitsModal, setMultipleUnitsModal] = useState(false);
+  const [communityModal, setCommunityModal] = useState(0);
 
   const onAddSingleUnit = () => {
     setUnitsArray((prev) => [...prev, { beds: 0 }]);
@@ -194,6 +189,18 @@ export default function NewPropertyComponent() {
   const onAddMultipleUnits = () => {
     setMultipleUnitsModal(true);
     // setUnitsArray((prev) => [...prev, { beds: 0 }, { beds: 0 }]);
+  };
+  const onPressNext = () => {
+    // activeTab === 5 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
+    if (activeTab === 5) {
+      if (selectedPropertyName === "Apartments") {
+        setCommunityModal(1);
+      } else {
+        setIsSuccessModalShow(true);
+      }
+    } else {
+      setActiveTab(activeTab + 1);
+    }
   };
   return (
     <div className="h-screen overflow-y-scroll">
@@ -230,8 +237,9 @@ export default function NewPropertyComponent() {
                         <div className="h-[1px] border border-dashed border-[gray] w-[calc(10vw)]" />
                       )}
                     </div>
-
-                    <p className="text-black text-sm mt-2 ">{item.name}</p>
+                    <div className="w-[150px] text-center -ml-[45px] ">
+                      <p className="text-black text-sm mt-2 ">{item.name}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -291,6 +299,10 @@ export default function NewPropertyComponent() {
                       )?.map((item, index) => (
                         <button
                           key={index}
+                          disabled={
+                            (item as { name: string; isDisabled?: boolean })
+                              ?.isDisabled
+                          }
                           style={{
                             backgroundColor:
                               item.name === selectedPropertyName
@@ -302,6 +314,11 @@ export default function NewPropertyComponent() {
                             item.name === selectedPropertyName
                               ? "border-[#1ED760]"
                               : "border-gray-500"
+                          } ${
+                            (item as { name: string; isDisabled?: boolean })
+                              .isDisabled
+                              ? "cursor-not-allowed opacity-50"
+                              : ""
                           } px-4 p-2 rounded-xl flex gap-3 items-center`}
                         >
                           <Image
@@ -323,10 +340,10 @@ export default function NewPropertyComponent() {
                     Property owner information
                   </p>
                   <div className="mt-5">
-                    <p>Owner full name</p>
+                    <p>Full Name</p>
                     <input
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder="Enter Full Name"
                       className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                     />
                   </div>
@@ -335,7 +352,7 @@ export default function NewPropertyComponent() {
                       <p>Email</p>
                       <input
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder="Enter Email"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
                     </div>
@@ -371,6 +388,14 @@ export default function NewPropertyComponent() {
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property Property Address
                   </p>
+                  <div className="mt-5">
+                    <p>House No</p>
+                    <input
+                      type="text"
+                      placeholder="Enter House No"
+                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                    />
+                  </div>
                   <div className="mt-5">
                     <p>Street</p>
                     <input
@@ -682,11 +707,7 @@ export default function NewPropertyComponent() {
                   </button>
                 )}
                 <button
-                  onClick={() =>
-                    activeTab === 5
-                      ? setIsSuccessModalShow(true)
-                      : setActiveTab(activeTab + 1)
-                  }
+                  onClick={onPressNext}
                   className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
                 >
                   Next
@@ -700,13 +721,22 @@ export default function NewPropertyComponent() {
         <CreateAccountModal setIsCreateAccountModal={setCreateAccountModal} />
       )}
       {isSuccessModalShow && (
-        <PropertyAddedModal
+        <PropertyAddedSuccessModal
           setIsPropertyAddedModal={setIsSuccessModalShow}
           title="Property Added Successfully"
         />
       )}
       {multipleUnitsModal && (
         <AddMultipleProModal onClose={() => setMultipleUnitsModal(false)} />
+      )}
+      {communityModal === 1 && (
+        <AssociationBasisModal setCommunityModal={setCommunityModal} />
+      )}
+      {communityModal === 2 && (
+        <CommunityRulesModal
+          setCommunityModal={setCommunityModal}
+          setIsSuccessModalShow={setIsSuccessModalShow}
+        />
       )}
     </div>
   );

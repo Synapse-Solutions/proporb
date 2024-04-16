@@ -6,6 +6,22 @@ interface Props {
   onClose?: () => void;
 }
 export default function AddMultipleProModal(props: Props) {
+  const [floors, setFloors] = useState([
+    {
+      floor: 1,
+      unit: 2,
+    },
+  ]);
+
+  const onAddFloor = () => {
+    setFloors((prev) => [
+      ...prev,
+      {
+        floor: prev.length + 1,
+        unit: prev.length + 2,
+      },
+    ]);
+  };
   return (
     <div
       className="h-full w-full flex items-center justify-center fixed top-0 right-0"
@@ -13,62 +29,64 @@ export default function AddMultipleProModal(props: Props) {
         backgroundColor: "rgba(0,0,0,0.5)",
       }}
     >
-      <div className="w-[calc(80vw)] bg-white p-10 text-black overflow-auto h-screen relative flex flex-col items-center">
-        <Image
-          onClick={props.onClose}
-          src="/cross_icon.webp"
-          width={40}
-          height={40}
-          alt="cross icon"
-          className="cursor-pointer absolute top-5 right-5"
-        />
-        <div className="flex w-full justify-center items-center mt-14">
-          <Image src="/info_icon.webp" width={70} height={70} alt="icon" />
-        </div>
-        <p className="font-semibold text-center mt-10">
-          Add multiple properties
-        </p>
-        <p className="font-semibold text-center text-[#AAAAAA]">
-          Either upload the csv file or add Bulk Units
-        </p>
-
-        <div className="flex flex-col justify-center w-[70%] mt-10">
-          <div className="mt-3">
-            <p>Enter Number of Units</p>
-            <input
-              type="text"
-              className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
-            />
+      <div className="w-[calc(80vw)] bg-white py-10 px-[3%] text-black overflow-auto h-[90vh] relative flex flex-col items-center">
+        <div className="flex justify-between w-full">
+          <div>
+            <h1 className="text-[32px] font-bold">
+              ADD MULTIPLE FLOOR & UNITS
+            </h1>
+            <div className="h-[2px] bg-[#1ED760] w-[100px]" />
           </div>
-          <div className="mt-3">
-            <p>Number of Beds for each Unit</p>
-            <input
-              type="text"
-              className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
-            />
-          </div>
-          <div className="mt-3">
-            <p>Number Of Floors</p>
-            <input
-              type="text"
-              className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
-            />
-          </div>
-          <div className="mt-3">
-            <p>Floor Number for the Units</p>
-            <input
-              type="text"
-              className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
-            />
-          </div>
+          <Image
+            onClick={props.onClose}
+            src="/cross_icon.webp"
+            alt="Icon"
+            width={50}
+            height={50}
+            className="cursor-pointer object-contain"
+          />
         </div>
 
-        <button
-          onClick={() => {}}
-          className="bg-[#1ED760] text-white py-2 px-8 rounded-full mt-10 "
-        >
-          Submit
-        </button>
+        <div className="w-full mt-10 overflow-auto h-[75%] ">
+          {floors.map((floor, index) => (
+            <div key={index} className="flex w-full gap-10 mt-5">
+              <div className="w-1/2">
+                <p>Floor Number {index + 1}</p>
+                <input
+                  type="text"
+                  className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
+                />
+              </div>
+              <div className="w-1/2">
+                <p>Unit Number {index + 1}</p>
+                <input
+                  type="text"
+                  className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex w-full justify-between px-[3%]">
+          <button
+            onClick={onAddFloor}
+            className="bg-[#1ED760] text-white py-3 px-3 rounded-xl mt-10 "
+          >
+            Add More Floors
+          </button>
+          <button
+            onClick={() => {}}
+            className="bg-[#1ED760] text-white py-3 px-3 rounded-xl mt-10 "
+          >
+            Equally Divide Number of Units with Number of floors
+          </button>
+          <button
+            onClick={props.onClose}
+            className="bg-[#1ED760] text-white py-3 px-3 rounded-xl mt-10 "
+          >
+            Skip For Now
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -60,6 +60,8 @@ const muneItems = [
 interface Props {
   activeTab?: string;
   nestedMenuItems?: string[];
+  selectedSidebarTab?: number;
+  setSelectedSidebarTab?: (value: number) => void;
 }
 export default function Sidebar(props: Props) {
   const router = useRouter();
@@ -262,9 +264,18 @@ export default function Sidebar(props: Props) {
             </button>
 
             {props.nestedMenuItems?.map((item, index) => (
-              <div key={index} className="flex gap-3 items-center mt-5">
+              <button
+                onClick={() =>
+                  props.setSelectedSidebarTab &&
+                  props.setSelectedSidebarTab(index)
+                }
+                key={index}
+                className={`flex gap-3 items-center mt-5
+                ${props.selectedSidebarTab === index ? "text-[#1ED760]" : ""}
+                `}
+              >
                 <p className="text-[13px]">{item}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>

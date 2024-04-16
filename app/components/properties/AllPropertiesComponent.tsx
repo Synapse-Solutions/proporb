@@ -7,16 +7,27 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const tabs = [
-  "All Properties",
-  "Resedential Properties",
-  "Commercial Properties",
+const residentialProperties = ["House", "Apartment", "Farm House"];
+let commercialProperties = [
+  "Office",
+  "Rental Space",
+  "Buildings",
+  "Warehouse",
+  "Factory",
+  "Restaurant",
+];
+const communityProperties = [
+  "Residential Homes",
+  "Apartments",
+  "Villas",
+  "Others",
 ];
 
 const nestedMenuItems = [
   "All Properties",
   "Resedential Properties",
   "Commercial Properties",
+  "Community Association",
 ];
 
 interface Props {
@@ -24,9 +35,22 @@ interface Props {
 }
 export default function AllPropertiesComponent(props: Props) {
   const [activeTab, setActiveTab] = useState("All Properties");
+  const [selectedSidebarTab, setSelectedSidebarTab] = useState(0);
+
+  const tabs =
+    selectedSidebarTab === 0
+      ? residentialProperties
+      : selectedSidebarTab === 1
+      ? commercialProperties
+      : communityProperties;
   return (
     <div className="h-screen overflow-y-scroll">
-      <Sidebar activeTab="Properties" nestedMenuItems={nestedMenuItems} />
+      <Sidebar
+        selectedSidebarTab={selectedSidebarTab}
+        setSelectedSidebarTab={setSelectedSidebarTab}
+        activeTab="Properties"
+        nestedMenuItems={nestedMenuItems}
+      />
       <div className="flex">
         <div className="w-[calc(15vw)]" />
         <div className="w-[calc(85vw)] px-10 mt-10">
@@ -35,29 +59,34 @@ export default function AllPropertiesComponent(props: Props) {
             <h1 className="text-black text-[26px] 2xl:text-[32px]">
               Properties
             </h1>
-            <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+            <Link
+              href={"/newproperty"}
+              className="bg-[#1ED760] rounded-full px-7 py-2 text-white"
+            >
               + New Property
-            </div>
+            </Link>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
 
           {props.array.length === 0 && <EmptyView />}
 
-          <div className="flex justify-between items-center">
-            {tabs.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(item)}
-                className={`flex items-center justify-center pb-3 mt-5 w-1/3 border-b ${
-                  activeTab === item
-                    ? "border-[#1ED760] text-[#1ED760]"
-                    : "border-gray-400 text-black"
-                }`}
-              >
-                <h1 className=" text-[18px] 2xl:text-[20px] ">{item}</h1>
-              </button>
-            ))}
-          </div>
+          {selectedSidebarTab !== 0 && (
+            <div className="flex justify-between items-center">
+              {tabs.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTab(item)}
+                  className={`flex items-center justify-center pb-3 mt-5 w-1/3 border-b ${
+                    activeTab === item
+                      ? "border-[#1ED760] text-[#1ED760]"
+                      : "border-gray-400 text-black"
+                  }`}
+                >
+                  <h1 className=" text-[18px] 2xl:text-[20px] ">{item}</h1>
+                </button>
+              ))}
+            </div>
+          )}
           {props.array.map((item, index) => (
             <Link href={`/singleproperty`}>
               <div
