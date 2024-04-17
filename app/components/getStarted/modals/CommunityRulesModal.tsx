@@ -254,8 +254,8 @@ export default function CommunityRulesModal(props: Props) {
         <div className="flex w-full justify-center px-[3%]">
           <button
             onClick={() => {
-              props.setCommunityModal(0);
-              props.setIsSuccessModalShow(true);
+              props.setCommunityModal(3);
+              // props.setIsSuccessModalShow(true);
             }}
             className="bg-[#1ED760] text-white py-3 px-3 rounded-xl mt-10 w-[25%] flex justify-center"
           >

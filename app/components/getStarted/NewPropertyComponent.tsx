@@ -8,6 +8,8 @@ import AddMultipleProModal from "./modals/AddMultipleProModal";
 import PropertyAddedSuccessModal from "../properties/modals/PropertyAddedSuccessModal";
 import AssociationBasisModal from "./modals/AssociationBasisModal";
 import CommunityRulesModal from "./modals/CommunityRulesModal";
+import BasicInfoModal from "./modals/BasicInfoModal";
+import UnitConfigurationModal from "./modals/UnitConfigurationModal";
 
 let tabs = [
   {
@@ -737,6 +739,12 @@ export default function NewPropertyComponent() {
           setCommunityModal={setCommunityModal}
           setIsSuccessModalShow={setIsSuccessModalShow}
         />
+      )}
+      {communityModal === 3 && (
+        <BasicInfoModal setCommunityModal={setCommunityModal} />
+      )}
+      {communityModal === 4 && (
+        <UnitConfigurationModal setCommunityModal={setCommunityModal} />
       )}
     </div>
   );

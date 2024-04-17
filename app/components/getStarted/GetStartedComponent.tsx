@@ -8,6 +8,7 @@ import SubscriptionModal from "./modals/SubscriptionModal";
 import PremiumPlanModal from "./modals/PremiumPlanModal";
 import CustomizeTenantModal from "./modals/CustomizeTenantModal";
 import AddLeaseModal from "./modals/AddLeaseModal";
+import AskUsAnythingModal from "./modals/AskUsAnythingModal";
 
 interface Props {}
 export default function GetStartedComponent(props: Props) {
@@ -17,6 +18,7 @@ export default function GetStartedComponent(props: Props) {
   const [premiumModalShow, setPremiumModalShow] = useState(false);
   const [leaseModal, setLeaseModal] = useState(false);
   const [scheduleCall, setScheduleCall] = useState(false);
+  const [contactModal, setContactModal] = useState(false);
   const [customizeTenantPortalModal, setCustomizeTenantPortalModal] =
     useState(false);
 
@@ -54,7 +56,10 @@ export default function GetStartedComponent(props: Props) {
             <p className="text-[#797979] text-[11px]  2xl:text-[17px] my-4">
               If you need any help, we’re here to help you!
             </p>
-            <button className="bg-[#1ED760] text-white text-[12px]  2xl:text-[20px] text-bold rounded-3xl py-2 w-full flex justify-center items-center mt-5">
+            <button
+              onClick={() => setContactModal(true)}
+              className="bg-[#1ED760] text-white text-[12px]  2xl:text-[20px] text-bold rounded-3xl py-2 w-full flex justify-center items-center mt-5"
+            >
               Ask us anything
             </button>
           </div>
@@ -280,6 +285,9 @@ export default function GetStartedComponent(props: Props) {
         />
       )}
       {leaseModal && <AddLeaseModal onClose={() => setLeaseModal(false)} />}
+      {contactModal && (
+        <AskUsAnythingModal onClose={() => setContactModal(false)} />
+      )}
     </div>
   );
 }

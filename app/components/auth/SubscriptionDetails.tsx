@@ -19,7 +19,7 @@ export default function SubscriptionDetails(props: Props) {
         </p>
 
         <div className="flex flex-col items-center mt-8">
-          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 w-[calc(20vw)]">
+          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 w-[calc(100%)] text-center">
             <h1 className="text-black text-[15px] 2xl:text-[30px] font-bold">
               Landlord & Agent
             </h1>
@@ -33,7 +33,7 @@ export default function SubscriptionDetails(props: Props) {
               Buy Plan
             </div>
           </div>
-          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 mt-5 2xl:mt-10 w-[calc(20vw)]">
+          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 mt-5 2xl:mt-10 w-[calc(100%)] text-center">
             <h1 className="text-black text-[15px] 2xl:text-[30px] font-bold">
               Tenants
             </h1>
@@ -44,11 +44,11 @@ export default function SubscriptionDetails(props: Props) {
               Invite Your Landlord
             </div>
           </div>
-          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 mt-5 2xl:mt-10 w-[calc(20vw)]">
+          <div className="bg-[#F7F7F7] p-5 rounded-lg space-y-3 mt-5 2xl:mt-10 w-[calc(100%)] text-center">
             <h1 className="text-black text-[15px] 2xl:text-[30px] font-bold">
               XYZ
             </h1>
-            <div className="flex">
+            <div className="flex justify-center">
               <div
                 onClick={() => setIsChecked(!isChecked)}
                 className="w-[20px] h-[20px] border border-[#1ED760] rounded-full flex items-center justify-center p-[3px] mr-2"

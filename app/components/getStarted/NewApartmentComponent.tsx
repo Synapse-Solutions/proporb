@@ -151,7 +151,7 @@ export default function NewApartmentComponent() {
           <Navbar isSearchBarVisible={true} />
 
           <div className="mt-10">
-            <p className="text-[25px] font-bold">New Property</p>
+            <p className="text-[25px] font-bold">New Apartment</p>
             <div className="bg-white rounded-xl p-6 mt-5">
               <div className="flex items-center">
                 {tabs.map((item, index) => (
@@ -191,10 +191,10 @@ export default function NewApartmentComponent() {
                     </p>
                     <div className="mt-5 flex gap-5 w-full justify-between">
                       <div className="w-[47%]">
-                        <p>Apartment ID</p>
+                        <p>House Number</p>
                         <input
                           type="text"
-                          placeholder="ID"
+                          placeholder="House Number"
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         />
                       </div>
@@ -212,22 +212,22 @@ export default function NewApartmentComponent() {
                         <p>Rent Amount</p>
                         <input
                           type="text"
-                          placeholder="amount"
+                          placeholder="Amount"
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         />
                       </div>
                       <div className="w-[47%]">
-                        <p>Bedrooms</p>
+                        <p>Number of rooms</p>
                         <input
                           type="text"
-                          placeholder="Bedrooms"
+                          placeholder="Number of rooms"
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         />
                       </div>
                     </div>
                     <div className="mt-5 flex gap-5 w-full justify-between">
                       <div className="w-[47%]">
-                        <p>Apartment Sq ft</p>
+                        <p>Area/ Sq/ ft</p>
                         <input
                           type="text"
                           placeholder="ft"
@@ -238,7 +238,7 @@ export default function NewApartmentComponent() {
                         <p>Bathrooms</p>
                         <input
                           type="text"
-                          placeholder="Number of bathrooms"
+                          placeholder="Number of Bathrooms"
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         />
                       </div>
@@ -249,40 +249,14 @@ export default function NewApartmentComponent() {
               {activeTab === 1 && (
                 <div className="mt-10">
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
-                    Property owner information
+                    Apartment Owner Information
                   </p>
                   <div className="mt-5">
-                    <p>Owner full name</p>
+                    <p className="font-semibold">Owner First & Last Name</p>
                     <input
                       type="text"
-                      placeholder="Enter your full name"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                    />
-                  </div>
-                  <div className="mt-5 flex gap-5 w-full justify-between">
-                    <div className="w-[47%]">
-                      <p>Email</p>
-                      <input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                    <div className="w-[47%]">
-                      <p>Mobile Number</p>
-                      <input
-                        type="number"
-                        placeholder="Enter your mobile number"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-[100%] mt-5">
-                    <p>CNIC</p>
-                    <input
-                      type="number"
-                      placeholder="Enter your cnic number"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                      placeholder="Full Name"
+                      className="w-[70%] rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                     />
                   </div>
                 </div>
@@ -290,51 +264,15 @@ export default function NewApartmentComponent() {
               {activeTab === 2 && (
                 <div className="mt-10">
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
-                    Property Property Address
+                    Apartment Address
                   </p>
                   <div className="mt-5">
-                    <p>Street</p>
+                    <p className="font-semibold">Building Floor Number</p>
                     <input
                       type="text"
-                      placeholder="Enter street name"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                      placeholder="Building Floor Number"
+                      className="w-[70%] rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                     />
-                  </div>
-                  <div className="mt-5 flex gap-5 w-full justify-between">
-                    <div className="w-[47%]">
-                      <p>City</p>
-                      <input
-                        type="text"
-                        placeholder="Enter city name"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                    <div className="w-[47%]">
-                      <p>Province</p>
-                      <input
-                        type="number"
-                        placeholder="Enter your province name"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-5 flex gap-5 w-full justify-between">
-                    <div className="w-[47%]">
-                      <p>Country</p>
-                      <input
-                        type="text"
-                        placeholder="Enter Country name"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                    <div className="w-[47%]">
-                      <p>ZIP Code</p>
-                      <input
-                        type="number"
-                        placeholder="ZIP Code"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
                   </div>
                 </div>
               )}
