@@ -24,16 +24,16 @@ export default function () {
         <div className="w-[calc(85vw)] px-10 mt-10">
           <Navbar isSearchBarVisible={true} />
           <div className="flex items-center w-full justify-between mt-10">
-            <h1 className="text-black text-[30px]">Properties</h1>
+            <h1 className="text-black text-[30px]">Rentals</h1>
             <div className="flex items-center gap-5">
               <Link href="/newrental">
                 <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
                   + New Rentals
                 </div>
               </Link>
-              <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+              {/* <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
                 + New Tenant
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />

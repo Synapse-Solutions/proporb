@@ -8,11 +8,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import TenantDetailsModal from "./modals/TenantDetailsModal";
+import AddTenant from "../rentals/models/AddTenant";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 const nestedMenuItems = ["Tenants", "Vendors", "Prospects"];
 export default function PeoplesComponent() {
   const [isTenantShow, setIsTenantShow] = useState(false);
+  const [addTenantModal, setAddTenantModal] = useState(false);
   const router = useRouter();
 
   const onClickNewRental = () => {
@@ -33,7 +35,10 @@ export default function PeoplesComponent() {
                   + New Rentals
                 </div>
               </Link>
-              <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+              <div
+                onClick={() => setAddTenantModal(true)}
+                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer"
+              >
                 + New Tenant
               </div>
             </div>
@@ -44,7 +49,6 @@ export default function PeoplesComponent() {
               <SearchView />
               <div className="mt-10">
                 <EmptyViewComponent
-                  // onClick={() => setIsTenantShow(true)}
                   title="No Tenant found"
                   buttonTitle="New Tenant"
                 />
@@ -91,6 +95,7 @@ export default function PeoplesComponent() {
       {isTenantShow && (
         <TenantDetailsModal onClose={() => setIsTenantShow(false)} />
       )}
+      {addTenantModal && <AddTenant onClose={() => setAddTenantModal(false)} />}
     </div>
   );
 }

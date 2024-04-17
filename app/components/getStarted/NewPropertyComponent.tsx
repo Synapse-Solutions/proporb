@@ -10,6 +10,8 @@ import AssociationBasisModal from "./modals/AssociationBasisModal";
 import CommunityRulesModal from "./modals/CommunityRulesModal";
 import BasicInfoModal from "./modals/BasicInfoModal";
 import UnitConfigurationModal from "./modals/UnitConfigurationModal";
+import OwnerShipModal from "./modals/OwnerShipModal";
+import LeasingInfoModal from "./modals/LeasingInfoModal";
 
 let tabs = [
   {
@@ -745,6 +747,12 @@ export default function NewPropertyComponent() {
       )}
       {communityModal === 4 && (
         <UnitConfigurationModal setCommunityModal={setCommunityModal} />
+      )}
+      {communityModal === 5 && (
+        <OwnerShipModal setCommunityModal={setCommunityModal} />
+      )}
+      {communityModal === 6 && (
+        <LeasingInfoModal setCommunityModal={setCommunityModal} />
       )}
     </div>
   );

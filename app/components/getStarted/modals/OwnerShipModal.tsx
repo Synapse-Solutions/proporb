@@ -7,7 +7,7 @@ interface Props {
   onClose?: () => void;
   setCommunityModal: (value: number) => void;
 }
-export default function UnitConfigurationModal(props: Props) {
+export default function OwnerShipModal(props: Props) {
   return (
     <div
       className="h-full w-full flex items-center justify-center fixed top-0 right-0"
@@ -18,7 +18,9 @@ export default function UnitConfigurationModal(props: Props) {
       <div className="w-[calc(80vw)] bg-white py-10 px-[3%] text-black h-[92vh] relative flex flex-col items-center">
         <div className="flex justify-between w-full">
           <div>
-            <h1 className="text-[32px] font-bold">Unit Configuration</h1>
+            <h1 className="text-[32px] font-bold">
+              Ownership & Tenant Details
+            </h1>
             <div className="h-[2px] bg-[#1ED760] w-[100px]" />
           </div>
           <Image
@@ -33,19 +35,19 @@ export default function UnitConfigurationModal(props: Props) {
         <div className="w-full mt-10 h-[80%] overflow-auto">
           <div className="w-full flex items-center border-b-2 border-[#E4E7EC] p-3">
             <p style={{ flex: 1 }} className="text-center">
-              Unique ID
+              Unit ID
             </p>
             <p style={{ flex: 1 }} className="text-center">
               Unit Name
             </p>
             <p style={{ flex: 1 }} className="text-center">
-              Floors
+              Owner
             </p>
             <p style={{ flex: 1 }} className="text-center">
-              Number Of Bedrooms
+              Mobile
             </p>
             <p style={{ flex: 1 }} className="text-center">
-              Area
+              Email
             </p>
           </div>
 
@@ -82,7 +84,7 @@ export default function UnitConfigurationModal(props: Props) {
 
         <div className="flex w-full justify-center px-[3%]">
           <button
-            onClick={() => props.setCommunityModal(5)}
+            onClick={() => props.setCommunityModal(6)}
             className="bg-[#1ED760] text-white py-3 px-3 rounded-xl mt-10 w-[20%] flex justify-center"
           >
             Review & Submit

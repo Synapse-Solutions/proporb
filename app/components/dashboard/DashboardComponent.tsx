@@ -59,7 +59,7 @@ export default function DashboardComponent() {
   return (
     <div>
       <Sidebar />
-      <div className="w-[calc(85vw)] ml-[calc(15vw)] h-[calc(100vh)] p-8 px-12 overflow-x-hidden">
+      <div className="w-[calc(85vw)] ml-[calc(15vw)] h-[calc(100vh)] p-8 px-12 overflow-x-hidden z-10">
         <Navbar />
         <div className="flex gap-5 w-full mt-10">
           <div className="bg-white rounded-xl p-10 w-[45%] overflow-auto">

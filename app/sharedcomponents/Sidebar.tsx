@@ -72,7 +72,7 @@ export default function Sidebar(props: Props) {
     <div
       className={`w-[calc(16vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
         !props.activeTab ? "px-5 py-5" : "pl-5"
-      } fixed top-0 left-0`}
+      } fixed top-0 left-0 z-10`}
     >
       {!props.activeTab ? (
         <>

@@ -110,6 +110,7 @@ export default function GetStartedComponent(props: Props) {
                   height={50}
                   width={50}
                 />
+
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
                   Schedule an Onboarding session
                 </p>
@@ -131,10 +132,21 @@ export default function GetStartedComponent(props: Props) {
                       Get a free training on Zoom and learn the best tips and
                       tricks to get the most of it.
                     </p>
-
-                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
-                      Schedule a Call
-                    </button>
+                    <div className="flex items-center gap-5 mt-5">
+                      <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center ">
+                        Schedule a Call
+                      </button>
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src="/mark_as_read.webp"
+                          alt="calendar"
+                          height={50}
+                          width={50}
+                          className="h-[30px] object-contain w-auto"
+                        />
+                        <p className="text-[#1ED760]">Mark as Completed</p>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex justify-end">
                     <Image

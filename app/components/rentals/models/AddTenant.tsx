@@ -3,12 +3,14 @@ import EmptyViewComponent from "@/app/sharedcomponents/EmptyViewComponent";
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
 import { on } from "events";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface Props {
   onClose?: () => void;
 }
 export default function AddTenant({ onClose }: Props) {
+  const router = useRouter();
   // ******* States *******
   const [screenName, setScreenName] = useState("");
   const [contactNumbers, setContactNumbers] = useState([
@@ -103,12 +105,15 @@ export default function AddTenant({ onClose }: Props) {
                     />
                   </div>
                 </div>
-                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+                <div
+                  onClick={() => setScreenName("personal")}
+                  className="bg-[#1ED760] rounded-full px-7 py-3 text-white cursor-pointer"
+                >
                   + New Tenant
                 </div>
               </div>
               <EmptyViewComponent
-                onClick={() => setScreenName("personal")}
+                onClick={() => router.push("/newproperty")}
                 title="No Property found"
                 buttonTitle="New Property"
               />

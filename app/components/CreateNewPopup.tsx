@@ -232,9 +232,9 @@ export default function CreateNewPopup(props: Props) {
       style={{
         backgroundColor: "rgba(0,0,0,0.5)",
       }}
-      className="fixed w-full top-0 left-0 h-full flex items-center justify-center z-20"
+      className="fixed w-full top-0 left-0 h-full flex items-center justify-center z-50"
     >
-      <div className="w-[calc(80vw)] max-h-[90vh] overflow-auto bg-white p-10 ">
+      <div className="w-[calc(80vw)] max-h-[90vh] overflow-auto bg-white p-10 z-40">
         <div className="flex w-full justify-between">
           <div>
             <p className="text-black font-bold">Create New</p>
