@@ -68,16 +68,7 @@ export default function CompanyInformationModal(props: Props) {
               />
               <p className="text-base">General Information</p>
             </div>
-            <div
-              className="flex gap-3 items-center px-4 py-2 rounded-xl"
-              style={{ backgroundColor: activeScreen === 2 ? "#5E5A5A" : "" }}
-              onClick={() => {
-                setActiveScreen(2);
-              }}
-            >
-              <Image src="/urlIcon.webp" alt="Icon" height={25} width={25} />
-              <p className="text-base">URL</p>
-            </div>
+
             <div
               className="flex gap-3 items-center px-4 py-2 rounded-xl"
               style={{ backgroundColor: activeScreen === 3 ? "#5E5A5A" : "" }}
@@ -230,60 +221,6 @@ export default function CompanyInformationModal(props: Props) {
                 </div>
               </div>
               <div className="h-20 w-full" />
-            </div>
-          )}
-
-          {activeScreen === 2 && (
-            <div className="w-full px-8 py-8 relative">
-              <div className="flex justify-between">
-                <div>
-                  <h1 className="text-[32px] font-bold">URL</h1>
-                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
-                </div>
-                <Image
-                  onClick={props.onClose}
-                  className="cursor-pointer"
-                  src="/cross_icon.webp"
-                  alt="Icon"
-                  height={25}
-                  width={45}
-                />
-              </div>
-              <div className="w-full mt-10">
-                <div className="w-[100%] my-5">
-                  <p className="text-black font-medium mb-1">
-                    You can modify your DoorLoop URL to match your company
-                    brand.
-                  </p>
-                  <input
-                    type="text"
-                    placeholder="Enter company name"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-                <div className="w-[100%] flex gap-10 my-4">
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">
-                      Primary Email Address
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter Primary Email Address"
-                      className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                    />
-                  </div>
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">
-                      Primary Phone Number
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter Primary Phone Number"
-                      className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           )}
 

@@ -8,7 +8,7 @@ interface Props {
 export default function AskUsAnythingModal(props: Props) {
   return (
     <div
-      className="h-full w-full flex items-center justify-center fixed top-0 right-0"
+      className="h-full w-full flex items-center justify-center fixed top-0 right-0 z-20"
       style={{
         backgroundColor: "rgba(0,0,0,0.5)",
       }}
