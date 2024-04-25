@@ -7,6 +7,7 @@ interface Props {
   notifications: any;
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  onDelete: (index: number) => void;
 }
 export default function NotificationsComponent(props: Props) {
   return (
@@ -89,7 +90,10 @@ export default function NotificationsComponent(props: Props) {
                   </div>
                   <div className="flex items-center space-x-3">
                     <p className="bg-[#1ED760] text-[#fff] p-2 rounded">New</p>
-                    <div className="flex bg-[#FBEFEC] text-[#CF5D65] p-2 rounded">
+                    <div
+                      onClick={() => props.onDelete(index)}
+                      className="flex bg-[#FBEFEC] text-[#CF5D65] p-2 rounded cursor-pointer"
+                    >
                       <Image
                         src={"/trash.webp"}
                         width={20}

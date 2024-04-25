@@ -147,16 +147,18 @@ export default function AllPropertiesComponent(props: Props) {
                     </div>
                   </div>
                 </div>{" "}
-                <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12  cursor-pointer">
-                  <Image
-                    src={"/notepencil.webp"}
-                    alt="heart"
-                    width={25}
-                    height={25}
-                    className="object-contain"
-                  />
-                  <p>Edit Property</p>
-                </div>
+                <Link href={"/newproperty"}>
+                  <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12  cursor-pointer">
+                    <Image
+                      src={"/notepencil.webp"}
+                      alt="heart"
+                      width={25}
+                      height={25}
+                      className="object-contain"
+                    />
+                    <p>Edit Property</p>
+                  </div>
+                </Link>
               </div>
             </Link>
           ))}

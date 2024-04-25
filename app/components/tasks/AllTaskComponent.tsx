@@ -16,7 +16,7 @@ const nestedMenuItems = [
 ];
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
 export default function AllTasksComponent() {
-  const [isTenantShow, setIsTenantShow] = useState(false);
+  const [isTaskModalShow, setisTaskModalShow] = useState(false);
 
   return (
     <div className="h-screen overflow-y-scroll">
@@ -31,7 +31,10 @@ export default function AllTasksComponent() {
           <div className="flex items-center w-full justify-between mt-10">
             <h1 className="text-black text-[30px]">All Tasks</h1>
             <div className="flex items-center gap-5">
-              <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+              <div
+                onClick={() => setisTaskModalShow(true)}
+                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer"
+              >
                 + New Task
               </div>
             </div>
@@ -116,7 +119,7 @@ export default function AllTasksComponent() {
               <SearchView />
               <div className="mt-10">
                 <EmptyViewComponent
-                  onClick={() => setIsTenantShow(true)}
+                  onClick={() => setisTaskModalShow(true)}
                   title="No Request found"
                   buttonTitle="New Request"
                 />
@@ -125,7 +128,9 @@ export default function AllTasksComponent() {
           )}
         </div>
       </div>
-      {isTenantShow && <NewTaskModal onClose={() => setIsTenantShow(false)} />}
+      {isTaskModalShow && (
+        <NewTaskModal onClose={() => setisTaskModalShow(false)} />
+      )}
     </div>
   );
 }
