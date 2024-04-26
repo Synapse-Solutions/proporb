@@ -110,7 +110,7 @@ export default function page() {
             ))}
           </div>
         </div>
-        <div className="bg-[#1ED760] rounded-xl flex flex-col items-center p-10 text-white ">
+        <div className="bg-[#1ED760] rounded-xl flex flex-col items-center p-10 text-white  mt-10">
           <p>Explore</p>
           <p className="text-[30px] 2xl:text-[35px]">
             Set Goals. See <br />
