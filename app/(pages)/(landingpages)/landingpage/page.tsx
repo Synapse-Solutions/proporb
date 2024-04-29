@@ -247,7 +247,7 @@ export default function LandingPage() {
             </div>
           </div>
           <Image
-            src={"/landingpage/propNob.webp"}
+            src={"/landingpage/propnob.webp"}
             width={1000}
             height={1000}
             alt="image"
