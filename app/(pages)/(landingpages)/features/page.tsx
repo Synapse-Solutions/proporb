@@ -6,8 +6,6 @@ import React, { useState } from "react";
 
 const array = [1, 2, 3];
 export default function page() {
-  const [isMonthlyPayment, setIsMonthlyPayment] = useState(true);
-
   return (
     <div className="w-full overflow-hidden bg-[#ffffff]">
       <LandingPageNavbar />
@@ -22,26 +20,11 @@ export default function page() {
             Choose The perfect Plan of your needs. Always Flexible to grow
           </p>
 
-          <div className="bg-[#d5f7e2] flex items-center rounded-full px-5 py-3 w-[400px] mt-10">
+          <div className="bg-[#d5f7e2] flex items-center rounded-full px-5 py-3 w-[250px] mt-10">
             <button
-              onClick={() => setIsMonthlyPayment(false)}
-              className={`${
-                isMonthlyPayment
-                  ? "bg-transparent"
-                  : "bg-[#1ED760] rounded-full"
-              } w-1/2 py-2`}
+              className={` bg-[#1ED760] rounded-full w-full py-2 text-white`}
             >
-              Billed Annualy
-            </button>
-            <button
-              onClick={() => setIsMonthlyPayment(true)}
-              className={`${
-                !isMonthlyPayment
-                  ? "bg-transparent"
-                  : "bg-[#1ED760] rounded-full"
-              } w-1/2 py-2`}
-            >
-              Billed Monthly
+              Explore Our Products
             </button>
           </div>
         </div>

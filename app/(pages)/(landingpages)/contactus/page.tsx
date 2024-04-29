@@ -58,7 +58,7 @@ export default function page() {
             {contactTypes.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#e9fbf0] border-[#1ED760] border px-14 py-8 rounded-2xl flex flex-col items-center w-[25%] 2xl:w-[20%] text-center"
+                className="bg-[#e9fbf0] border-[#1ED760] border px-14 py-8 rounded-2xl flex flex-col items-center w-[25%] 2xl:w-[23%] text-center"
               >
                 <div className="h-[120px] flex items-center">
                   <Image

@@ -1,6 +1,5 @@
-import Register from "./(pages)/(auth)/register/page";
-import SignIn from "./(pages)/(auth)/signin/page";
+import LandingPage from "./(pages)/(landingpages)/landingpage/page";
 
 export default function Home() {
-  return <SignIn />;
+  return <LandingPage />;
 }

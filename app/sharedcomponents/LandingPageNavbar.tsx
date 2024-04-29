@@ -57,7 +57,7 @@ export default function LandingPageNavbar() {
     >
       <div className="flex justify-center mt-10 w-[90%] z-10">
         <div className="flex justify-between items-center w-full bg-[#e9fbf0] px-10 py-3 rounded-xl">
-          <Link href="/landingpage">
+          <Link href="/">
             <Image
               src={"/landingpage/logo.png"}
               width={100}
@@ -81,7 +81,7 @@ export default function LandingPageNavbar() {
             ))}
           </div>
           <div className="w-[14%]">
-            <Link href="/">
+            <Link href="/signin">
               <button className="flex items-center gap-2 bg-[#1ED760] text-white px-5 py-2 rounded-md hover:bg-[#69af84]">
                 <Image
                   src={"/landingpage/user.webp"}

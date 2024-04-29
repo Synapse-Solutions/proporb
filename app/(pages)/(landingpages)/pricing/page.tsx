@@ -219,20 +219,29 @@ export default function page() {
                   <Image
                     src={"/landingpage/caretright.webp"}
                     width={25}
-                    style={{ transform: item.isOpen ? "rotate(90deg)" : "" }}
+                    style={{
+                      transform: item.isOpen ? "rotate(90deg)" : "",
+                      transition: "transform 0.3s ease-in-out",
+                    }}
                     height={25}
                     className="object-contain"
                     alt="arrow"
                   />
                   <p>What Happens to the end of my trail?</p>
                 </div>
-                {item.isOpen && (
-                  <p className="mt-5 ml-[30px]">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab
-                    veniam exercitationem dolorem. Officiis eligendi fuga
-                    explicabo, provident dolorum ullam aspernatur.
-                  </p>
-                )}
+
+                <p
+                  style={{
+                    maxHeight: item.isOpen ? "100px" : "0px",
+                    overflow: "hidden",
+                    transition: "max-height 0.5s ease-in-out",
+                  }}
+                  className="mt-5 ml-[30px] "
+                >
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab
+                  veniam exercitationem dolorem. Officiis eligendi fuga
+                  explicabo, provident dolorum ullam aspernatur.
+                </p>
               </div>
             ))}
           </div>

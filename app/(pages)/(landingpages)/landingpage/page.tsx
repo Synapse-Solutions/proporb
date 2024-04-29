@@ -49,7 +49,7 @@ const pricesArray = [
     planPrice: "$59.00 /month",
   },
 ];
-export default function page() {
+export default function LandingPage() {
   return (
     <div className="w-full overflow-hidden bg-[#ffffff]">
       <LandingPageNavbar />
@@ -57,7 +57,7 @@ export default function page() {
       <div className=" text-black px-[5%]">
         <div className="flex mt-[15vh]">
           <div className="w-1/2 pt-10">
-            <h1 className="text-[30px] 2xl:text-[42px] font-bold">
+            <h1 className="text-[30px] 2xl:text-[45px] font-bold">
               Your smart{" "}
               <span className="text-[#1ED760]">
                 {" "}
@@ -65,12 +65,12 @@ export default function page() {
               </span>
               System
             </h1>
-            <p className="text-[#797979] w-[50%] mt-5 text-[14px] 2xl:text-[17px]">
+            <p className="text-[#797979] w-[50%] mt-5 2xl:mt-8 text-[14px] 2xl:text-[20px]">
               Our comprehensive design system offers you an unparalleled range
               of components, sparking creativity and boosting efficiency.
             </p>
-            <div className="flex items-center gap-10 mt-5 2xl:mt-10">
-              <button className="flex items-center gap-2 bg-[#1ED760] text-white px-5 py-2 rounded hover:bg-[#69af84]">
+            <div className="flex items-center gap-10 mt-5 2xl:mt-14">
+              <button className="flex items-center gap-2 bg-[#1ED760] text-white px-5 py-2 rounded hover:bg-[#69af84] 2xl:text[20px]">
                 <p>Get Started</p>
                 <Image
                   src={"/landingpage/arrowright.webp"}
@@ -215,17 +215,17 @@ export default function page() {
         </div>
         <div className="mt-[10vh] w-full flex justify-between">
           <div className="w-[40%] 2xl:w-[30%]">
-            <h1 className="text-[50px] font-bold">
+            <h1 className="text-[35px] 2xl:text-[50px] font-bold">
               Manage Your <br />
               Properties With <br />
               <span className="text-[#1ED760]"> ProbNob</span>
             </h1>
-            <p className="text-[#797979] mt-5">
+            <p className="text-[#797979] mt-5 2xl:mt-8  2xl:text-[20px]">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s Lorem Ipsum is simply dummy text of the.
             </p>
-            <div className="flex items-center gap-10 mt-10">
+            <div className="flex items-center gap-10 mt-10 2xl:text-[20px]">
               <button className="flex items-center gap-2 bg-[#1ED760] text-white px-5 py-2 rounded hover:bg-[#69af84]">
                 <Image
                   src={"/landingpage/user.webp"}
