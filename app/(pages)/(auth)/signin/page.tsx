@@ -1,6 +1,44 @@
+"use client";
 import SigninComponent from "@/app/components/auth/SigninComponent";
-import React from "react";
+import { postApi } from "@/app/utils/AppApi";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignIn() {
-  return <SigninComponent />;
+  const router = useRouter();
+  const [user, setuser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onClickLogin = async () => {
+    if (!user.email || !user.password)
+      return toast.error("Please fill all the fields");
+    try {
+      const payload = {
+        email: user.email,
+        password: user.password,
+      };
+      const response = await postApi("/v1/owner/login", payload);
+
+      if (response.success === true) {
+        toast.success("Login Successful");
+        localStorage.setItem("user", JSON.stringify(response.data));
+        router.push("/getStarted");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log("🚀 ~ onClickLogin ~ error:", error);
+    }
+  };
+  return (
+    <SigninComponent
+      user={user}
+      setUser={setuser}
+      onClickLogin={onClickLogin}
+    />
+  );
 }

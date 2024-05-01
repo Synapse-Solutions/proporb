@@ -3,6 +3,7 @@ import Navbar from "@/app/sharedcomponents/Navbar";
 import Sidebar from "@/app/sharedcomponents/Sidebar";
 import Image from "next/image";
 import React, { useState } from "react";
+import AddTenant from "./models/AddTenant";
 
 let tabs = [
   {
@@ -151,13 +152,19 @@ const options = [
   { label: "Specify a late fees Policy", value: "option2" },
 ];
 
-const nestedMenuItems = ["Tenants", "Vendors", "Prospects"];
+interface Props {
+  propertiesArray: any;
+  rentalPayload: any;
+  setRentalPayload: any;
+  addRentalFunction: any;
+}
 
-export default function NewRentalsComponent() {
+export default function NewRentalsComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
   const [propertyType, setPropertyType] = useState(0);
   const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [addTenantModal, setAddTenantModal] = useState(false);
   const uploadPhotoRef = React.createRef<HTMLInputElement>();
 
   const onClickuploadPhoto = () => {
@@ -175,6 +182,17 @@ export default function NewRentalsComponent() {
   const handleOptionSelect = (value: any) => {
     setSelectedOption(value);
   };
+
+  const onChangeTab = (index: number) => {};
+
+  const onClickNext = () => {
+    if (activeTab === 3) {
+      props.addRentalFunction();
+    }
+
+    activeTab === 5 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
+  };
+
   return (
     <div className="h-screen overflow-y-scroll">
       <Sidebar />
@@ -200,7 +218,7 @@ export default function NewRentalsComponent() {
                         />
                       ) : (
                         <button
-                          onClick={() => setActiveTab(index)}
+                          onClick={() => onChangeTab(index)}
                           className="rounded-full border border-black h-12 w-12 flex items-center justify-center"
                         >
                           <p className="text-black font-bold">{item.number}</p>
@@ -227,10 +245,21 @@ export default function NewRentalsComponent() {
                         <select
                           name=""
                           id=""
+                          onChange={(e) =>
+                            props.setRentalPayload({
+                              ...props.rentalPayload,
+                              property_id: e.target.value,
+                            })
+                          }
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         >
-                          <option value="1">Commercial</option>
-                          <option value="2">Residential</option>
+                          {props.propertiesArray.map(
+                            (item: any, index: number) => (
+                              <option key={index} value={item.id}>
+                                {item.type}
+                              </option>
+                            )
+                          )}
                         </select>
                       </div>
                     </div>
@@ -309,7 +338,10 @@ export default function NewRentalsComponent() {
                     Rental Tenants
                   </p>
                   <div className="flex justify-center mt-10">
-                    <div className="border-2 border-[#1ED760] border-dashed p-10 flex flex-col items-center rounded-lg">
+                    <div
+                      className="border-2 border-[#1ED760] border-dashed p-10 flex flex-col items-center rounded-lg cursor-pointer"
+                      onClick={() => setAddTenantModal(true)}
+                    >
                       <p className="text-[30px] text-[#1ED760]">+</p>
                       <p>Add Tenant</p>
                     </div>
@@ -326,6 +358,13 @@ export default function NewRentalsComponent() {
                       <p>When should we start charging Rent</p>
                       <input
                         type="date"
+                        value={props.rentalPayload.rent_start_date}
+                        onChange={(e) =>
+                          props.setRentalPayload({
+                            ...props.rentalPayload,
+                            rent_start_date: e.target.value,
+                          })
+                        }
                         placeholder="Enter street name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -336,17 +375,30 @@ export default function NewRentalsComponent() {
                       <select
                         name=""
                         id=""
+                        onChange={(e) =>
+                          props.setRentalPayload({
+                            ...props.rentalPayload,
+                            rental_aggrement: e.target.value,
+                          })
+                        }
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       >
-                        <option value="1">Monthly</option>
-                        <option value="2">Weekly</option>
-                        <option value="3">Yearly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="yearly">Yearly</option>
                       </select>
                     </div>
                     <div className="mt-5 w-[60%]">
                       <p>Enter the Rent Amount</p>
                       <input
                         type="number"
+                        value={props.rentalPayload.rent_amount}
+                        onChange={(e) =>
+                          props.setRentalPayload({
+                            ...props.rentalPayload,
+                            rent_amount: e.target.value,
+                          })
+                        }
                         placeholder="Enter street name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -398,6 +450,13 @@ export default function NewRentalsComponent() {
                         <p>Security Deposit Amount</p>
                         <input
                           type="number"
+                          value={props.rentalPayload.security_deposit_amount}
+                          onChange={(e) =>
+                            props.setRentalPayload({
+                              ...props.rentalPayload,
+                              security_deposit_amount: e.target.value,
+                            })
+                          }
                           placeholder="Enter amount"
                           className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                         />
@@ -561,11 +620,7 @@ export default function NewRentalsComponent() {
                   </button>
                 )}
                 <button
-                  onClick={() =>
-                    activeTab === 5
-                      ? setIsSuccessModalShow(true)
-                      : setActiveTab(activeTab + 1)
-                  }
+                  onClick={onClickNext}
                   className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
                 >
                   Next
@@ -584,6 +639,7 @@ export default function NewRentalsComponent() {
           title="Property Added Successfully"
         />
       )} */}
+      {addTenantModal && <AddTenant onClose={() => setAddTenantModal(false)} />}
     </div>
   );
 }

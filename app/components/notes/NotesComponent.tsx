@@ -9,9 +9,13 @@ import React, { useState } from "react";
 import AddNoteModal from "./modal/AddNoteModal";
 import ShowFileModal from "../files/modals/ShowFileModal";
 import Image from "next/image";
+import moment from "moment";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
-export default function NotesComponent() {
+interface Props {
+  notesArray: any;
+}
+export default function NotesComponent(props: Props) {
   const [isTenantShow, setIsTenantShow] = useState(false);
   const [selectedfile, setSelectedfile] = useState<any>(null);
 
@@ -41,23 +45,24 @@ export default function NotesComponent() {
             </div>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
-          {array.length > 0 ? (
+          {props.notesArray.length > 0 ? (
             <div className="mt-10">
               <button className="bg-[#1ED760] rounded-full px-7 py-3 text-white">
                 All
               </button>
               <div className="flex flex-wrap gap-5 pt-5">
-                {array.map((item, index) => (
+                {props.notesArray.map((item: any, index: number) => (
                   <button
                     onClick={() => setSelectedfile(item)}
                     key={index}
                     className="rounded-xl p-5 flex flex-col gap-5 shadow shadow-black w-[calc(15vw)]"
                   >
-                    <p className="text-[12px] text-[#808191]">27 June, 2017</p>
-                    <p>Go to Town Hall</p>
+                    <p className="text-[12px] text-[#808191]">
+                      {moment(item.createdAt).format("DD MMMM, YYYY")}
+                    </p>
+                    <p>{item.title}</p>
                     <p className="text-[15px] text-[#808191] text-start">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
+                      {item.note}
                     </p>
                   </button>
                 ))}

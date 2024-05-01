@@ -176,7 +176,34 @@ const reserveFunds = [
     InactiveIcon: "/dollar_inactive.webp",
   },
 ];
-export default function NewPropertyComponent() {
+
+interface Props {
+  payload: {
+    type: string;
+    subtype: string;
+    street: string;
+    city: string;
+    state: string;
+    address: string;
+    zip_code: string;
+    country: string;
+    house_no: string;
+  };
+  setPayload: any;
+  addPropertyFunction: any;
+  unitPayload: {
+    rooms: string;
+    floor_no: string;
+    area: string;
+    unit_no: string;
+    rent: string;
+  };
+  setUnitPayload: any;
+  addUnitFunction: any;
+  bankDetails: any;
+  setBankDetails: any;
+}
+export default function NewPropertyComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
   const [propertyType, setPropertyType] = useState(0);
   const [selectedPropertyName, setSelectedPropertyName] = useState("Home");
@@ -192,10 +219,15 @@ export default function NewPropertyComponent() {
 
   const onAddMultipleUnits = () => {
     setMultipleUnitsModal(true);
-    // setUnitsArray((prev) => [...prev, { beds: 0 }, { beds: 0 }]);
   };
   const onPressNext = () => {
-    // activeTab === 5 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
+    if (activeTab === 2) {
+      props.addPropertyFunction();
+    }
+    if (activeTab === 3) {
+      props.addUnitFunction();
+    }
+
     if (activeTab === 5) {
       if (selectedPropertyName === "Apartments") {
         setCommunityModal(1);
@@ -231,7 +263,7 @@ export default function NewPropertyComponent() {
                         />
                       ) : (
                         <button
-                          onClick={() => setActiveTab(index)}
+                          // onClick={() => setActiveTab(index)}
                           className="rounded-full border border-black h-12 w-12 flex items-center justify-center"
                         >
                           <p className="text-black font-bold">{item.number}</p>
@@ -258,7 +290,13 @@ export default function NewPropertyComponent() {
                         <button
                           key={index}
                           disabled={item.isDisabled}
-                          onClick={() => setPropertyType(index)}
+                          onClick={() => {
+                            setPropertyType(index);
+                            props.setPayload({
+                              ...props.payload,
+                              type: item.name,
+                            });
+                          }}
                           className={`border ${
                             propertyType === index
                               ? "border-[#1ED760]"
@@ -313,7 +351,13 @@ export default function NewPropertyComponent() {
                                 ? "#E8FBEF"
                                 : "white",
                           }}
-                          onClick={() => setSelectedPropertyName(item.name)}
+                          onClick={() => {
+                            setSelectedPropertyName(item.name);
+                            props.setPayload({
+                              ...props.payload,
+                              subtype: item.name,
+                            });
+                          }}
                           className={`border ${
                             item.name === selectedPropertyName
                               ? "border-[#1ED760]"
@@ -392,17 +436,33 @@ export default function NewPropertyComponent() {
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property Property Address
                   </p>
-                  <div className="mt-5">
-                    <p>House No</p>
-                    <input
-                      type="text"
-                      placeholder="Enter House No"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                    />
-                  </div>
+                  {propertyType === 0 && (
+                    <div className="mt-5">
+                      <p>House No</p>
+                      <input
+                        type="text"
+                        value={props.payload.house_no}
+                        onChange={(e) =>
+                          props.setPayload({
+                            ...props.payload,
+                            house_no: e.target.value,
+                          })
+                        }
+                        placeholder="Enter House No"
+                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                      />
+                    </div>
+                  )}
                   <div className="mt-5">
                     <p>Street</p>
                     <input
+                      value={props.payload.street}
+                      onChange={(e) =>
+                        props.setPayload({
+                          ...props.payload,
+                          street: e.target.value,
+                        })
+                      }
                       type="text"
                       placeholder="Enter street name"
                       className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
@@ -413,6 +473,13 @@ export default function NewPropertyComponent() {
                       <p>City</p>
                       <input
                         type="text"
+                        value={props.payload.city}
+                        onChange={(e) =>
+                          props.setPayload({
+                            ...props.payload,
+                            city: e.target.value,
+                          })
+                        }
                         placeholder="Enter city name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -420,7 +487,14 @@ export default function NewPropertyComponent() {
                     <div className="w-[47%]">
                       <p>Province</p>
                       <input
-                        type="number"
+                        type="text"
+                        value={props.payload.state}
+                        onChange={(e) =>
+                          props.setPayload({
+                            ...props.payload,
+                            state: e.target.value,
+                          })
+                        }
                         placeholder="Enter your province name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -431,6 +505,13 @@ export default function NewPropertyComponent() {
                       <p>Country</p>
                       <input
                         type="text"
+                        value={props.payload.country}
+                        onChange={(e) =>
+                          props.setPayload({
+                            ...props.payload,
+                            country: e.target.value,
+                          })
+                        }
                         placeholder="Enter Country name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -439,6 +520,13 @@ export default function NewPropertyComponent() {
                       <p>ZIP Code</p>
                       <input
                         type="number"
+                        value={props.payload.zip_code}
+                        onChange={(e) =>
+                          props.setPayload({
+                            ...props.payload,
+                            zip_code: e.target.value,
+                          })
+                        }
                         placeholder="ZIP Code"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
                       />
@@ -470,48 +558,80 @@ export default function NewPropertyComponent() {
                       </button>
                     </div>
                   </div>
-                  {unitsArray.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between w-full mt-10"
-                    >
-                      <div className="w-[15%]">
-                        <p>Number of Beds</p>
-                        <input
-                          type="number"
-                          className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
-                        />
-                      </div>
-                      <div>
-                        <p>Floor number</p>
-                        <input
-                          type="number"
-                          className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
-                        />
-                      </div>
-                      <div>
-                        <p>Area (sq feet)</p>
-                        <input
-                          type="number"
-                          className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
-                        />
-                      </div>
-                      <div>
-                        <p>Unit Name</p>
-                        <input
-                          type="number"
-                          className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
-                        />
-                      </div>
-                      <div>
-                        <p>Market Rent</p>
-                        <input
-                          type="number"
-                          className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
-                        />
-                      </div>
+                  {/* {unitsArray.map((item, index) => ( */}
+                  <div className="flex items-center justify-between w-full mt-10">
+                    <div className="w-[15%]">
+                      <p>Number of Beds</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.rooms}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            rooms: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
                     </div>
-                  ))}
+                    <div>
+                      <p>Floor number</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.floor_no}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            floor_no: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
+                    </div>
+                    <div>
+                      <p>Area (sq feet)</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.area}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            area: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
+                    </div>
+                    <div>
+                      <p>Unit No</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.unit_no}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            unit_no: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
+                    </div>
+                    <div>
+                      <p>Market Rent</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.rent}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            rent: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
+                    </div>
+                  </div>
+                  {/* ))} */}
                 </div>
               )}
               {activeTab === 4 && (
@@ -722,7 +842,11 @@ export default function NewPropertyComponent() {
         </div>
       </div>
       {createAccountModal && (
-        <CreateAccountModal setIsCreateAccountModal={setCreateAccountModal} />
+        <CreateAccountModal
+          setIsCreateAccountModal={setCreateAccountModal}
+          bankDetails={props.bankDetails}
+          setBankDetails={props.setBankDetails}
+        />
       )}
       {isSuccessModalShow && (
         <PropertyAddedSuccessModal

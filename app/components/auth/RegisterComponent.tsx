@@ -6,6 +6,14 @@ import React from "react";
 
 interface Props {
   setScreenName: React.Dispatch<React.SetStateAction<any>>;
+  user: {
+    name: string;
+    email: string;
+    mobile: string;
+    password: string;
+  };
+  setUser?: any;
+  onClickRegister?: any;
 }
 export default function RegisterComponent(props: Props) {
   return (
@@ -17,24 +25,48 @@ export default function RegisterComponent(props: Props) {
         <div className="mt-2 2xl:mt-5">
           <div>
             <p>Full Name</p>
-            <AuthInput type="text" />
+            <AuthInput
+              value={props.user.name}
+              onChange={(e) =>
+                props.setUser({ ...props.user, name: e.target.value })
+              }
+              type="text"
+            />
           </div>
           <div className="mt-2 2xl:mt-5">
             <p>Email Address</p>
-            <AuthInput type="email" />
+            <AuthInput
+              value={props.user.email}
+              onChange={(e) =>
+                props.setUser({ ...props.user, email: e.target.value })
+              }
+              type="email"
+            />
           </div>
           <div className="mt-2 2xl:mt-5">
             <p>Mobile Number</p>
-            <AuthInput type="number" />
+            <AuthInput
+              value={props.user.mobile}
+              onChange={(e) =>
+                props.setUser({ ...props.user, mobile: e.target.value })
+              }
+              type="number"
+            />
           </div>
           <div className="mt-2 2xl:mt-5">
             <p>Password</p>
 
-            <AuthInput type="password" />
+            <AuthInput
+              value={props.user.password}
+              onChange={(e) =>
+                props.setUser({ ...props.user, password: e.target.value })
+              }
+              type="password"
+            />
           </div>
           <div className="mt-0 2xl:mt-5">
             <AuthButton
-              onClick={() => props.setScreenName("subscriptiondetails")}
+              onClick={() => props.onClickRegister()}
               text="Buy Subscription"
             />
           </div>

@@ -1,57 +1,38 @@
 "use client";
 import EmptyViewComponent from "@/app/sharedcomponents/EmptyViewComponent";
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
-import { on } from "events";
+import { postApiWithToken } from "@/app/utils/AppApi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  onClose?: () => void;
+  onClose: () => void;
 }
 export default function AddTenant({ onClose }: Props) {
   const router = useRouter();
   // ******* States *******
   const [screenName, setScreenName] = useState("");
-  const [contactNumbers, setContactNumbers] = useState([
-    {
-      type: "mobile",
-      number: "",
-    },
-  ]);
-  const [emails, setEmails] = useState([
-    {
-      type: "personal",
-      email: "",
-    },
-  ]);
-
-  // ******* Functions *******
-  const onAddNumber = () => {
-    setContactNumbers([
-      ...contactNumbers,
-      {
-        type: "mobile",
-        number: "",
-      },
-    ]);
-  };
-
-  const onAddEmail = () => {
-    setEmails([
-      ...emails,
-      {
-        type: "personal",
-        email: "",
-      },
-    ]);
-  };
+  const [tenantPayload, setTenantPayload] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    image: "",
+    mobile: "",
+    address: "",
+    password: "",
+  });
 
   const onClickNext = () => {
     if (screenName === "personal") {
       setScreenName("contact");
     } else if (screenName === "contact") {
       setScreenName("address");
+    } else {
+      AddTenant();
     }
   };
   const onClickBack = () => {
@@ -59,6 +40,26 @@ export default function AddTenant({ onClose }: Props) {
       setScreenName("personal");
     } else if (screenName === "address") {
       setScreenName("contact");
+    }
+  };
+
+  const AddTenant = async () => {
+    try {
+      const user = localStorage.getItem("user") || "";
+      let token = JSON.parse(user).authToken;
+      tenantPayload.username =
+        tenantPayload.first_name + tenantPayload.last_name;
+      const response = await postApiWithToken(
+        "/v1/tenet",
+        tenantPayload,
+        token
+      );
+      if (response.success === true) {
+        toast.success("Tenant added successfully");
+        onClose();
+      }
+    } catch (error) {
+      console.log("🚀 ~ AddTenant ~ error:", error);
     }
   };
   return (
@@ -158,6 +159,13 @@ export default function AddTenant({ onClose }: Props) {
                     <p>First Name</p>
                     <input
                       type="text"
+                      value={tenantPayload.first_name}
+                      onChange={(e) =>
+                        setTenantPayload({
+                          ...tenantPayload,
+                          first_name: e.target.value,
+                        })
+                      }
                       placeholder="Enter your First Name"
                       required
                       className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -167,6 +175,13 @@ export default function AddTenant({ onClose }: Props) {
                     <p>Last Name</p>
                     <input
                       required
+                      value={tenantPayload.last_name}
+                      onChange={(e) =>
+                        setTenantPayload({
+                          ...tenantPayload,
+                          last_name: e.target.value,
+                        })
+                      }
                       type="text"
                       placeholder="Enter your Last Name"
                       className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -177,20 +192,18 @@ export default function AddTenant({ onClose }: Props) {
 
               <div className="flex justify-between mt-5">
                 <div className="w-[47%]">
-                  <p>First Name</p>
+                  <p>Password</p>
                   <input
-                    type="text"
-                    placeholder="Enter your First Name"
+                    type="password"
+                    placeholder="Enter Password"
+                    value={tenantPayload.password}
+                    onChange={(e) =>
+                      setTenantPayload({
+                        ...tenantPayload,
+                        password: e.target.value,
+                      })
+                    }
                     required
-                    className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-                  />
-                </div>
-                <div className="w-[47%]">
-                  <p>Last Name</p>
-                  <input
-                    required
-                    type="text"
-                    placeholder="Enter your Last Name"
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                   />
                 </div>
@@ -217,52 +230,44 @@ export default function AddTenant({ onClose }: Props) {
 
               <div className="mt-10 space-y-2">
                 <p>Phone Number</p>
-                {contactNumbers.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile"> Mobile Number</option>
 
-                      <option value="phone"> Phone Number</option>
-                    </select>
-                    <input
-                      required
-                      type="number"
-                      placeholder="Enter your phone number"
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
+                <div className="flex justify-between">
+                  <input
+                    required
+                    value={tenantPayload.mobile}
+                    onChange={(e) =>
+                      setTenantPayload({
+                        ...tenantPayload,
+                        mobile: e.target.value,
+                      })
+                    }
+                    type="number"
+                    placeholder="Enter your phone number"
+                    className="border border-black rounded-lg h-10 w-[45%] pl-3"
+                  />
+                </div>
               </div>
-              <p
-                onClick={onAddNumber}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
-              </p>
+
               <div className="mt-10 space-y-2">
                 <p>Email</p>
-                {emails.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile">Primary</option>
 
-                      <option value="phone">Secondary</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Enter your Email"
-                      required
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
+                <div className="flex justify-between">
+                  <input
+                    type="email"
+                    placeholder="Enter your Email"
+                    required
+                    value={tenantPayload.email}
+                    onChange={(e) =>
+                      setTenantPayload({
+                        ...tenantPayload,
+                        email: e.target.value,
+                      })
+                    }
+                    className="border border-black rounded-lg h-10 w-[45%] pl-3"
+                  />
+                </div>
               </div>
-              <p
-                onClick={onAddEmail}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
-              </p>
+
               <div className="h-24" />
             </div>
           )}
@@ -284,50 +289,21 @@ export default function AddTenant({ onClose }: Props) {
               </div>
 
               <div className="mt-10 space-y-2">
-                <p>Street</p>
+                <p>Address</p>
                 <div className="flex justify-between">
                   <input
                     required
+                    value={tenantPayload.address}
+                    onChange={(e) =>
+                      setTenantPayload({
+                        ...tenantPayload,
+                        address: e.target.value,
+                      })
+                    }
                     type="text"
-                    placeholder="Enter your street location"
+                    placeholder="Enter Address"
                     className="border border-black rounded-lg h-10 w-[100%] pl-3"
                   />
-                </div>
-              </div>
-              <div className="mt-10 space-y-2">
-                <div className="flex justify-between">
-                  <div className="w-[45%] space-y-2">
-                    <p>City</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
-                  <div className="w-[45%] space-y-2">
-                    <p>Province</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-10 space-y-2">
-                <div className="flex justify-between">
-                  <div className="w-[45%] space-y-2">
-                    <p>Country</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
-                  <div className="w-[45%] space-y-2">
-                    <p>Zip Code</p>
-                    <select className="border border-black rounded-lg h-10 w-[100%]">
-                      <option value="mobile">Islamabad</option>
-                      <option value="phone">Rawalpindi</option>
-                    </select>
-                  </div>
                 </div>
               </div>
             </div>

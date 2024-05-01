@@ -5,7 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function SigninComponent() {
+interface Props {
+  user: {
+    email: string;
+    password: string;
+  };
+  setUser?: any;
+  onClickLogin?: any;
+}
+export default function SigninComponent(props: Props) {
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
@@ -21,16 +29,27 @@ export default function SigninComponent() {
         <div className="mt-10">
           <div>
             <p>Email Address</p>
-            <AuthInput type="email" />
+            <AuthInput
+              value={props.user.email}
+              onChange={(e) =>
+                props.setUser({ ...props.user, email: e.target.value })
+              }
+              type="email"
+            />
           </div>
           <div className="mt-6">
             <p>Password</p>
-            <AuthInput type="password" />
+            <AuthInput
+              value={props.user.password}
+              onChange={(e) =>
+                props.setUser({ ...props.user, password: e.target.value })
+              }
+              type="password"
+            />
           </div>
           <div className="">
-            <Link href={"/getStarted"}>
-              <AuthButton text="Log in" />
-            </Link>
+            <AuthButton onClick={props.onClickLogin} text="Log in" />
+
             <p className="text-[#645D5D] text-center mt-5 2xl:mt-10">
               Forgot Password?
               <Link href={"/forgotpassword"}>

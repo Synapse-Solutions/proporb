@@ -2,35 +2,37 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-
-const options = [
-  { label: "One time task", value: "option1" },
-  { label: "Recurring Task", value: "option2" },
-];
+import { postApiWithToken } from "@/app/utils/AppApi";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  onClose?: () => void;
+  onClose: () => void;
 }
 export default function AddNoteModal({ onClose }: Props) {
-  const [selectedOption, setSelectedOption] = useState("option1");
-  const [notifyAssignee, setNotifyAssignee] = useState(false);
+  const [notePayload, setNotePayload] = useState({
+    title: "",
+    note: "",
+    image: "djkljio",
+  });
   const uploadPhotoRef = React.useRef<HTMLInputElement>(null);
-
   const onClickuploadPhoto = () => {
     uploadPhotoRef.current?.click();
   };
+  const onSave = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
 
-  const handleOptionChange = (changeEvent: any) => {
-    setSelectedOption(changeEvent.target.value);
+    try {
+      const response = await postApiWithToken("/v1/notes", notePayload, token);
+      if (response.success === true) {
+        toast.success("Note added successfully");
+        onClose();
+      }
+    } catch (error) {
+      console.log("🚀 ~ onSave ~ error:", error);
+    }
   };
-
-  const handleNotifyChange = (changeEvent: any) => {
-    setNotifyAssignee(!notifyAssignee);
-  };
-
   return (
     <div
       style={{
@@ -61,6 +63,10 @@ export default function AddNoteModal({ onClose }: Props) {
                 <p>Title*</p>
                 <input
                   type="text"
+                  value={notePayload.title}
+                  onChange={(e) =>
+                    setNotePayload({ ...notePayload, title: e.target.value })
+                  }
                   placeholder="Enter title"
                   required
                   className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -71,35 +77,16 @@ export default function AddNoteModal({ onClose }: Props) {
                 <textarea
                   name=""
                   id=""
+                  value={notePayload.note}
+                  onChange={(e) =>
+                    setNotePayload({ ...notePayload, note: e.target.value })
+                  }
                   rows={10}
                   className="border border-black rounded-lg  w-full pl-3 mt-4"
                 ></textarea>
               </div>
             </div>
 
-            <div className="w-[100%] mt-10">
-              <p>Related To*</p>
-              <select
-                name=""
-                id=""
-                className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-              >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-              </select>
-            </div>
-
-            <div className="w-[100%] mt-10">
-              <p>Tags*</p>
-              <select
-                name=""
-                id=""
-                className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-              >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-              </select>
-            </div>
             <div className="mt-10 flex justify-center">
               <div
                 onClick={onClickuploadPhoto}
@@ -133,7 +120,7 @@ export default function AddNoteModal({ onClose }: Props) {
                 Cancel
               </button>
               <button
-                onClick={onClose}
+                onClick={onSave}
                 className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
               >
                 Save
