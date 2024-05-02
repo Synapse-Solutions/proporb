@@ -1,15 +1,26 @@
 "use client";
 import AccountCreatedModal from "@/app/sharedcomponents/AccountCreatedModal";
+import { putAPi } from "@/app/utils/AppApi";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
   onClose: () => void;
 }
 
 export default function CompanyInformationModal(props: Props) {
-  const [activeScreen, setActiveScreen] = useState(1);
-  const [isAccountCreatedOpen, setIsAccountCreatedOpen] = useState(false);
+  const [companypayload, setCompanypayload] = useState({
+    company_name: "",
+    company_phone_no: "",
+    company_address: "",
+    company_city: "",
+    company_email: "",
+    company_zip_code: "",
+    company_country: "",
+    company_website_url: "",
+  });
 
   const uploadFileRef = useRef<any>(null);
 
@@ -20,17 +31,33 @@ export default function CompanyInformationModal(props: Props) {
   };
 
   const onClickBack = () => {
-    if (activeScreen === 1) {
+    props.onClose();
+  };
+
+  const onClckNext = async () => {
+    if (
+      companypayload.company_name === "" ||
+      companypayload.company_phone_no === "" ||
+      companypayload.company_address === "" ||
+      companypayload.company_city === "" ||
+      companypayload.company_email === "" ||
+      companypayload.company_zip_code === "" ||
+      companypayload.company_country === "" ||
+      companypayload.company_website_url === ""
+    ) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+
+    let id = JSON.parse(user).Owner.id;
+    const response = await putAPi("/v1/owner/" + id, companypayload, token);
+    if (response.success === true) {
+      toast.success("Company Information Added Successfully");
       props.onClose();
     } else {
-      setActiveScreen(activeScreen - 1);
-    }
-  };
-  const onClckNext = () => {
-    if (activeScreen === 3) {
-      setIsAccountCreatedOpen(true);
-    } else {
-      setActiveScreen(activeScreen + 1);
+      toast.error("Something went wrong. Please try again");
     }
   };
   return (
@@ -41,250 +68,197 @@ export default function CompanyInformationModal(props: Props) {
       className="w-[calc(100vw)] h-[calc(100vh)] fixed left-0 top-0 text-black z-10 flex items-center justify-center"
     >
       <div className="w-[calc(90vw)] 2xl:w-[calc(80vw)] h-[calc(90vh)] bg-white text-black z-10 flex relative">
-        <div className="w-[25%] 2xl:w-[20%] h-full bg-[#191414] text-[#ffffff] px-6 py-20">
-          <div className="flex gap-3 items-center">
-            <Image
-              src="/companyInfoIcon.webp"
-              alt="Icon"
-              height={50}
-              width={50}
-            />
-            <p className="text-lg">Company Info</p>
-          </div>
-
-          <div className="px-3  mt-10 2xl:mt-20 flex flex-col gap-5">
-            <div
-              className="flex gap-3 items-center px-4 py-2 rounded-xl"
-              style={{ backgroundColor: activeScreen === 1 ? "#5E5A5A" : "" }}
-              onClick={() => {
-                setActiveScreen(1);
-              }}
-            >
+        <div className="w-[100%] relative h-full">
+          <div className="w-full px-8 py-8 overflow-auto h-[100%]">
+            <div className="flex justify-between">
+              <div>
+                <h1 className="text-[25px] 2xl:text-[32px] font-bold">
+                  Company Information
+                </h1>
+                <div className="h-[2px] bg-[#1ED760] w-[100px]" />
+              </div>
               <Image
-                src="/generalCompanyInfoIcon.webp"
+                onClick={props.onClose}
+                className="cursor-pointer object-contain"
+                src="/cross_icon.webp"
                 alt="Icon"
                 height={25}
-                width={25}
+                width={45}
               />
-              <p className="text-base">General Information</p>
             </div>
-
-            <div
-              className="flex gap-3 items-center px-4 py-2 rounded-xl"
-              style={{ backgroundColor: activeScreen === 3 ? "#5E5A5A" : "" }}
-              onClick={() => {
-                setActiveScreen(3);
-              }}
-            >
-              <Image
-                src="/accountOwnerIcon.webp"
-                alt="Icon"
-                height={25}
-                width={25}
-              />
-              <p className="text-base">Account Owner</p>
+            <div className="w-full mt-5">
+              <div className="w-[100%] flex items-center gap-6 my-4">
+                <div
+                  className="rounded-[32px] h-16 w-16 bg-[#EFEFEF] flex justify-center items-center"
+                  onClick={uploadFile}
+                >
+                  <p className="text-[#656D76] text-5xl font-extralight">+</p>
+                </div>
+                <div
+                  className="border-[#1ED760] border-2 flex gap-2 items-center h-10 px-4 rounded-lg"
+                  onClick={uploadFile}
+                >
+                  <Image
+                    src="/addImageIconGreen.webp"
+                    alt="Icon"
+                    height={20}
+                    width={20}
+                  />
+                  <p className="text-[#1ED760] text-sm font-semibold">
+                    Upload Company Logo
+                  </p>
+                </div>
+                <input type="file" className="hidden" ref={uploadFileRef} />
+              </div>
+              <div className="w-[100%] my-5">
+                <p className="text-black font-medium mb-1">Company Name</p>
+                <input
+                  type="text"
+                  value={companypayload.company_name}
+                  onChange={(e) =>
+                    setCompanypayload({
+                      ...companypayload,
+                      company_name: e.target.value,
+                    })
+                  }
+                  placeholder="Enter company name"
+                  className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                />
+              </div>
+              <div className="w-[100%] flex gap-10 my-4">
+                <div className="w-[50%]">
+                  <p className="text-black font-medium mb-1">Company Email</p>
+                  <input
+                    type="text"
+                    value={companypayload.company_email}
+                    onChange={(e) =>
+                      setCompanypayload({
+                        ...companypayload,
+                        company_email: e.target.value,
+                      })
+                    }
+                    placeholder="Enter Company Email Address"
+                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                  />
+                </div>
+                <div className="w-[50%]">
+                  <p className="text-black font-medium mb-1">
+                    Company Phone Number
+                  </p>
+                  <input
+                    type="text"
+                    value={companypayload.company_phone_no}
+                    onChange={(e) =>
+                      setCompanypayload({
+                        ...companypayload,
+                        company_phone_no: e.target.value,
+                      })
+                    }
+                    placeholder="Enter Company Phone Number"
+                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                  />
+                </div>
+              </div>
+              <div className="w-[100%] my-4">
+                <p className="text-black font-medium mb-1">Address</p>
+                <input
+                  type="text"
+                  value={companypayload.company_address}
+                  onChange={(e) =>
+                    setCompanypayload({
+                      ...companypayload,
+                      company_address: e.target.value,
+                    })
+                  }
+                  placeholder="Enter house and street number"
+                  className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                />
+              </div>
+              <div className="w-[100%] flex gap-10 my-4">
+                <div className="w-[50%]">
+                  <p className="text-black font-medium mb-1">City</p>
+                  <input
+                    type="text"
+                    value={companypayload.company_city}
+                    onChange={(e) =>
+                      setCompanypayload({
+                        ...companypayload,
+                        company_city: e.target.value,
+                      })
+                    }
+                    placeholder="Enter City"
+                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                  />
+                </div>
+                <div className="w-[50%]">
+                  <p className="text-black font-medium mb-1">Zip Code</p>
+                  <input
+                    type="text"
+                    placeholder="Enter Zip Code"
+                    value={companypayload.company_zip_code}
+                    onChange={(e) =>
+                      setCompanypayload({
+                        ...companypayload,
+                        company_zip_code: e.target.value,
+                      })
+                    }
+                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                  />
+                </div>
+              </div>
+              <div className="w-[100%] flex gap-10 my-4">
+                <div className="w-[50%]">
+                  <p className="text-black font-medium mb-1">Country</p>
+                  <input
+                    type="text"
+                    value={companypayload.company_country}
+                    onChange={(e) =>
+                      setCompanypayload({
+                        ...companypayload,
+                        company_country: e.target.value,
+                      })
+                    }
+                    placeholder="Enter Country"
+                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                  />
+                </div>
+              </div>
+              <div className="w-[100%] my-4">
+                <p className="text-black font-medium mb-1">
+                  Company Website URL
+                </p>
+                <input
+                  type="text"
+                  value={companypayload.company_website_url}
+                  onChange={(e) =>
+                    setCompanypayload({
+                      ...companypayload,
+                      company_website_url: e.target.value,
+                    })
+                  }
+                  placeholder="Enter URL"
+                  className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
+                />
+              </div>
             </div>
+            <div className="h-20 w-full" />
           </div>
-        </div>
-        <div className="w-[75%] 2xl:w-[80%]  relative h-full">
-          {activeScreen === 1 && (
-            <div className="w-full px-8 py-8 overflow-auto h-[100%]">
-              <div className="flex justify-between">
-                <div>
-                  <h1 className="text-[25px] 2xl:text-[32px] font-bold">
-                    General Information
-                  </h1>
-                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
-                </div>
-                <Image
-                  onClick={props.onClose}
-                  className="cursor-pointer object-contain"
-                  src="/cross_icon.webp"
-                  alt="Icon"
-                  height={25}
-                  width={45}
-                />
-              </div>
-              <div className="w-full mt-5">
-                <div className="w-[100%] flex items-center gap-6 my-4">
-                  <div
-                    className="rounded-[32px] h-16 w-16 bg-[#EFEFEF] flex justify-center items-center"
-                    onClick={uploadFile}
-                  >
-                    <p className="text-[#656D76] text-5xl font-extralight">+</p>
-                  </div>
-                  <div
-                    className="border-[#1ED760] border-2 flex gap-2 items-center h-10 px-4 rounded-lg"
-                    onClick={uploadFile}
-                  >
-                    <Image
-                      src="/addImageIconGreen.webp"
-                      alt="Icon"
-                      height={20}
-                      width={20}
-                    />
-                    <p className="text-[#1ED760] text-sm font-semibold">
-                      Upload Company Logo
-                    </p>
-                  </div>
-                  <input type="file" className="hidden" ref={uploadFileRef} />
-                </div>
-                <div className="w-[100%] my-5">
-                  <p className="text-black font-medium mb-1">Company Name</p>
-                  <input
-                    type="text"
-                    placeholder="Enter company name"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-                <div className="w-[100%] flex gap-10 my-4">
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">
-                      Primary Email Address
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter Primary Email Address"
-                      className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                    />
-                  </div>
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">
-                      Primary Phone Number
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter Primary Phone Number"
-                      className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                    />
-                  </div>
-                </div>
-                <div className="w-[100%] my-4">
-                  <p className="text-black font-medium mb-1">Address</p>
-                  <input
-                    type="text"
-                    placeholder="Enter house and street number"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-                <div className="w-[100%] flex gap-10 my-4">
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">City</p>
-                    <select className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2 pr-5">
-                      <option value="">City 1</option>
-                      <option value="">City 2</option>
-                    </select>
-                  </div>
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">Province</p>
-                    <select className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2 pr-5">
-                      <option value="">Province 1</option>
-                      <option value="">Province 2</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="w-[100%] flex gap-10 my-4">
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">Country</p>
-                    <select className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2 pr-5">
-                      <option value="">Country 1</option>
-                      <option value="">Country 2</option>
-                    </select>
-                  </div>
-                  <div className="w-[50%]">
-                    <p className="text-black font-medium mb-1">Zip Code</p>
-                    <select className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2 pr-5">
-                      <option value="">44000</option>
-                      <option value="">44001</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="w-[100%] my-4">
-                  <p className="text-black font-medium mb-1">
-                    Company Website URL
-                  </p>
-                  <input
-                    type="text"
-                    placeholder="Enter URL"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-                <div className="w-[100%] my-4">
-                  <p className="text-black font-medium mb-1">
-                    Company Social Media Links
-                  </p>
-                  <input
-                    type="text"
-                    placeholder="Enter URL"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-              </div>
-              <div className="h-20 w-full" />
-            </div>
-          )}
-
-          {activeScreen === 3 && (
-            <div className="w-full px-8 py-8 relative">
-              <div className="flex justify-between">
-                <div>
-                  <h1 className="text-[32px] font-bold">Account Owner</h1>
-                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
-                </div>
-                <Image
-                  onClick={props.onClose}
-                  className="cursor-pointer"
-                  src="/cross_icon.webp"
-                  alt="Icon"
-                  height={25}
-                  width={45}
-                />
-              </div>
-              <div className="w-full mt-10">
-                <div className="w-[100%] my-5">
-                  <p className="text-black font-medium mb-1">
-                    The user selected below is the owner of this DoorLoop
-                    account. They will always have full access to all the data
-                    and features on this account.
-                  </p>
-                  <input
-                    type="text"
-                    placeholder="Account Owner"
-                    className="border border-[#cacaca] rounded-lg h-10 w-[100%] px-2"
-                  />
-                </div>
-                <div className="w-[100%] my-4">
-                  <p className="text-black font-medium mb-1">
-                    <span className="text-red-500">*</span> Only the current
-                    account owner can change the owner of the account.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="w-full flex justify-between px-8 mb-10 absolute bottom-0 right-0">
             <button
               onClick={onClickBack}
               className="border-[#1ED760] border text-black text-base font-semibold px-8 py-2 rounded-3xl"
             >
-              Back
+              Close
             </button>
             <button
               onClick={onClckNext}
               className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
             >
-              Next
+              Submit
             </button>
           </div>
         </div>
-        {isAccountCreatedOpen && (
-          <AccountCreatedModal
-            onClose={() => {
-              setIsAccountCreatedOpen(false);
-            }}
-          />
-        )}
       </div>
     </div>
   );

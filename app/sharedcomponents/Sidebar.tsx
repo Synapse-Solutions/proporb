@@ -119,7 +119,7 @@ export default function Sidebar(props: Props) {
                     }
                   />
                   <p
-                    className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer"
+                    className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer text-start"
                     style={{
                       color: pathname === item.link ? "#1ED760" : "white",
                     }}
