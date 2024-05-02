@@ -3,7 +3,7 @@ import React from "react";
 
 interface EmptyViewProps {
   title: string;
-  buttonTitle: string;
+  buttonTitle?: string;
   onClick?: () => void;
 }
 export default function EmptyViewComponent(props: EmptyViewProps) {
@@ -16,12 +16,14 @@ export default function EmptyViewComponent(props: EmptyViewProps) {
         width={150}
       />
       <p>{props.title}</p>
-      <button
-        onClick={props.onClick}
-        className="bg-[#1ED760] rounded-full px-7 py-3 text-white"
-      >
-        + {props.buttonTitle}
-      </button>
+      {props.buttonTitle && (
+        <button
+          onClick={props.onClick}
+          className="bg-[#1ED760] rounded-full px-7 py-3 text-white"
+        >
+          + {props.buttonTitle}
+        </button>
+      )}
     </div>
   );
 }

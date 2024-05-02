@@ -14,7 +14,7 @@ interface Props {
 export default function AddTenant({ onClose }: Props) {
   const router = useRouter();
   // ******* States *******
-  const [screenName, setScreenName] = useState("");
+  const [screenName, setScreenName] = useState("personal");
   const [tenantPayload, setTenantPayload] = useState({
     first_name: "",
     last_name: "",
@@ -25,41 +25,60 @@ export default function AddTenant({ onClose }: Props) {
     address: "",
     password: "",
   });
+  const [bankPayload, setBankPayload] = useState({
+    tenet_id: "",
+    account_number: "",
+    bank_name: "",
+    IBAN: "",
+  });
 
   const onClickNext = () => {
     if (screenName === "personal") {
       setScreenName("contact");
     } else if (screenName === "contact") {
-      setScreenName("address");
-    } else {
       AddTenant();
+    } else {
+      AddTenantBank();
     }
   };
   const onClickBack = () => {
     if (screenName === "contact") {
       setScreenName("personal");
-    } else if (screenName === "address") {
+    } else if (screenName === "bankaccount") {
       setScreenName("contact");
     }
   };
 
   const AddTenant = async () => {
-    try {
-      const user = localStorage.getItem("user") || "";
-      let token = JSON.parse(user).authToken;
-      tenantPayload.username =
-        tenantPayload.first_name + tenantPayload.last_name;
-      const response = await postApiWithToken(
-        "/v1/tenet",
-        tenantPayload,
-        token
-      );
-      if (response.success === true) {
-        toast.success("Tenant added successfully");
-        onClose();
-      }
-    } catch (error) {
-      console.log("🚀 ~ AddTenant ~ error:", error);
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    tenantPayload.username = tenantPayload.first_name + tenantPayload.last_name;
+    const response = await postApiWithToken("/v1/tenet", tenantPayload, token);
+    if (response.success === true) {
+      toast.success("Tenant added successfully");
+      setScreenName("bankaccount");
+      setBankPayload((prev) => ({
+        ...prev,
+        tenet_id: response.data.result.id,
+      }));
+    } else {
+      toast.error(response.data.message);
+    }
+  };
+
+  const AddTenantBank = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const response = await postApiWithToken(
+      "/v1/tenet/bank",
+      bankPayload,
+      token
+    );
+    if (response.success === true) {
+      toast.success("Bank added successfully");
+      onClose();
+    } else {
+      toast.error(response.data.message);
     }
   };
   return (
@@ -78,48 +97,6 @@ export default function AddTenant({ onClose }: Props) {
           />
         )}
         <div className="w-[100%]  relative h-full">
-          {screenName === "" && (
-            <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
-              <div className="flex justify-between ">
-                <div>
-                  <h1 className="text-[32px] font-bold">
-                    Add To Tenant To Rental
-                  </h1>
-                  <div className="h-[2px] bg-[#1ED760] w-[100px]" />
-                </div>
-              </div>
-              <div className="flex justify-between mt-10">
-                <div
-                  className={`w-[50%] rounded-full border border-gray-400 flex h-12`}
-                >
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="outline-none w-[90%] px-5 bg-transparent"
-                  />
-                  <div className="bg-[#1ED760] w-[10%] rounded-r-full flex items-center justify-center">
-                    <Image
-                      src="/search_icon.webp"
-                      alt="searchIcon"
-                      height={30}
-                      width={30}
-                    />
-                  </div>
-                </div>
-                <div
-                  onClick={() => setScreenName("personal")}
-                  className="bg-[#1ED760] rounded-full px-7 py-3 text-white cursor-pointer"
-                >
-                  + New Tenant
-                </div>
-              </div>
-              <EmptyViewComponent
-                onClick={() => router.push("/newproperty")}
-                title="No Property found"
-                buttonTitle="New Property"
-              />
-            </div>
-          )}
           {screenName === "personal" && (
             <div className="text-black w-full px-10 pt-10 h-full overflow-auto ">
               <div className="flex justify-between ">
@@ -207,6 +184,24 @@ export default function AddTenant({ onClose }: Props) {
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                   />
                 </div>
+                <div className="w-[47%]">
+                  <p>Address</p>
+                  <div className="flex justify-between">
+                    <input
+                      required
+                      value={tenantPayload.address}
+                      onChange={(e) =>
+                        setTenantPayload({
+                          ...tenantPayload,
+                          address: e.target.value,
+                        })
+                      }
+                      type="text"
+                      placeholder="Enter Address"
+                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="h-24" />
             </div>
@@ -271,11 +266,11 @@ export default function AddTenant({ onClose }: Props) {
               <div className="h-24" />
             </div>
           )}
-          {screenName === "address" && (
+          {screenName === "bankaccount" && (
             <div className="text-black w-full px-10 pt-10 relative">
               <div className="flex justify-between ">
                 <div>
-                  <h1 className="text-[32px] font-bold">Address</h1>
+                  <h1 className="text-[32px] font-bold">Bank Account</h1>
                   <div className="h-[2px] bg-[#1ED760] w-[100px]" />
                 </div>
                 <Image
@@ -287,17 +282,52 @@ export default function AddTenant({ onClose }: Props) {
                   height={50}
                 />
               </div>
-
               <div className="mt-10 space-y-2">
-                <p>Address</p>
+                <div className="flex justify-between">
+                  <div className="w-[47%]">
+                    <p>Account Name</p>
+                    <input
+                      type="text"
+                      value={bankPayload.bank_name}
+                      onChange={(e) =>
+                        setBankPayload({
+                          ...bankPayload,
+                          bank_name: e.target.value,
+                        })
+                      }
+                      placeholder="Enter your First Name"
+                      required
+                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
+                    />
+                  </div>
+                  <div className="w-[47%]">
+                    <p>Account Number</p>
+                    <input
+                      required
+                      value={bankPayload.account_number}
+                      onChange={(e) =>
+                        setBankPayload({
+                          ...bankPayload,
+                          account_number: e.target.value,
+                        })
+                      }
+                      type="text"
+                      placeholder="Enter your Last Name"
+                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mt-10 space-y-2">
+                <p>IBAN</p>
                 <div className="flex justify-between">
                   <input
                     required
-                    value={tenantPayload.address}
+                    value={bankPayload.IBAN}
                     onChange={(e) =>
-                      setTenantPayload({
-                        ...tenantPayload,
-                        address: e.target.value,
+                      setBankPayload({
+                        ...bankPayload,
+                        IBAN: e.target.value,
                       })
                     }
                     type="text"

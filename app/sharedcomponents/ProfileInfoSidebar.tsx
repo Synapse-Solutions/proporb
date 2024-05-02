@@ -48,7 +48,11 @@ export default function ProfileInfoSidebar(props: Props) {
             <p>Contact Information</p>
           </div>
           <div
-            onClick={() => props.setActiveTab("address")}
+            onClick={() =>
+              props.title
+                ? props.setActiveTab("bankaccount")
+                : props.setActiveTab("address")
+            }
             style={{
               backgroundColor:
                 props.activeTab === "address" ? "#5e5a5a" : "#191414",
@@ -62,7 +66,7 @@ export default function ProfileInfoSidebar(props: Props) {
               width={25}
               height={25}
             />
-            <p>Address</p>
+            <p>{props.title ? "Bank Account" : "Address"}</p>
           </div>
         </div>
       </div>

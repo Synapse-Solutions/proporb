@@ -10,9 +10,11 @@ import React, { useState } from "react";
 import TenantDetailsModal from "./modals/TenantDetailsModal";
 import AddTenant from "../rentals/models/AddTenant";
 
-const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
-const nestedMenuItems = ["Tenants", "Vendors", "Prospects"];
-export default function PeoplesComponent() {
+interface Props {
+  tenantsArray: any;
+}
+
+export default function PeoplesComponent(props: Props) {
   const [isTenantShow, setIsTenantShow] = useState(false);
   const [addTenantModal, setAddTenantModal] = useState(false);
   const router = useRouter();
@@ -44,7 +46,7 @@ export default function PeoplesComponent() {
             </div>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
-          {array.length === 0 ? (
+          {props.tenantsArray.length === 0 ? (
             <>
               <SearchView />
               <div className="mt-10">
@@ -56,7 +58,7 @@ export default function PeoplesComponent() {
             </>
           ) : (
             <div className="flex flex-wrap gap-5 2xl:gap-10 mt-10">
-              {array.map((item, index) => (
+              {props.tenantsArray.map((item: any, index: number) => (
                 <div
                   key={index}
                   className="border border-gray-600 p-5 w-[23%] 2xl:w-[20%] rounded-md flex flex-col items-center text-center"
@@ -67,21 +69,19 @@ export default function PeoplesComponent() {
                     height={150}
                     width={150}
                   />
-                  <p className="text-[#000] text-[16px] mt-3">Name</p>
-                  <p className="text-[#000] text-[15px]">
-                    100 Southeast Alder Street
+                  <p className="text-[#000] text-[16px] mt-3">
+                    {item.first_name + item.last_name}
                   </p>
-                  <p className="text-[#8D8D8D] text-[13px]">
-                    Portland, QR 97724
-                  </p>
+                  <p className="text-[#000] text-[15px]">{item.address}</p>
+
                   <p className="text-[#1ED760] text-[14px] mt-3">
-                    (924) 333 6456
+                    {item.mobile}
                   </p>
                   <p className="text-[#1ED760] text-[12px] mt-3">
-                    Info@Email.com
+                    {item.email}
                   </p>
                   <button
-                    onClick={() => setIsTenantShow(true)}
+                    onClick={() => setIsTenantShow(item)}
                     className="bg-[#1ED760] rounded-full px-7 py-2 text-white mt-5"
                   >
                     View Tenant
@@ -93,7 +93,10 @@ export default function PeoplesComponent() {
         </div>
       </div>
       {isTenantShow && (
-        <TenantDetailsModal onClose={() => setIsTenantShow(false)} />
+        <TenantDetailsModal
+          isTenantShow={isTenantShow}
+          onClose={() => setIsTenantShow(false)}
+        />
       )}
       {addTenantModal && <AddTenant onClose={() => setAddTenantModal(false)} />}
     </div>

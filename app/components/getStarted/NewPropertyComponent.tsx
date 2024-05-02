@@ -202,6 +202,8 @@ interface Props {
   addUnitFunction: any;
   bankDetails: any;
   setBankDetails: any;
+  banksArray: any;
+  handleChangeBankAccount: any;
 }
 export default function NewPropertyComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
@@ -708,21 +710,25 @@ export default function NewPropertyComponent(props: Props) {
                       </p>
                       <select
                         onChange={(e) => {
-                          console.log(e.target.value);
                           if (
                             (e.target as HTMLSelectElement).value ===
                             "newaccount"
                           ) {
                             setCreateAccountModal(true);
+                          } else {
+                            props.handleChangeBankAccount(e.target.value);
                           }
                         }}
                         name="account"
                         id=""
                         className="border border-[gray] rounded-xl w-[50%] p-3 flex items-center justify-between px-5 mt-7 h-12"
                       >
-                        <option value="option1">Ubl bank account</option>
-                        <option value="option1">Ubl bank account</option>
-                        <option value="option1">Ubl bank account</option>
+                        {props.banksArray.map((item: any, index: number) => (
+                          <option key={index} value={index}>
+                            {item.bank_name} - {item.account_number}
+                          </option>
+                        ))}
+
                         <option
                           onClick={() => setCreateAccountModal(true)}
                           value="newaccount"

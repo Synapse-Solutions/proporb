@@ -4,19 +4,9 @@ import React, { useState } from "react";
 
 interface Props {
   onClose?: () => void;
+  isTenantShow: any;
 }
-export default function TenantDetailsModal({ onClose }: Props) {
-  // ******* States *******
-  const [selectedBankAccount, setSelectedBankAccount] = useState(0);
-  const [screenNo, setScreenNo] = useState(0);
-
-  const onCancel = () => {
-    if (screenNo === 0) {
-      onClose && onClose();
-    } else {
-      setScreenNo(0);
-    }
-  };
+export default function TenantDetailsModal({ onClose, isTenantShow }: Props) {
   return (
     <div
       style={{
@@ -59,7 +49,9 @@ export default function TenantDetailsModal({ onClose }: Props) {
                 <p className="">Company Name</p>
               </div>
               <div className="bg-[#fff] flex items-center py-2 px-7 rounded-lg">
-                <p className="w-[65%]">XYZ</p>
+                <p className="w-[65%]">
+                  {isTenantShow.first_name + " " + isTenantShow.last_name}
+                </p>
                 <p className="">XYZ</p>
               </div>
               <div className="bg-[#EFEFEF] flex items-center py-2 px-7 rounded-lg">
@@ -67,15 +59,15 @@ export default function TenantDetailsModal({ onClose }: Props) {
                 <p className="">Phone Number</p>
               </div>
               <div className="bg-[#fff] flex items-center py-2 px-7 rounded-lg">
-                <p className="w-[65%]">XYZ</p>
-                <p className="">XYZ</p>
+                <p className="w-[65%]">{isTenantShow.email}</p>
+                <p className="">{isTenantShow.mobile}</p>
               </div>
               <div className="bg-[#EFEFEF] flex items-center py-2 px-7 rounded-lg">
                 <p className="w-[65%]">Address</p>
                 <p className="">City</p>
               </div>
               <div className="bg-[#fff] flex items-center py-2 px-7 rounded-lg">
-                <p className="w-[65%]">XYZ</p>
+                <p className="w-[65%]">{isTenantShow.address}</p>
                 <p className="">XYZ</p>
               </div>
               <div className="bg-[#EFEFEF] flex items-center py-2 px-7 rounded-lg">

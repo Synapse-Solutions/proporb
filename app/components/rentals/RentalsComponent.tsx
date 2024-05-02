@@ -8,14 +8,9 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import AddTenant from "./models/AddTenant";
 
-const nestedMenuItems = ["Tenants", "Vendors", "Prospects"];
 export default function () {
   const [isTenantShow, setIsTenantShow] = useState(false);
-  const router = useRouter();
 
-  const onClickNewRental = () => {
-    router.push("/newtenant");
-  };
   return (
     <div className="h-screen overflow-y-scroll">
       <Sidebar />
@@ -31,9 +26,6 @@ export default function () {
                   + New Rentals
                 </div>
               </Link>
-              {/* <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
-                + New Tenant
-              </div> */}
             </div>
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
@@ -41,8 +33,7 @@ export default function () {
           <div className="mt-10">
             <EmptyViewComponent
               onClick={() => setIsTenantShow(true)}
-              title="No Tenant found"
-              buttonTitle="New Tenant"
+              title="No Rental found"
             />
           </div>
         </div>

@@ -19,11 +19,9 @@ export default function CreateAccountModal({
   const onAddBankDetails = async () => {
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
-    console.log("🚀 ~ onAddBankDetails ~ token:", token);
 
     try {
       const response = await postApiWithToken("/v1/bank", bankDetails, token);
-      console.log("🚀 ~ onAddBankDetails ~ response:", response);
       if (response.success === true) {
         setIsAccountCompleted(true);
       }

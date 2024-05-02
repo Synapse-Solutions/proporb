@@ -1,9 +1,13 @@
 "use client";
 import NewPropertyComponent from "@/app/components/getStarted/NewPropertyComponent";
-import { postApi, postApiWithToken } from "@/app/utils/AppApi";
-import React, { useState } from "react";
+import { getApiWithToken, postApi, postApiWithToken } from "@/app/utils/AppApi";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function page() {
+  const [banksArray, setBanksArray] = useState<any>([]);
+
   const [payload, setPayload] = useState({
     type: "Residential Property",
     subtype: "",
@@ -34,15 +38,18 @@ export default function page() {
     account_type: "",
   });
 
+  useEffect(() => {
+    getAllBankAccounts();
+  }, []);
+
   const addPropertyFunction = async () => {
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
-    console.log("🚀 ~ addPropertyFunction ~ token:", token);
 
     try {
       const response = await postApiWithToken("/v1/property", payload, token);
-      console.log("🚀 ~ addPropertyFunction ~ response:", response);
       if (response.success === true) {
+        toast.success("Property Added Successfully");
         setUnitPayload({
           ...unitPayload,
           property_id: response.data.result.id,
@@ -59,13 +66,49 @@ export default function page() {
   const addUnitFunction = async () => {
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
-    console.log("🚀 ~ addPropertyFunction ~ token:", token);
 
     try {
       const response = await postApiWithToken("/v1/unit", unitPayload, token);
-      console.log("🚀 ~ addPropertyFunction ~ response:", response);
+      if (response.success === true) {
+        toast.success("Unit Added Successfully");
+      }
     } catch (error) {
       console.log("🚀 ~ addPropertyFunction ~ error:", error);
+    }
+  };
+
+  const getAllBankAccounts = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+
+    try {
+      const response = await getApiWithToken("/v1/bank", token);
+      setBanksArray(response.data.result);
+    } catch (error) {
+      console.log("🚀 ~ addPropertyFunction ~ error:", error);
+    }
+  };
+
+  const handleChangeBankAccount = async (index: number) => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    let item = banksArray[index];
+    let payload = {
+      ...bankDetails,
+      receipt_type: item?.receipt_type || "",
+      email: item.email,
+      account_holder_name: item.account_holder_name,
+      account_number: item.account_number,
+      bank_name: item.bank_name,
+      account_type: item.account_type,
+    };
+    try {
+      const response = await postApiWithToken("/v1/bank", payload, token);
+      if (response.success === true) {
+        toast.success("Bank Account Added Successfully");
+      }
+    } catch (error) {
+      console.log("🚀 ~ onAddBankDetails ~ error:", error);
     }
   };
 
@@ -79,6 +122,8 @@ export default function page() {
       addUnitFunction={addUnitFunction}
       bankDetails={bankDetails}
       setBankDetails={setBankDetails}
+      banksArray={banksArray}
+      handleChangeBankAccount={handleChangeBankAccount}
     />
   );
 }

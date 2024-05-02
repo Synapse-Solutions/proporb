@@ -33,6 +33,7 @@ export const postApiWithToken = async (url, data, token) => {
     return response.data;
   } catch (error) {
     console.error("Error while post data with token:", error.response.data);
+    return error.response.data;
   }
 };
 
@@ -43,6 +44,7 @@ export const getApiWithToken = async (url, token) => {
     return response.data;
   } catch (error) {
     console.log("Error while fetching data:", error.response.data);
+    return error.response.data;
   }
 };
 
@@ -53,6 +55,7 @@ export const getApi = async (url) => {
     return response.data;
   } catch (error) {
     console.log("Error while fetching data:", error.response.data);
+    return error.response.data;
   }
 };
 
@@ -68,6 +71,7 @@ export const putAPi = async (url, data, token) => {
     return response.data;
   } catch (error) {
     console.log("Error while updating data:", error.response.data);
+    return error.response.data;
   }
 };
 
@@ -78,6 +82,7 @@ export const deleteAPi = async (url, token) => {
     return response.data;
   } catch (error) {
     console.log("Error while deleting data:", error.response.data);
+    return error.response.data;
   }
 };
 //*************** */ delete api with payload
@@ -88,6 +93,7 @@ export const deleteAPiwithpayload = async (url, data, token) => {
     return response.data;
   } catch (error) {
     console.log("Error while deleting data:", error.response.data);
+    return error.response.data;
   }
 };
 
