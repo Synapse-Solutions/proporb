@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 interface Props {
   setScreenName: React.Dispatch<React.SetStateAction<any>>;
+  subscriptionPayload: any;
+  setSubscriptionPayload: any;
 }
 export default function SubscriptionDetails(props: Props) {
   const [isChecked, setIsChecked] = useState(false);

@@ -1,8 +1,9 @@
 "use client";
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
+import { uploadImageToS3 } from "@/app/utils/AppApi";
 import { on } from "events";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Props {
   onClose?: () => void;
@@ -16,7 +17,16 @@ export default function PersonaInformation({ onClose }: Props) {
     email: "",
     mobile: "",
     address: "",
+    image: "",
   });
+
+  const uploadFileRef = useRef<any>(null);
+
+  const uploadFile = () => {
+    if (uploadFileRef.current) {
+      uploadFileRef.current?.click();
+    }
+  };
 
   useEffect(() => {
     getCurrent();
@@ -24,15 +34,29 @@ export default function PersonaInformation({ onClose }: Props) {
 
   const getCurrent = () => {
     const user = JSON.parse(localStorage.getItem("user") || "");
-    console.log("🚀 ~ getCurrent ~ user:", user.Owner);
     setUserPayload({
       first_name: user.Owner.first_name,
       last_name: user.Owner.last_name,
       email: user.Owner.email,
       mobile: user.Owner.mobile,
       address: user.Owner.address,
+      image: user.Owner.image,
     });
   };
+
+  const handlefile = async (file: any) => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const response = await uploadImageToS3(file, token);
+    setUserPayload((prev) => {
+      return {
+        ...prev,
+        image: response,
+      };
+    });
+  };
+
+  console.log("DATA========", userPayload.image);
   return (
     <div
       style={{
@@ -66,12 +90,17 @@ export default function PersonaInformation({ onClose }: Props) {
               </div>
               <div className="flex gap-5 items-center mt-5">
                 <Image
-                  src={"/default.webp"}
+                  src={userPayload.image ?? "/default.webp"}
                   alt="Icon"
                   width={100}
                   height={100}
+                  className="rounded-full object-cover bg-black"
+                  onClick={uploadFile}
                 />
-                <button className="flex gap-3 border-2 border-[#1ED760] rounded-md px-3 py-1 items-center">
+                <button
+                  onClick={uploadFile}
+                  className="flex gap-3 border-2 border-[#1ED760] rounded-md px-3 py-1 items-center"
+                >
                   <Image
                     src={"/icon_image_add.webp"}
                     alt="Icon"
@@ -79,6 +108,17 @@ export default function PersonaInformation({ onClose }: Props) {
                     width={30}
                   />
                   <p>Upload image</p>
+                  <input
+                    ref={uploadFileRef}
+                    type="file"
+                    className="hidden"
+                    accept="image/png, image/jpeg"
+                    onChange={(e) => {
+                      if (e.target.files) {
+                        handlefile(e.target.files[0]);
+                      }
+                    }}
+                  />
                 </button>
               </div>
 

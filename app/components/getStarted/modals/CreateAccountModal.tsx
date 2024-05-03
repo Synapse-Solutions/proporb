@@ -6,8 +6,8 @@ import { postApiWithToken } from "@/app/utils/AppApi";
 
 interface Props {
   setIsCreateAccountModal: (value: boolean) => void;
-  bankDetails: any;
-  setBankDetails: any;
+  bankDetails?: any;
+  setBankDetails?: any;
 }
 export default function CreateAccountModal({
   setIsCreateAccountModal,

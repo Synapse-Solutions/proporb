@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: ["propnob.s3.amazonaws.com"],
+  },
+};
 
 export default nextConfig;

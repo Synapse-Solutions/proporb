@@ -1,5 +1,4 @@
 "use client";
-import AccountCreatedModal from "@/app/sharedcomponents/AccountCreatedModal";
 import { putAPi, uploadImageToS3 } from "@/app/utils/AppApi";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
