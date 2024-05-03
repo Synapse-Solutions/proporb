@@ -14,8 +14,10 @@ interface Props {
   };
   setUser?: any;
   onClickRegister?: any;
+  userErrors: any;
 }
 export default function RegisterComponent(props: Props) {
+  console.log("DATA=========", props.userErrors);
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
@@ -27,6 +29,8 @@ export default function RegisterComponent(props: Props) {
             <p>Full Name</p>
             <AuthInput
               value={props.user.name}
+              isError={props.userErrors.name === true ? true : false}
+              placeholder="Enter your Full Name"
               onChange={(e) =>
                 props.setUser({ ...props.user, name: e.target.value })
               }
@@ -37,6 +41,8 @@ export default function RegisterComponent(props: Props) {
             <p>Email Address</p>
             <AuthInput
               value={props.user.email}
+              isError={props.userErrors.email === true ? true : false}
+              placeholder="Enter your Email Address"
               onChange={(e) =>
                 props.setUser({ ...props.user, email: e.target.value })
               }
@@ -47,6 +53,8 @@ export default function RegisterComponent(props: Props) {
             <p>Mobile Number</p>
             <AuthInput
               value={props.user.mobile}
+              isError={props.userErrors.mobile === true ? true : false}
+              placeholder="Enter your Mobile Number"
               onChange={(e) =>
                 props.setUser({ ...props.user, mobile: e.target.value })
               }
@@ -58,6 +66,8 @@ export default function RegisterComponent(props: Props) {
 
             <AuthInput
               value={props.user.password}
+              isError={props.userErrors.password === true ? true : false}
+              placeholder="Enter your Password"
               onChange={(e) =>
                 props.setUser({ ...props.user, password: e.target.value })
               }
@@ -76,7 +86,7 @@ export default function RegisterComponent(props: Props) {
             <div className="h-[1px] w-[45%] bg-black" />
           </div>
           <div className="flex justify-between mt-5 2xl:mt-10">
-            <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12">
+            <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12 hover:border-[#1ED760] hover:text-[#1ED760] font-bold">
               <Image
                 src={"/google.webp"}
                 width={70}
@@ -86,7 +96,7 @@ export default function RegisterComponent(props: Props) {
               />
               <p>Google</p>
             </div>
-            <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12">
+            <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12 hover:border-[#1ED760] hover:text-[#1ED760] font-bold">
               <Image
                 src={"/facebook.webp"}
                 width={70}

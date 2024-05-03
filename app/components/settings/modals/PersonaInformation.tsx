@@ -1,12 +1,13 @@
 "use client";
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
-import { uploadImageToS3 } from "@/app/utils/AppApi";
+import { putAPi, uploadImageToS3 } from "@/app/utils/AppApi";
 import { on } from "events";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
-  onClose?: () => void;
+  onClose: () => void;
 }
 export default function PersonaInformation({ onClose }: Props) {
   // ******* States *******
@@ -55,8 +56,49 @@ export default function PersonaInformation({ onClose }: Props) {
       };
     });
   };
+  const onclicBack = () => {
+    if (screenName === "contact") {
+      setScreenName("personal");
+    } else if (screenName === "address") {
+      setScreenName("contact");
+    }
+  };
 
-  console.log("DATA========", userPayload.image);
+  const onClickNext = async () => {
+    if (screenName === "personal") {
+      setScreenName("contact");
+    } else if (screenName === "contact") {
+      setScreenName("address");
+    } else {
+      const user = JSON.parse(localStorage.getItem("user") || "");
+      let token = user.authToken;
+      const response = await putAPi(
+        "/v1/owner/" + user.Owner.id,
+        userPayload,
+        token
+      );
+      if (response.success) {
+        toast.success("Profile Updated successfully");
+        updateLocalUser();
+        onClose();
+      } else {
+        toast.error("Error updating profile");
+      }
+    }
+  };
+
+  const updateLocalUser = () => {
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    let newUser = user;
+    newUser.Owner.first_name = userPayload.first_name;
+    newUser.Owner.last_name = userPayload.last_name;
+    newUser.Owner.email = userPayload.email;
+    newUser.Owner.mobile = userPayload.mobile;
+    newUser.Owner.address = userPayload.address;
+    newUser.Owner.image = userPayload.image;
+    localStorage.setItem("user", JSON.stringify(newUser));
+  };
+
   return (
     <div
       style={{
@@ -303,11 +345,14 @@ export default function PersonaInformation({ onClose }: Props) {
             </div>
           )}
           <div className="flex justify-between absolute bottom-0 pb-10 bg-white pt-3 w-[100%] left-0 px-[calc(3vw)] ">
-            <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full">
+            <button
+              onClick={onclicBack}
+              className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full"
+            >
               Back
             </button>
             <button
-              onClick={() => setScreenName("address")}
+              onClick={() => onClickNext()}
               className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
             >
               Next

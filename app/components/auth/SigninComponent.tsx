@@ -1,6 +1,7 @@
 import AuthButton from "@/app/sharedcomponents/AuthButton";
 import AuthInput from "@/app/sharedcomponents/AuthInput";
 import AuthLeftSide from "@/app/sharedcomponents/AuthLeftSide";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -65,7 +66,10 @@ export default function SigninComponent(props: Props) {
             <div className="h-[1px] w-[45%] bg-[#645D5D]" />
           </div>
           <div className="flex justify-between mt-5 2xl:mt-10">
-            <div className="border border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12">
+            <div
+              onClick={() => signIn()}
+              className="border cursor-pointer border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12"
+            >
               <Image
                 src={"/google.webp"}
                 width={70}

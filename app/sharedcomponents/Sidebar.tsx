@@ -129,19 +129,6 @@ export default function Sidebar(props: Props) {
                 </button>
               </Link>
             ))}
-            {pathname === "/reports" && (
-              <div className="flex flex-col gap-2 mt-3 text-white text-[13px] items-start">
-                <button className="bg-[#5e5a5a] rounded-md px-5 py-2 flex justify-center">
-                  All Reports Properties
-                </button>
-                <button className="bg-[#5e5a5a] rounded-md px-5 py-2 flex justify-center">
-                  Residential Properties Reports
-                </button>
-                <button className="bg-[#5e5a5a] rounded-md px-5 py-2 flex justify-center">
-                  Commercial Properties Reports
-                </button>
-              </div>
-            )}
           </div>
 
           <div className="flex flex-col gap-1 fixed bottom-0 pb-5">

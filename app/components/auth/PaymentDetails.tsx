@@ -51,7 +51,7 @@ export default function PaymentDetails(props: Props) {
                 onChange={(e) => {
                   handlePlan(e);
                 }}
-                className="border-[1px] border-[#d0d5dd] rounded  h-10 2xl:h-14 w-[100%] px-3"
+                className="border-[1px] border-[#d0d5dd] rounded  h-10 2xl:h-14 w-[100%] px-3 hover:border-[#1ED760]"
               >
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
@@ -127,7 +127,7 @@ export default function PaymentDetails(props: Props) {
             </div>
             <div className="mt-2 2xl:mt-5">
               <p>Discount Code</p>
-              <div className="border-[1px] border-[#d0d5dd] rounded h-10 2xl:h-14 w-[100%] px-3 flex ">
+              <div className="border-[1px] border-[#d0d5dd] rounded h-10 2xl:h-14 w-[100%] px-3 flex hover:border-[#1ED760]">
                 <input
                   type="text"
                   className="outline-none w-[100%] bg-transparent"

@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function page() {
   const [banksArray, setBanksArray] = useState<any>([]);
-
+  const [ownersArray, setOwnersArray] = useState([]);
   const [payload, setPayload] = useState({
     type: "Residential Property",
     subtype: "",
@@ -18,6 +18,7 @@ export default function page() {
     zip_code: "",
     country: "",
     house_no: "",
+    owner_id: "",
   });
   const [unitPayload, setUnitPayload] = useState({
     rooms: "",
@@ -27,6 +28,7 @@ export default function page() {
     rent: "",
     bathroom: "",
     property_id: "",
+    owner_id: "",
   });
   const [bankDetails, setBankDetails] = useState({
     property_id: "",
@@ -40,6 +42,7 @@ export default function page() {
 
   useEffect(() => {
     getAllBankAccounts();
+    getAllOwners();
   }, []);
 
   const addPropertyFunction = async () => {
@@ -112,6 +115,14 @@ export default function page() {
     }
   };
 
+  const getAllOwners = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+
+    const response = await getApiWithToken("/v1/owner", token);
+    setOwnersArray(response.data.result);
+  };
+
   return (
     <NewPropertyComponent
       payload={payload}
@@ -124,6 +135,7 @@ export default function page() {
       setBankDetails={setBankDetails}
       banksArray={banksArray}
       handleChangeBankAccount={handleChangeBankAccount}
+      ownersAray={ownersArray}
     />
   );
 }

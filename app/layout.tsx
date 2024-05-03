@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import Providers from "./googleauth/Provider";
 
 const inter = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="text-black">
-          {children}
-          <ToastContainer />
-        </div>
+        <Providers>
+          <div className="text-black">
+            {children}
+            <ToastContainer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

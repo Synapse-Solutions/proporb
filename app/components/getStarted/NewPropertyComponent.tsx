@@ -204,6 +204,7 @@ interface Props {
   setBankDetails: any;
   banksArray: any;
   handleChangeBankAccount: any;
+  ownersAray: any;
 }
 export default function NewPropertyComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
@@ -389,47 +390,31 @@ export default function NewPropertyComponent(props: Props) {
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property owner information
                   </p>
-                  <div className="mt-5">
-                    <p>Full Name</p>
-                    <input
-                      type="text"
-                      placeholder="Enter Full Name"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                    />
-                  </div>
                   <div className="mt-5 flex gap-5 w-full justify-between">
                     <div className="w-[47%]">
-                      <p>Email</p>
-                      <input
-                        type="email"
-                        placeholder="Enter Email"
+                      <p>Select the owner of property</p>
+                      <select
+                        name=""
+                        id=""
+                        onChange={(e) => {
+                          props.setPayload({
+                            ...props.payload,
+                            owner_id: e.target.value,
+                          });
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            owner_id: e.target.value,
+                          });
+                        }}
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
+                      >
+                        {props.ownersAray.map((item: any, index: number) => (
+                          <option key={index} value={item.id}>
+                            {item.first_name + " " + item.last_name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
-                    <div className="w-[47%]">
-                      <p>Mobile Number</p>
-                      <input
-                        type="number"
-                        placeholder="Enter your mobile number"
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-[100%] mt-5">
-                    <p>CNIC</p>
-                    <input
-                      type="number"
-                      placeholder="Enter your cnic number"
-                      className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                    />
-                  </div>
-                  <div className="mt-5 ">
-                    <p className="text-[14px] font-bold text-black">
-                      Add multiple owners to this property
-                    </p>
-                    <button className="bg-[#1ED760] rounded-xl text-white px-5 py-2 text-[20px] mt-4">
-                      +
-                    </button>
                   </div>
                 </div>
               )}
