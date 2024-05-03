@@ -401,9 +401,9 @@ export default function NewApartmentComponent() {
           </div>
         </div>
       </div>
-      {createAccountModal && (
+      {/* {createAccountModal && (
         <CreateAccountModal setIsCreateAccountModal={setCreateAccountModal} />
-      )}
+      )} */}
       {isSuccessModalShow && (
         <PropertyAddedModal
           setIsPropertyAddedModal={setIsSuccessModalShow}
