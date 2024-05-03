@@ -9,11 +9,7 @@ interface Props {
   bankDetails?: any;
   setBankDetails?: any;
 }
-export default function CreateAccountModal({
-  setIsCreateAccountModal,
-  bankDetails,
-  setBankDetails,
-}: Props) {
+export default function CreateAccountModal(props: Props) {
   const [isAccountCompleted, setIsAccountCompleted] = useState(false);
 
   const onAddBankDetails = async () => {
@@ -21,7 +17,11 @@ export default function CreateAccountModal({
     let token = JSON.parse(user).authToken;
 
     try {
-      const response = await postApiWithToken("/v1/bank", bankDetails, token);
+      const response = await postApiWithToken(
+        "/v1/bank",
+        props.bankDetails,
+        token
+      );
       if (response.success === true) {
         setIsAccountCompleted(true);
       }
@@ -43,7 +43,7 @@ export default function CreateAccountModal({
             <div className="bg-[#1ED760] h-1 w-[60px]" />
           </div>
           <Image
-            onClick={() => setIsCreateAccountModal(false)}
+            onClick={() => props.setIsCreateAccountModal(false)}
             src="/cross_icon.webp"
             width={40}
             height={40}
@@ -55,9 +55,12 @@ export default function CreateAccountModal({
           <p className="text-[20px] text-black">Bank Name</p>
           <input
             type="text"
-            value={bankDetails.bank_name}
+            value={props.bankDetails.bank_name}
             onChange={(e) =>
-              setBankDetails({ ...bankDetails, bank_name: e.target.value })
+              props.setBankDetails({
+                ...props.bankDetails,
+                bank_name: e.target.value,
+              })
             }
             className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
           />
@@ -66,7 +69,10 @@ export default function CreateAccountModal({
           <p>Account Type</p>
           <select
             onChange={(e) =>
-              setBankDetails({ ...bankDetails, account_type: e.target.value })
+              props.setBankDetails({
+                ...props.bankDetails,
+                account_type: e.target.value,
+              })
             }
             className="border border-[gray] rounded-xl w-full h-12 px-3 mt-3"
           >
@@ -91,9 +97,12 @@ export default function CreateAccountModal({
             <p>Email</p>
             <input
               type="email"
-              value={bankDetails.email}
+              value={props.bankDetails.email}
               onChange={(e) =>
-                setBankDetails({ ...bankDetails, email: e.target.value })
+                props.setBankDetails({
+                  ...props.bankDetails,
+                  email: e.target.value,
+                })
               }
               placeholder="example@gmail.com"
               className="w-full border border-[gray] rounded-xl  h-12 px-3 mt-3"
@@ -105,10 +114,10 @@ export default function CreateAccountModal({
             <p>Full name of the account holder</p>
             <input
               type="text"
-              value={bankDetails.account_holder_name}
+              value={props.bankDetails.account_holder_name}
               onChange={(e) =>
-                setBankDetails({
-                  ...bankDetails,
+                props.setBankDetails({
+                  ...props.bankDetails,
                   account_holder_name: e.target.value,
                 })
               }
@@ -120,10 +129,10 @@ export default function CreateAccountModal({
             <p>Account Number</p>
             <input
               type="text"
-              value={bankDetails.account_number}
+              value={props.bankDetails.account_number}
               onChange={(e) =>
-                setBankDetails({
-                  ...bankDetails,
+                props.setBankDetails({
+                  ...props.bankDetails,
                   account_number: e.target.value,
                 })
               }
@@ -135,7 +144,7 @@ export default function CreateAccountModal({
 
         <div className="w-full flex justify-between mt-10">
           <button
-            onClick={() => setIsCreateAccountModal(false)}
+            onClick={() => props.setIsCreateAccountModal(false)}
             className="border-[#1ED760] border text-black text-base font-semibold px-8 py-2 rounded-3xl"
           >
             Cancel
