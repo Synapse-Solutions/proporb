@@ -98,26 +98,22 @@ export const deleteAPiwithpayload = async (url, data, token) => {
 };
 
 //**************** */ upload image
-export const uploadImageToS3 = async (imageUri, type) => {
-  const config = {
-    headers: {
-      accept: "application/json",
-      "Content-Type": "multipart/form-data",
-    },
-  };
-
-  const formData = new FormData();
-  formData.append("attachment", {
-    uri: imageUri,
-    name: imageUri?.split("/")?.pop(),
-    type: mime?.getType(imageUri),
-  });
-  formData.append("type", type);
-
+export const uploadImageToS3 = async (imageUri, token) => {
   try {
-    const response = await axiosClient.post("/v1/user/image", formData, config);
+    const config = {
+      headers: {
+        accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const formData = new FormData();
+    formData.append("attachment", imageUri);
+    const response = await axiosClient.post("/v1/image", formData, config);
     return response.data.data.result;
   } catch (error) {
     console.log("Error in uploading image", error);
+    return error.response.data;
   }
 };

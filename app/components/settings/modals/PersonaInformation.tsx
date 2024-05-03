@@ -2,46 +2,36 @@
 import ProfileInfoSidebar from "@/app/sharedcomponents/ProfileInfoSidebar";
 import { on } from "events";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   onClose?: () => void;
 }
 export default function PersonaInformation({ onClose }: Props) {
   // ******* States *******
-  const [screenName, setScreenName] = useState("contact");
-  const [contactNumbers, setContactNumbers] = useState([
-    {
-      type: "mobile",
-      number: "",
-    },
-  ]);
-  const [emails, setEmails] = useState([
-    {
-      type: "personal",
-      email: "",
-    },
-  ]);
+  const [screenName, setScreenName] = useState("personal");
+  const [userPayload, setUserPayload] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    mobile: "",
+    address: "",
+  });
 
-  // ******* Functions *******
-  const onAddNumber = () => {
-    setContactNumbers([
-      ...contactNumbers,
-      {
-        type: "mobile",
-        number: "",
-      },
-    ]);
-  };
+  useEffect(() => {
+    getCurrent();
+  }, []);
 
-  const onAddEmail = () => {
-    setEmails([
-      ...emails,
-      {
-        type: "personal",
-        email: "",
-      },
-    ]);
+  const getCurrent = () => {
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    console.log("🚀 ~ getCurrent ~ user:", user.Owner);
+    setUserPayload({
+      first_name: user.Owner.first_name,
+      last_name: user.Owner.last_name,
+      email: user.Owner.email,
+      mobile: user.Owner.mobile,
+      address: user.Owner.address,
+    });
   };
   return (
     <div
@@ -91,34 +81,19 @@ export default function PersonaInformation({ onClose }: Props) {
                   <p>Upload image</p>
                 </button>
               </div>
-              <div className="mt-10 space-y-2">
-                <div className="flex justify-between">
-                  <div className="w-[47%]">
-                    <p>First Name</p>
-                    <input
-                      type="text"
-                      placeholder="Enter your First Name"
-                      required
-                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-                    />
-                  </div>
-                  <div className="w-[47%]">
-                    <p>Last Name</p>
-                    <input
-                      required
-                      type="text"
-                      placeholder="Enter your Last Name"
-                      className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-                    />
-                  </div>
-                </div>
-              </div>
 
               <div className="flex justify-between mt-5">
                 <div className="w-[47%]">
                   <p>First Name</p>
                   <input
                     type="text"
+                    value={userPayload.first_name}
+                    onChange={(e) => {
+                      setUserPayload({
+                        ...userPayload,
+                        first_name: e.target.value,
+                      });
+                    }}
                     placeholder="Enter your First Name"
                     required
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -128,6 +103,13 @@ export default function PersonaInformation({ onClose }: Props) {
                   <p>Last Name</p>
                   <input
                     required
+                    value={userPayload.last_name}
+                    onChange={(e) => {
+                      setUserPayload({
+                        ...userPayload,
+                        last_name: e.target.value,
+                      });
+                    }}
                     type="text"
                     placeholder="Enter your Last Name"
                     className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -156,52 +138,54 @@ export default function PersonaInformation({ onClose }: Props) {
 
               <div className="mt-10 space-y-2">
                 <p>Phone Number</p>
-                {contactNumbers.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile"> Mobile Number</option>
 
-                      <option value="phone"> Phone Number</option>
-                    </select>
-                    <input
-                      required
-                      type="number"
-                      placeholder="Enter your phone number"
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
+                <div className="flex justify-between">
+                  <select className="border border-black rounded-lg h-10 w-[45%]">
+                    <option value="mobile"> Mobile Number</option>
+
+                    <option value="phone"> Phone Number</option>
+                  </select>
+                  <input
+                    required
+                    type="number"
+                    value={userPayload.mobile}
+                    onChange={(e) => {
+                      setUserPayload({
+                        ...userPayload,
+                        mobile: e.target.value,
+                      });
+                    }}
+                    placeholder="Enter your phone number"
+                    className="border border-black rounded-lg h-10 w-[45%] pl-3"
+                  />
+                </div>
               </div>
-              <p
-                onClick={onAddNumber}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
-              </p>
+
               <div className="mt-10 space-y-2">
                 <p>Email</p>
-                {emails.map((number, index) => (
-                  <div key={index} className="flex justify-between">
-                    <select className="border border-black rounded-lg h-10 w-[45%]">
-                      <option value="mobile">Primary</option>
 
-                      <option value="phone">Secondary</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Enter your Email"
-                      required
-                      className="border border-black rounded-lg h-10 w-[45%] pl-3"
-                    />
-                  </div>
-                ))}
+                <div className="flex justify-between">
+                  <select className="border border-black rounded-lg h-10 w-[45%]">
+                    <option value="mobile">Primary</option>
+
+                    <option value="phone">Secondary</option>
+                  </select>
+                  <input
+                    type="email"
+                    value={userPayload.email}
+                    onChange={(e) => {
+                      setUserPayload({
+                        ...userPayload,
+                        email: e.target.value,
+                      });
+                    }}
+                    placeholder="Enter your Email"
+                    required
+                    className="border border-black rounded-lg h-10 w-[45%] pl-3"
+                  />
+                </div>
               </div>
-              <p
-                onClick={onAddEmail}
-                className="text-[#1ED760] mt-5 cursor-pointer"
-              >
-                + Add Another
-              </p>
+
               <div className="h-24" />
             </div>
           )}
@@ -223,11 +207,18 @@ export default function PersonaInformation({ onClose }: Props) {
               </div>
 
               <div className="mt-10 space-y-2">
-                <p>Street</p>
+                <p>Address</p>
                 <div className="flex justify-between">
                   <input
                     required
                     type="text"
+                    value={userPayload.address}
+                    onChange={(e) => {
+                      setUserPayload({
+                        ...userPayload,
+                        address: e.target.value,
+                      });
+                    }}
                     placeholder="Enter your street location"
                     className="border border-black rounded-lg h-10 w-[100%] pl-3"
                   />

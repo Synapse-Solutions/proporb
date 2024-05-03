@@ -1,6 +1,6 @@
 "use client";
 import AccountCreatedModal from "@/app/sharedcomponents/AccountCreatedModal";
-import { putAPi } from "@/app/utils/AppApi";
+import { putAPi, uploadImageToS3 } from "@/app/utils/AppApi";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
@@ -60,6 +60,18 @@ export default function CompanyInformationModal(props: Props) {
       toast.error("Something went wrong. Please try again");
     }
   };
+
+  const handleUploadImageToS3 = async (file: any) => {
+    // const user = localStorage.getItem("user") || "";
+    // let token = JSON.parse(user).authToken;
+    // const response = await uploadImageToS3(file, token);
+    // setCompanypayload((prev) => {
+    //   return {
+    //     ...prev,
+    //     company_logo: response.url,
+    //   };
+    // });
+  };
   return (
     <div
       style={{
@@ -89,13 +101,14 @@ export default function CompanyInformationModal(props: Props) {
             <div className="w-full mt-5">
               <div className="w-[100%] flex items-center gap-6 my-4">
                 <div
-                  className="rounded-[32px] h-16 w-16 bg-[#EFEFEF] flex justify-center items-center"
+                  className="rounded-[32px] h-16 w-16 bg-[#EFEFEF] flex justify-center items-center cursor-pointer"
                   onClick={uploadFile}
                 >
                   <p className="text-[#656D76] text-5xl font-extralight">+</p>
                 </div>
+
                 <div
-                  className="border-[#1ED760] border-2 flex gap-2 items-center h-10 px-4 rounded-lg"
+                  className="border-[#1ED760] border-2 flex gap-2 items-center h-10 px-4 rounded-lg cursor-pointer"
                   onClick={uploadFile}
                 >
                   <Image
@@ -108,7 +121,16 @@ export default function CompanyInformationModal(props: Props) {
                     Upload Company Logo
                   </p>
                 </div>
-                <input type="file" className="hidden" ref={uploadFileRef} />
+                <input
+                  type="file"
+                  className="hidden"
+                  ref={uploadFileRef}
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      handleUploadImageToS3(e.target.files[0]);
+                    }
+                  }}
+                />
               </div>
               <div className="w-[100%] my-5">
                 <p className="text-black font-medium mb-1">Company Name</p>
