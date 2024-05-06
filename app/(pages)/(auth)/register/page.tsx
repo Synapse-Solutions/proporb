@@ -64,6 +64,17 @@ export default function Register() {
   };
 
   const onBuySubscription = async () => {
+    if (
+      !subscriptionPayload.billing_no ||
+      !subscriptionPayload.card_holder_name ||
+      !subscriptionPayload.card_no ||
+      !subscriptionPayload.cvc ||
+      !subscriptionPayload.expiration_date ||
+      !subscriptionPayload.subcription_type
+    ) {
+      toast.error("Please all the fields");
+      return;
+    }
     const payload = {
       first_name: user.name.split(" ")[0],
       last_name: user.name.split(" ")[1],

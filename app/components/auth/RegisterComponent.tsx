@@ -17,7 +17,6 @@ interface Props {
   userErrors: any;
 }
 export default function RegisterComponent(props: Props) {
-  console.log("DATA=========", props.userErrors);
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
