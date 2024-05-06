@@ -1,5 +1,6 @@
 "use client";
 import PeoplesComponent from "@/app/components/peoples/PeoplesComponent";
+import LoaderScreen from "@/app/sharedcomponents/loader/LoaderScreen";
 import { getApiWithToken } from "@/app/utils/AppApi";
 import React, { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ export default function page() {
     getAllTenants();
     setTimeout(() => {
       setIsLoadingScreen(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
   const getAllTenants = async () => {
@@ -27,17 +28,7 @@ export default function page() {
   };
 
   if (isLoadingScreen) {
-    return (
-      <div className="h-screen w-screen flex justify-center items-center">
-        <button type="button" className="bg-indigo-500 ..." disabled>
-          <svg
-            className="animate-spin h-5 w-5 mr-3 ..."
-            viewBox="0 0 24 24"
-          ></svg>
-          Processing...
-        </button>
-      </div>
-    );
+    return <LoaderScreen />;
   }
 
   return <PeoplesComponent tenantsArray={tenantsArray} />;

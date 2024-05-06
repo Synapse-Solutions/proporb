@@ -1,13 +1,18 @@
 "use client";
 import NotesComponent from "@/app/components/notes/NotesComponent";
+import LoaderScreen from "@/app/sharedcomponents/loader/LoaderScreen";
 import { getApiWithToken } from "@/app/utils/AppApi";
 import React, { useEffect, useState } from "react";
 
 export default function page() {
   const [notesArray, setNotesArray] = useState([]);
+  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
 
   useEffect(() => {
     getAllNotes();
+    setTimeout(() => {
+      setIsLoadingScreen(false);
+    }, 1000);
   }, []);
 
   const getAllNotes = async () => {
@@ -22,5 +27,8 @@ export default function page() {
       console.log("🚀 ~ getAllNotes ~ error:", error);
     }
   };
+  if (isLoadingScreen) {
+    return <LoaderScreen />;
+  }
   return <NotesComponent notesArray={notesArray} />;
 }

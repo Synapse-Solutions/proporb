@@ -22,106 +22,8 @@ let tabs = [
     number: 4,
     name: "Deposit",
   },
-  {
-    number: 5,
-    name: "Late Fees",
-  },
-  {
-    number: 6,
-    name: "Status",
-  },
 ];
 
-const amenities = [
-  {
-    name: "Other",
-    isSelected: false,
-  },
-  {
-    name: "Availability 24 Hours",
-    isSelected: false,
-  },
-  {
-    name: "Accent Walls",
-    isSelected: false,
-  },
-  {
-    name: "Basketball Court",
-    isSelected: false,
-  },
-  {
-    name: "Bilingual",
-    isSelected: false,
-  },
-  {
-    name: "Boat Docks",
-    isSelected: false,
-  },
-  {
-    name: "Business Center",
-    isSelected: false,
-  },
-  {
-    name: "Car Wash Area",
-    isSelected: false,
-  },
-  {
-    name: "Child Care",
-    isSelected: false,
-  },
-  {
-    name: "Club Discount",
-    isSelected: false,
-  },
-  {
-    name: "Club House",
-    isSelected: false,
-  },
-  {
-    name: "Conference Room",
-    isSelected: false,
-  },
-  {
-    name: "Availability 24 Hours",
-    isSelected: false,
-  },
-  {
-    name: "Accent Walls",
-    isSelected: false,
-  },
-  {
-    name: "Boat Docks",
-    isSelected: false,
-  },
-  {
-    name: "Other",
-    isSelected: false,
-  },
-];
-const bankDetails = [
-  {
-    name: "Company default account",
-    ActiveIcon: "/bank_active.webp",
-    InactiveIcon: "/bank_inactive.webp",
-  },
-  {
-    name: "Specify Bank Account",
-    ActiveIcon: "/bank_active.webp",
-    InactiveIcon: "/bank_inactive.webp",
-  },
-];
-const reserveFundsArray = [
-  {
-    name: "Fixed Term",
-    ActiveIcon: "/term_active.webp",
-    InactiveIcon: "/term_inactive.webp",
-  },
-  {
-    name: "Month to Month",
-    ActiveIcon: "/term_active.webp",
-    InactiveIcon: "/term_inactive.webp",
-  },
-];
 const depositArray = [
   {
     name: "Yes",
@@ -192,7 +94,7 @@ export default function NewRentalsComponent(props: Props) {
       props.addRentalFunction();
     }
 
-    activeTab === 5 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
+    activeTab === 3 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
   };
 
   return (
@@ -226,7 +128,7 @@ export default function NewRentalsComponent(props: Props) {
                           <p className="text-black font-bold">{item.number}</p>
                         </button>
                       )}
-                      {item.number !== 6 && (
+                      {item.number !== 4 && (
                         <div className="h-[1px] border border-dashed border-[gray] w-[calc(10vw)]" />
                       )}
                     </div>
@@ -471,149 +373,7 @@ export default function NewRentalsComponent(props: Props) {
                   </div>
                 </div>
               )}
-              {activeTab === 4 && (
-                <div className="mt-10 flex flex-col">
-                  <p className="font-bold text-black text-[18px]  2xl:text-[23px] w-full">
-                    Late Fees
-                  </p>
-                  <div className="flex gap-7 justify-center mt-12 w-full">
-                    {depositArray.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setPropertyType(index)}
-                        className={`border ${
-                          propertyType === index
-                            ? "border-[#1ED760]"
-                            : "border-gray-400"
-                        } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
-                      >
-                        {propertyType === index && (
-                          <Image
-                            src={"/completedIcon.webp"}
-                            alt="tick"
-                            height={100}
-                            width={100}
-                            className="absolute top-3 right-[15px] h-[40px] object-contain w-[30px]"
-                          />
-                        )}
-                        <div
-                          className={`h-[50px] w-[50px] flex items-center justify-center rounded-full ${
-                            propertyType === index
-                              ? "bg-[#e8fbef]"
-                              : "bg-[#eaeaea]"
-                          }`}
-                        >
-                          {index === 0 ? <p> ✔ </p> : <p>✕</p>}
-                        </div>
-                        <p className="mt-3 text-black font-bold">{item.name}</p>
-                      </button>
-                    ))}
-                  </div>
-                  <div>
-                    <div className=" flex flex-col items-center w-full mt-10">
-                      <div className="w-[43%]">
-                        {options.map((option, index) => (
-                          <div key={index} className="gap-2 flex">
-                            <input
-                              type="radio"
-                              id={option.value}
-                              name="dynamicRadio"
-                              value={option.value}
-                              checked={selectedOption === option.value}
-                              onChange={handleOptionChange}
-                            />
-                            <label htmlFor={option.value}>{option.label}</label>
-                          </div>
-                        ))}
 
-                        <div className="w-full mt-10 flex border border-[#D8D8D8] rounded-lg justify-between px-5 py-5 text-[18px]">
-                          <p>Home</p>
-                          <div className="bg-[#EAFAE5] rounded-full flex gap-3 text-[#1ED760] px-3 py-2">
-                            <Image
-                              src={"/completedIcon.webp"}
-                              alt="tick"
-                              height={100}
-                              width={100}
-                              className="top-3 right-[15px] h-[20px] object-contain w-[20px]"
-                            />
-                            <p className="text-sm">Company Policy Activated</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeTab === 5 && (
-                <div className="mt-10 flex flex-col">
-                  <p className="font-bold text-black text-[18px]  2xl:text-[23px] w-full">
-                    Original Rental Copy
-                  </p>
-                  <div className="flex gap-7 justify-center mt-12 w-full">
-                    {statusArray.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setPropertyType(index)}
-                        className={`border ${
-                          propertyType === index
-                            ? "border-[#1ED760]"
-                            : "border-gray-400"
-                        } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
-                      >
-                        {propertyType === index && (
-                          <Image
-                            src={"/completedIcon.webp"}
-                            alt="tick"
-                            height={100}
-                            width={100}
-                            className="absolute top-3 right-[15px] h-[40px] object-contain w-[30px]"
-                          />
-                        )}
-                        <div
-                          className={`h-[50px] w-[50px] flex items-center justify-center rounded-full ${
-                            propertyType === index
-                              ? "bg-[#e8fbef]"
-                              : "bg-[#eaeaea]"
-                          }`}
-                        >
-                          {index === 0 ? <p> ✔ </p> : <p>✕</p>}
-                        </div>
-                        <p className="mt-3 text-black font-bold">{item.name}</p>
-                      </button>
-                    ))}
-                  </div>
-                  <div>
-                    <div className=" flex justify-center w-full mt-10">
-                      <div
-                        onClick={onClickuploadPhoto}
-                        className="flex border border-[#98A2B3] border-dashed rounded-xl items-center px-5 py-3"
-                      >
-                        <Image
-                          src={"/file_upload.webp"}
-                          alt="upload"
-                          height={50}
-                          width={50}
-                          className="h-[50px] object-contain w-[50px]"
-                        />
-                        <div>
-                          <p className="text-black font-bold">Tap to upload</p>
-                          <p className="text-[#98A2B3] text-[12px]">
-                            DOC or PDF | 10MB max
-                          </p>
-                        </div>
-                        <input
-                          type="file"
-                          className="hidden"
-                          ref={uploadPhotoRef}
-                        />
-                        <button className="bg-[#1ED760] rounded text-white px-5 py-2 ml-7">
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
               <div className="w-full flex justify-between mt-10">
                 {activeTab === 0 ? (
                   <div />

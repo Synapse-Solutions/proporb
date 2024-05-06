@@ -197,6 +197,7 @@ interface Props {
     area: string;
     unit_no: string;
     rent: string;
+    bathroom: string;
   };
   setUnitPayload: any;
   addUnitFunction: any;
@@ -547,7 +548,7 @@ export default function NewPropertyComponent(props: Props) {
                   </div>
                   {/* {unitsArray.map((item, index) => ( */}
                   <div className="flex items-center justify-between w-full mt-10">
-                    <div className="w-[15%]">
+                    <div className="w-[12%]">
                       <p>Number of Beds</p>
                       <input
                         type="number"
@@ -561,7 +562,21 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div>
+                    <div className="w-[15%]">
+                      <p>Number of Bathrooms</p>
+                      <input
+                        type="number"
+                        value={props.unitPayload.bathroom}
+                        onChange={(e) => {
+                          props.setUnitPayload({
+                            ...props.unitPayload,
+                            bathroom: e.target.value,
+                          });
+                        }}
+                        className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
+                      />
+                    </div>
+                    <div className="w-[12%]">
                       <p>Floor number</p>
                       <input
                         type="number"
@@ -575,7 +590,7 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div>
+                    <div className="w-[12%]">
                       <p>Area (sq feet)</p>
                       <input
                         type="number"

@@ -7,9 +7,13 @@ import React, { useState } from "react";
 import AddFileModal from "./modals/AddFileModal";
 import ShowFileModal from "./modals/ShowFileModal";
 import Image from "next/image";
+import moment from "moment";
 
 const array = [1, 23, 3, 4, 5, 6, 7, 8, 9];
-export default function FileComponent() {
+interface Props {
+  filesArray: any;
+}
+export default function FileComponent(props: Props) {
   const [isTenantShow, setIsTenantShow] = useState(false);
   const [selectedfile, setSelectedfile] = useState<any>(null);
 
@@ -25,7 +29,7 @@ export default function FileComponent() {
           </div>
           <div className="h-[1px] w-full bg-gray-400 mt-5" />
           <SearchView />
-          {array.length === 0 ? (
+          {props.filesArray.length === 0 ? (
             <div className="mt-10">
               <EmptyViewComponent
                 onClick={() => setIsTenantShow(true)}
@@ -42,7 +46,7 @@ export default function FileComponent() {
                 + Add File
               </button>
               <div className="flex flex-col gap-5 py-5">
-                {array.map((item, index) => (
+                {props.filesArray.map((item: any, index: number) => (
                   <div className="bg-[#D9F4E5] w-full flex py-3 rounded-lg justify-between px-5">
                     <div className="flex">
                       <Image
@@ -52,9 +56,11 @@ export default function FileComponent() {
                         alt="file icon"
                       />
                       <div>
-                        <p>MyProperty.mp4</p>
+                        <p>{item.file_name}</p>
                         <p className="text-[#797979] text-[12px]">
-                          March 11, 2012 at 12;42pm
+                          {moment(item.createdAt).format(
+                            "MMMM D, YYYY [at] h:mmA"
+                          )}
                         </p>
                       </div>
                     </div>

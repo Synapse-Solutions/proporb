@@ -2,15 +2,45 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { postApiWithToken, uploadImageToS3 } from "@/app/utils/AppApi";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  onClose?: () => void;
+  onClose: () => void;
 }
 export default function AddFileModal({ onClose }: Props) {
   const uploadPhotoRef = React.useRef<HTMLInputElement>(null);
+  const [filePayload, setFilePayload] = useState({
+    file_name: "",
+    description: "",
+    file: "",
+  });
 
   const onClickuploadPhoto = () => {
     uploadPhotoRef.current?.click();
+  };
+
+  const handleUploadImage = async (file: any) => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const response = await uploadImageToS3(file, token);
+    console.log("🚀 ~ handleUploadImage ~ response:", response);
+    setFilePayload({ ...filePayload, file: response });
+  };
+
+  const addFileApi = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    try {
+      const response = await postApiWithToken("/v1/file", filePayload, token);
+      if (response.success) {
+        toast.success("File added successfully");
+        onClose();
+      }
+    } catch (error) {
+      console.log("🚀 ~ addFileApi ~ error:", error);
+    }
   };
 
   return (
@@ -55,7 +85,17 @@ export default function AddFileModal({ onClose }: Props) {
                     DOC or PDF | 10MB max
                   </p>
                 </div>
-                <input type="file" className="hidden" ref={uploadPhotoRef} />
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/png, image/jpeg"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      handleUploadImage(e.target.files[0]);
+                    }
+                  }}
+                  ref={uploadPhotoRef}
+                />
                 <button className="bg-[#1ED760] rounded text-white px-5 py-2 ml-7">
                   Upload
                 </button>
@@ -66,6 +106,13 @@ export default function AddFileModal({ onClose }: Props) {
                 <p>File Name*</p>
                 <input
                   type="text"
+                  value={filePayload.file_name}
+                  onChange={(e) =>
+                    setFilePayload({
+                      ...filePayload,
+                      file_name: e.target.value,
+                    })
+                  }
                   placeholder="Enter title"
                   required
                   className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
@@ -76,32 +123,17 @@ export default function AddFileModal({ onClose }: Props) {
                 <textarea
                   name=""
                   id=""
+                  value={filePayload.description}
+                  onChange={(e) =>
+                    setFilePayload({
+                      ...filePayload,
+                      description: e.target.value,
+                    })
+                  }
                   rows={10}
                   className="border border-black rounded-lg  w-full pl-3 mt-4"
                 ></textarea>
               </div>
-            </div>
-            <div className="w-[100%] mt-10">
-              <p>Tags*</p>
-              <select
-                name=""
-                id=""
-                className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-              >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-              </select>
-            </div>
-            <div className="w-[100%] mt-10">
-              <p>Related To*</p>
-              <select
-                name=""
-                id=""
-                className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
-              >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-              </select>
             </div>
 
             <div className="flex justify-between my-10 bg-white pt-3 w-[100%]">
@@ -112,7 +144,7 @@ export default function AddFileModal({ onClose }: Props) {
                 Cancel
               </button>
               <button
-                onClick={onClose}
+                onClick={addFileApi}
                 className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full "
               >
                 Save

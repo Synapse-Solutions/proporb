@@ -1,11 +1,21 @@
 "use client";
 import LandingPageFooter from "@/app/sharedcomponents/LandingPageFooter";
 import LandingPageNavbar from "@/app/sharedcomponents/LandingPageNavbar";
+import LoaderScreen from "@/app/sharedcomponents/loader/LoaderScreen";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const array = [1, 2, 3];
 export default function page() {
+  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadingScreen(false);
+    }, 1000);
+  }, []);
+  if (isLoadingScreen) {
+    return <LoaderScreen />;
+  }
   return (
     <div className="w-full overflow-hidden bg-[#ffffff]">
       <LandingPageNavbar />
