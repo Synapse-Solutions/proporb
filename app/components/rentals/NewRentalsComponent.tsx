@@ -90,11 +90,39 @@ export default function NewRentalsComponent(props: Props) {
   const onChangeTab = (index: number) => {};
 
   const onClickNext = () => {
+    if (activeTab === 0) {
+      if (props.rentalPayload.property_id === "") {
+        return;
+      } else {
+        setActiveTab(activeTab + 1);
+      }
+    }
+    if (activeTab === 1) {
+      if (props.rentalPayload.tenet_id === "") {
+        return;
+      } else {
+        setActiveTab(activeTab + 1);
+      }
+    }
+    if (activeTab === 2) {
+      if (
+        props.rentalPayload.rent_start_date === "" ||
+        props.rentalPayload.rent_amount === ""
+      ) {
+        return;
+      } else {
+        setActiveTab(activeTab + 1);
+      }
+    }
+
     if (activeTab === 3) {
+      if (!props.rentalPayload.security_deposit_amount) {
+        return;
+      }
       props.addRentalFunction();
     }
 
-    activeTab === 3 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
+    // activeTab === 3 ? setIsSuccessModalShow(true) : setActiveTab(activeTab + 1);
   };
 
   return (
@@ -212,7 +240,11 @@ export default function NewRentalsComponent(props: Props) {
                       {props.tenantsArray.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="border border-gray-600 p-5 w-[23%] 2xl:w-[20%] rounded-md flex flex-col items-center text-center"
+                          className={`border ${
+                            props.rentalPayload.tenet_id === item.id
+                              ? "border-[#1ED760]"
+                              : "border-gray-400"
+                          } p-5 w-[23%] 2xl:w-[20%] rounded-md flex flex-col items-center text-center`}
                         >
                           <Image
                             src="/black_suit.webp"

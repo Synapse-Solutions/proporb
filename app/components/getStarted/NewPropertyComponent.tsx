@@ -34,10 +34,6 @@ let tabs = [
     number: 5,
     name: "Bank Accounts",
   },
-  {
-    number: 6,
-    name: "Reserve funds",
-  },
 ];
 
 let properties = [
@@ -188,6 +184,7 @@ interface Props {
     zip_code: string;
     country: string;
     house_no: string;
+    owner_id: string;
   };
   setPayload: any;
   addPropertyFunction: any;
@@ -225,19 +222,50 @@ export default function NewPropertyComponent(props: Props) {
     setMultipleUnitsModal(true);
   };
   const onPressNext = () => {
+    if (activeTab === 0) {
+      if (!props.payload.type || !props.payload.subtype) {
+        return;
+      }
+    }
+    if (activeTab === 1) {
+      if (!props.payload.owner_id) {
+        return;
+      }
+    }
     if (activeTab === 2) {
+      if (
+        !props.payload.street ||
+        !props.payload.city ||
+        !props.payload.state ||
+        !props.payload.country ||
+        !props.payload.zip_code
+      ) {
+        return;
+      }
       props.addPropertyFunction();
     }
+
     if (activeTab === 3) {
+      if (
+        !props.unitPayload.rooms ||
+        !props.unitPayload.bathroom ||
+        !props.unitPayload.floor_no ||
+        !props.unitPayload.area ||
+        !props.unitPayload.unit_no ||
+        !props.unitPayload.rent
+      ) {
+        return;
+      }
       props.addUnitFunction();
     }
 
-    if (activeTab === 5) {
-      if (selectedPropertyName === "Apartments") {
-        setCommunityModal(1);
-      } else {
-        setIsSuccessModalShow(true);
-      }
+    if (activeTab === 4) {
+      return;
+      // if (selectedPropertyName === "Apartments") {
+      //   setCommunityModal(1);
+      // } else {
+      //   setIsSuccessModalShow(true);
+      // }
     } else {
       setActiveTab(activeTab + 1);
     }
@@ -273,7 +301,7 @@ export default function NewPropertyComponent(props: Props) {
                           <p className="text-black font-bold">{item.number}</p>
                         </button>
                       )}
-                      {item.number !== 6 && (
+                      {item.number !== 5 && (
                         <div className="h-[1px] border border-dashed border-[gray] w-[calc(10vw)]" />
                       )}
                     </div>
