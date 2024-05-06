@@ -78,12 +78,6 @@ export default function GetStartedComponent(props: Props) {
                 <p className="text-black font-bold text-[14px]  2xl:text-[20px]">
                   Subscribe to Property Management System
                 </p>
-                <Image
-                  src="/dropDownArrowBlack.webp"
-                  alt="Icon"
-                  height={25}
-                  width={25}
-                />
               </div>
               <div className="w-[50%] flex gap-3 justify-end items-center">
                 <Image
@@ -100,7 +94,10 @@ export default function GetStartedComponent(props: Props) {
           </div>
           <div
             onClick={() => setScheduleCall(!scheduleCall)}
-            className="bg-white rounded-xl overflow-hidden mt-5"
+            style={{
+              height: scheduleCall ? "400px" : "100px",
+            }}
+            className="bg-white rounded-xl overflow-hidden mt-5 "
           >
             <div className="flex justify-between p-5">
               <div className="w-[50%] flex gap-8 items-center justify-start">
@@ -123,48 +120,54 @@ export default function GetStartedComponent(props: Props) {
               </div>
               <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
-            {scheduleCall && (
-              <div className="p-6">
-                <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
-                <div className="flex justify-between items-center pt-5">
-                  <div className="w-[50%]">
-                    <p className="text-[#797979] max-w-[500px]">
-                      Get a free training on Zoom and learn the best tips and
-                      tricks to get the most of it.
-                    </p>
-                    <div className="flex items-center gap-5 mt-5">
-                      <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center ">
-                        Schedule a Call
-                      </button>
-                      <div className="flex items-center gap-2">
-                        <Image
-                          src="/mark_as_read.webp"
-                          alt="calendar"
-                          height={50}
-                          width={50}
-                          className="h-[30px] object-contain w-auto"
-                        />
-                        <p className="text-[#1ED760]">Mark as Completed</p>
-                      </div>
+
+            <div
+              style={{
+                maxHeight: scheduleCall ? "300px" : "0px",
+                overflow: "hidden",
+                transition: "max-height 0.5s ease-in-out",
+              }}
+              className="p-6"
+            >
+              <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
+              <div className="flex justify-between items-center pt-5">
+                <div className="w-[50%]">
+                  <p className="text-[#797979] max-w-[500px]">
+                    Get a free training on Zoom and learn the best tips and
+                    tricks to get the most of it.
+                  </p>
+                  <div className="flex items-center gap-5 mt-5">
+                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center ">
+                      Schedule a Call
+                    </button>
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src="/mark_as_read.webp"
+                        alt="calendar"
+                        height={50}
+                        width={50}
+                        className="h-[30px] object-contain w-auto"
+                      />
+                      <p className="text-[#1ED760]">Mark as Completed</p>
                     </div>
                   </div>
-                  <div className="flex justify-end">
-                    <Image
-                      src="/schedulcall.webp"
-                      alt="Image"
-                      height={150}
-                      width={280}
-                    />
-                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <Image
+                    src="/schedulcall.webp"
+                    alt="Image"
+                    height={150}
+                    width={280}
+                  />
                 </div>
               </div>
-            )}
+            </div>
           </div>
           <div
             className="bg-white rounded-xl overflow-hidden mt-5"
-            onClick={() => {
-              setIsCompanyInfoOpen(!isCompanyInfoOpen);
-            }}
+            // onClick={() => {
+            //   setIsCompanyInfoOpen(!isCompanyInfoOpen);
+            // }}
           >
             <div className="flex justify-between p-5">
               <div className="w-[50%] flex gap-8 items-center justify-start">
@@ -177,7 +180,7 @@ export default function GetStartedComponent(props: Props) {
                 <p className="text-black font-bold text-[14px] 2xl:text-[20px]">
                   Add Company Information
                 </p>
-                <Image
+                {/* <Image
                   src="/dropDownArrowBlack.webp"
                   alt="Icon"
                   height={25}
@@ -187,7 +190,7 @@ export default function GetStartedComponent(props: Props) {
                       ? { transform: "rotate(180deg)" }
                       : { transform: "rotate(0deg)" }
                   }
-                />
+                /> */}
               </div>
               <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
@@ -218,6 +221,9 @@ export default function GetStartedComponent(props: Props) {
           </div>
 
           <div
+            style={{
+              height: isAddPropertyOpen ? "400px" : "100px",
+            }}
             className="bg-white rounded-xl overflow-hidden mt-5"
             onClick={() => {
               setIsAddPropertyOpen(!isAddPropertyOpen);
@@ -248,33 +254,39 @@ export default function GetStartedComponent(props: Props) {
               </div>
               <div className="w-[50%] flex gap-5 justify-end items-center"></div>
             </div>
-            {isAddPropertyOpen && (
-              <div className="p-6">
-                <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
-                <div className="flex justify-between items-center pt-5">
-                  <div className="w-[50%]">
-                    <p className="text-[#797979] max-w-[500px]">
-                      Creating your properties is the first step towards
-                      managing them better. Soon you’ll be automating rent
-                      collection and managing your tenant.
-                    </p>
-                    <Link href="/newproperty">
-                      <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
-                        Add Property
-                      </button>
-                    </Link>
-                  </div>
-                  <div className="flex justify-end">
-                    <Image
-                      src="/youtubeThumbnail.webp"
-                      alt="Image"
-                      height={150}
-                      width={280}
-                    />
-                  </div>
+
+            <div
+              style={{
+                maxHeight: isAddPropertyOpen ? "300px" : "0px",
+                overflow: "hidden",
+                transition: "max-height 0.5s ease-in-out",
+              }}
+              className="p-6"
+            >
+              <div className="bg-[#D8D8D8] w-full h-[1px]"></div>
+              <div className="flex justify-between items-center pt-5">
+                <div className="w-[50%]">
+                  <p className="text-[#797979] max-w-[500px]">
+                    Creating your properties is the first step towards managing
+                    them better. Soon you’ll be automating rent collection and
+                    managing your tenant.
+                  </p>
+                  <Link href="/newproperty">
+                    <button className="bg-[#1ED760] text-white text-bold rounded-3xl py-3 px-2 w-52 flex justify-center items-center mt-5">
+                      Add Property
+                    </button>
+                  </Link>
+                </div>
+                <div className="flex justify-end">
+                  <Image
+                    src="/youtubeThumbnail.webp"
+                    alt="Image"
+                    height={150}
+                    width={280}
+                  />
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
