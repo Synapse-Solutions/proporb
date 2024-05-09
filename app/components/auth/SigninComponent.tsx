@@ -67,7 +67,7 @@ export default function SigninComponent(props: Props) {
           </div>
           <div className="flex justify-between mt-5 2xl:mt-10">
             <div
-              onClick={() => signIn()}
+              onClick={() => signIn('google')}
               className="border cursor-pointer border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12"
             >
               <Image
@@ -75,7 +75,7 @@ export default function SigninComponent(props: Props) {
                 width={70}
                 height={70}
                 alt="dashboard"
-                className="object-contain p-0 w-[30px] "
+                className="object-contain p-0 w-[30px]"
               />
               <p>Google</p>
             </div>
