@@ -13,6 +13,7 @@ interface Props {
   };
   setUser?: any;
   onClickLogin?: any;
+  isOwner: string;
 }
 export default function SigninComponent(props: Props) {
   return (
@@ -22,7 +23,9 @@ export default function SigninComponent(props: Props) {
         <h1 className="text-[40px] font-bold">Welcome Back!</h1>
         <p className=" text-[#645D5D] mt-3">
           Don't have an accont?{" "}
-          <Link href={"/register"}>
+          <Link
+            href={props.isOwner === "tenant" ? "/tenant-register" : "/register"}
+          >
             {" "}
             <span className="text-[#1ED760] pl-5 cursor-pointer">Sign Up</span>
           </Link>
@@ -67,7 +70,7 @@ export default function SigninComponent(props: Props) {
           </div>
           <div className="flex justify-between mt-5 2xl:mt-10">
             <div
-              onClick={() => signIn('google')}
+              onClick={() => signIn("google")}
               className="border cursor-pointer border-gray-500 rounded w-[45%] flex items-center justify-center space-x-3 h-12"
             >
               <Image

@@ -1,12 +1,48 @@
 "use client";
+import { postApiWithToken } from "@/app/utils/AppApi";
 import Image from "next/image";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  onClose?: () => void;
+  onClose: () => void;
 }
 export default function LoginAndPasswordModal(props: Props) {
   const [activeScreen, setActiveScreen] = useState(1);
+  let [payload, setPayload] = useState({
+    email: "",
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const onSave = async () => {
+    if (payload.newPassword !== payload.confirmPassword)
+      return toast.error("Password does not match");
+    if (!payload.newPassword || !payload.email)
+      return toast.error("Please fill all the fields");
+    let user = JSON.parse(localStorage.getItem("user") || "{}");
+    let isOwner = localStorage.getItem("isOwner") || "{}";
+    let token = user.authToken;
+
+    let object = {
+      email: payload.email,
+      oldPassword: payload.oldPassword,
+      newPassword: payload.newPassword,
+    };
+    let path =
+      isOwner === "tenant"
+        ? "/v1/tenet/change-password"
+        : "/v1/owner/change-password";
+    const response = await postApiWithToken(path, object, token);
+    if (response.success) {
+      toast.success(response.data.message);
+      props.onClose();
+    } else {
+      toast.error(response.data.message);
+    }
+  };
   return (
     <div
       style={{
@@ -49,6 +85,10 @@ export default function LoginAndPasswordModal(props: Props) {
               <p className="my-3 2xl:my-5 ">* Current Password</p>
               <input
                 required
+                value={payload.oldPassword}
+                onChange={(e) =>
+                  setPayload({ ...payload, oldPassword: e.target.value })
+                }
                 type="password"
                 placeholder="Enter your password"
                 className="border border-black rounded-lg h-10 w-[100%] pl-3"
@@ -57,71 +97,49 @@ export default function LoginAndPasswordModal(props: Props) {
           </div>
         )}
         {activeScreen === 2 && (
-          <div className="w-full mt-10 h-full overflow-auto">
-            <div className="w-[100%] flex justify-between">
-              <div className="w-[48%]">
-                <p>Full Name</p>
-                <input
-                  type="text"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-              <div className="w-[48%]">
-                <p>Current Password</p>
-                <input
-                  type="text"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-            </div>
-            <div className="w-[100%] flex justify-between mt-5">
-              <div className="w-[48%]">
-                <p>Last Name</p>
-                <input
-                  type="text"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-              <div className="w-[48%]">
-                <p>New Password</p>
-                <input
-                  type="text"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-            </div>
-            <div className="w-[100%] flex justify-between mt-5">
-              <div className="w-[48%]">
-                <p>Email</p>
-                <input
-                  type="email"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-              <div className="w-[48%]">
-                <p>Confirm Password</p>
-                <input
-                  type="text"
-                  className="border border-black rounded h-10 w-[100%]"
-                />
-              </div>
-            </div>
-            <div className="w-[48%] mt-5">
-              <p>Phone Number</p>
+          <>
+            <div className="w-full mt-5">
+              <p className="my-3 2xl:my-5 "> *Email</p>
               <input
-                type="text"
-                className="border border-black rounded h-10 w-[100%]"
+                required
+                value={payload.email}
+                onChange={(e) =>
+                  setPayload({ ...payload, email: e.target.value })
+                }
+                type="email"
+                placeholder="Enter your email"
+                className="border border-black rounded-lg h-10 w-[100%] pl-3"
               />
             </div>
-            <div className="w-[48%] mt-5">
-              <p>Address</p>
+
+            <div className="w-full mt-5">
+              <p className="my-3 2xl:my-5 "> *New Password</p>
               <input
-                type="text"
-                className="border border-black rounded h-10 w-[100%]"
+                required
+                value={payload.newPassword}
+                onChange={(e) =>
+                  setPayload({ ...payload, newPassword: e.target.value })
+                }
+                type="password"
+                placeholder="Enter your new password"
+                className="border border-black rounded-lg h-10 w-[100%] pl-3"
               />
             </div>
-            <div className="h-24" />
-          </div>
+
+            <div className="w-full mt-5">
+              <p className="my-3 2xl:my-5 "> *Confirm New Password</p>
+              <input
+                required
+                value={payload.confirmPassword}
+                onChange={(e) =>
+                  setPayload({ ...payload, confirmPassword: e.target.value })
+                }
+                type="password"
+                placeholder="Enter your new password"
+                className="border border-black rounded-lg h-10 w-[100%] pl-3"
+              />
+            </div>
+          </>
         )}
         <div className="flex justify-between absolute bottom-10 w-[100%] left-0 px-[calc(3vw)] bg-white">
           <button className="border-[#1ED760] text-black border h-10 px-8 py-1 rounded-full">
@@ -129,7 +147,7 @@ export default function LoginAndPasswordModal(props: Props) {
           </button>
           <button
             onClick={() =>
-              activeScreen === 1 ? setActiveScreen(activeScreen + 1) : ""
+              activeScreen === 1 ? setActiveScreen(activeScreen + 1) : onSave()
             }
             className="bg-[#1ED760] text-white h-10 px-8 py-1 rounded-full"
           >

@@ -17,6 +17,7 @@ const headerConfig = (token) => ({
 
 //************** */ post api call without token
 export const postApi = async (url, data) => {
+  console.log("🚀 ~ postApi ~ data:", data);
   try {
     const response = await axiosClient.post(url, data);
     return response.data;

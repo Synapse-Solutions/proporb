@@ -1,9 +1,11 @@
 "use client";
 import ForgotpasswordComponent from "@/app/components/auth/ForgotpasswordComponent";
+import { postApi } from "@/app/utils/AppApi";
 import React, { useState } from "react";
 
 export default function page() {
   const [screenName, setScreenName] = useState("enteremail");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState({
     otpOne: "",
     otpTwo: "",
@@ -40,6 +42,18 @@ export default function page() {
       }
     }
   };
+
+  const onSendOtp = async () => {
+    let data = {
+      email: email,
+    };
+    console.log("🚀 ~ onSendOtp ~ data:", data);
+    const response = await postApi("/v1/owner/send-email", data);
+    console.log("🚀 ~ onSendOtp ~ response:", response);
+    if (response.success) {
+      setScreenName("enterotp");
+    }
+  };
   return (
     <div>
       <ForgotpasswordComponent
@@ -50,6 +64,9 @@ export default function page() {
         otpFourRef={otpFourRef}
         setScreenName={setScreenName}
         onKeyDown={onKeyDown}
+        onSendOtp={onSendOtp}
+        setEmail={setEmail}
+        email={email}
       />
     </div>
   );

@@ -94,18 +94,7 @@ export default function SettingsComponent(props: Props) {
               description="Change your Subscription Plan."
               icon="/subscription.webp"
             />
-            <SettingsCard
-              onClick={() => setIsLoginAndPasswordOpen(true)}
-              title="Company Start Date"
-              description="Your company start date is when we should start charging your tenants rent."
-              icon="/start_date.webp"
-            />
           </div>
-        </div>
-        <div>
-          <span className="text-black text-2xl font-bold green-underline w-auto">
-            Property Settings
-          </span>
         </div>
       </div>
     </div>

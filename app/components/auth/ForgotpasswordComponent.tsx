@@ -13,6 +13,9 @@ interface Props {
   otpThreeRef: React.RefObject<HTMLInputElement>;
   otpFourRef: React.RefObject<HTMLInputElement>;
   onKeyDown: (e: any, ref: string) => void;
+  onSendOtp: () => void;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
 }
 export default function ForgotpasswordComponent(props: Props) {
   return (
@@ -27,16 +30,18 @@ export default function ForgotpasswordComponent(props: Props) {
           <div className="mt-10">
             <div>
               <p className="mb-2">Email Address</p>
-              <AuthInput type="email" placeholder="Enter email address" />
+              <AuthInput
+                value={props.email}
+                onChange={(e) => props.setEmail(e.target.value)}
+                type="email"
+                placeholder="Enter email address"
+              />
             </div>
             <div className="mt-5">
               <p>Back to sign-in</p>
             </div>
             <div className="">
-              <AuthButton
-                onClick={() => props.setScreenName("otp")}
-                text="Send OTP"
-              />
+              <AuthButton onClick={() => props.onSendOtp()} text="Send OTP" />
             </div>
           </div>
         </div>
