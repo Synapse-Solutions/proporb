@@ -3,8 +3,8 @@ import mime from "mime";
 
 //***************** */ create an axios instance
 const axiosClient = axios.create({
-  baseURL: "http://192.168.0.105:3000",
-  // baseURL: `https://proporb-staging-1d1681f54e44.herokuapp.com`,
+  // baseURL: "http://192.168.0.105:3000",
+  baseURL: `https://proporb-staging-1d1681f54e44.herokuapp.com`,
   
 });
 
