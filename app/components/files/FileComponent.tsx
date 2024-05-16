@@ -41,7 +41,7 @@ export default function FileComponent(props: Props) {
             <div className="mt-10">
               <button
                 onClick={() => setIsTenantShow(true)}
-                className="bg-[#1ED760] rounded-full px-7 py-3 text-white"
+                className="bg-[#1ED760] rounded-full px-7 py-3 text-white hover:bg-[#418a5a]"
               >
                 + Add File
               </button>

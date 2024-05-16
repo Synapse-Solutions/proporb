@@ -61,7 +61,7 @@ export default function AllPropertiesComponent(props: Props) {
             </h1>
             <Link
               href={"/newproperty"}
-              className="bg-[#1ED760] rounded-full px-7 py-2 text-white"
+              className="bg-[#1ED760] rounded-full px-7 py-2 text-white hover:bg-[#418a5a]"
             >
               + New Property
             </Link>
@@ -103,7 +103,7 @@ export default function AllPropertiesComponent(props: Props) {
                   <div className="flex flex-col justify-between">
                     <div>
                       <h1 className="text-[#1ED760] text-[26px] 2xl:text-[32px] font-bold ">
-                        PKR 1.2 Crore
+                        PKR {item.Units[0].rent}
                       </h1>
                       <p className="text-black text-[18px] 2xl:text-[20px] ">
                         10 Marla House For Sale

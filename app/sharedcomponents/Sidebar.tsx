@@ -2,10 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateNewPopup from "../components/CreateNewPopup";
 
-const muneItems = [
+const ownerArray = [
   {
     icon: "/dashBoardIcon.webp",
     name: "Dashboard",
@@ -57,6 +57,13 @@ const muneItems = [
     link: "/reports",
   },
 ];
+const tenantArray = [
+  {
+    icon: "/rentalsIcon.webp",
+    name: "Rentals",
+    link: "/rentals",
+  },
+];
 interface Props {
   activeTab?: string;
   nestedMenuItems?: string[];
@@ -67,7 +74,16 @@ export default function Sidebar(props: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+  const muneItems = isOwner ? ownerArray : tenantArray;
 
+  useEffect(() => {
+    let isOwner = localStorage.getItem("isOwner");
+    setIsOwner(isOwner === "owner" ? true : false);
+    if (isOwner === "tenant") {
+      router.push("/rentals");
+    }
+  }, []);
   return (
     <div
       className={`w-[calc(16vw)] h-[calc(100vh)] bg-[#191414] text-[#A9ACB2]  ${
@@ -101,7 +117,7 @@ export default function Sidebar(props: Props) {
                   style={{
                     color: pathname === item.link ? "#1ED760" : "",
                   }}
-                  className="flex gap-3 items-center px-1 rounded-2xl"
+                  className="flex gap-3 items-center px-1 "
                 >
                   <Image
                     src={item.icon}
@@ -119,10 +135,9 @@ export default function Sidebar(props: Props) {
                     }
                   />
                   <p
-                    className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer text-start"
-                    style={{
-                      color: pathname === item.link ? "#1ED760" : "white",
-                    }}
+                    className={`${
+                      pathname === item.link ? "text-[#1ED760]" : "text-white"
+                    } text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer text-start`}
                   >
                     {item.name}
                   </p>
@@ -130,53 +145,59 @@ export default function Sidebar(props: Props) {
               </Link>
             ))}
           </div>
-
-          <div className="flex flex-col gap-1 fixed bottom-0 pb-5">
-            <Link href="/getStarted">
-              <button className="flex gap-2 items-center text-[#ffffff]">
-                <Image
-                  src="/getStartedIcon.webp"
-                  alt="Icon"
-                  width={20}
-                  height={20}
-                />
-                <p className="text-[12px] 2xl:text-[15px]">Get Started</p>
-                <div className="flex gap-1 items-center text-[#ffffff] ml-1">
+          {isOwner && (
+            <div className="flex flex-col gap-1 fixed bottom-0 pb-5">
+              <Link href="/getStarted">
+                <button className="flex gap-2 items-center text-[#ffffff] hover:text-[#1ED760]">
                   <Image
-                    src="/completePercentIcon.webp"
+                    src="/getStartedIcon.webp"
                     alt="Icon"
-                    width={25}
-                    height={25}
+                    width={20}
+                    height={20}
+                  />
+                  <p className="text-[12px] 2xl:text-[15px]">Get Started</p>
+                  <div className="flex gap-1 items-center text-[#ffffff] ml-1 hover:text-[#1ED760]">
+                    <Image
+                      src="/completePercentIcon.webp"
+                      alt="Icon"
+                      width={25}
+                      height={25}
+                      className="h-[16px] 2xl:h-[25px] object-contain"
+                    />
+                    <p className="text-[10px]">33% Complete</p>
+                  </div>
+                </button>
+              </Link>
+              <Link href="/generalSettings">
+                <div className="flex gap-2 items-center text-[#ffffff]">
+                  <Image
+                    src="/settingIcon.webp"
+                    alt="Icon"
+                    width={20}
+                    height={20}
                     className="h-[16px] 2xl:h-[25px] object-contain"
                   />
-                  <p className="text-[10px]">33% Complete</p>
+
+                  <p className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760]">
+                    Setting
+                  </p>
                 </div>
-              </button>
-            </Link>
-            <Link href="/generalSettings">
-              <div className="flex gap-2 items-center text-[#ffffff]">
+              </Link>
+              <Link
+                href={"/"}
+                className="flex gap-2 items-center text-[#ffffff] hover:text-[#1ED760]"
+              >
                 <Image
-                  src="/settingIcon.webp"
+                  src="/logoutIcon.webp"
                   alt="Icon"
                   width={20}
                   height={20}
                   className="h-[16px] 2xl:h-[25px] object-contain"
                 />
-
-                <p className="text-[12px] 2xl:text-[15px]">Setting</p>
-              </div>
-            </Link>
-            <Link href={"/"} className="flex gap-2 items-center text-[#ffffff]">
-              <Image
-                src="/logoutIcon.webp"
-                alt="Icon"
-                width={20}
-                height={20}
-                className="h-[16px] 2xl:h-[25px] object-contain"
-              />
-              <p className="text-[12px]">Logout</p>
-            </Link>
-          </div>
+                <p className="text-[12px]">Logout</p>
+              </Link>
+            </div>
+          )}
         </>
       ) : (
         <div className="flex">

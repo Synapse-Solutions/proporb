@@ -19,7 +19,7 @@ export default function EmptyViewComponent(props: EmptyViewProps) {
       {props.buttonTitle && (
         <button
           onClick={props.onClick}
-          className="bg-[#1ED760] rounded-full px-7 py-3 text-white"
+          className="bg-[#1ED760] rounded-full px-7 py-3 text-white hover:bg-[#418a5a]"
         >
           + {props.buttonTitle}
         </button>

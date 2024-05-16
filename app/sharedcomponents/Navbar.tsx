@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Logout, PersonOutline, Settings } from "@mui/icons-material";
@@ -9,10 +9,18 @@ interface NavbarProps {
 }
 export default function Navbar(props: NavbarProps) {
   const [isprofileClicked, setIsprofileClicked] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>({});
+  console.log("🚀 ~ Navbar ~ currentUser:", currentUser);
+  useEffect(() => {
+    const user = localStorage.getItem("user") || "";
+    setCurrentUser(JSON.parse(user)?.Owner || JSON.parse(user)?.Tenet);
+  }, []);
   return (
     <div className="flex w-full items-center">
       <div className="w-[50%]">
-        <p className="text-black text-[20px] font-bold">Welcome, Ahsan👋</p>
+        <p className="text-black text-[20px] font-bold">
+          Welcome, {currentUser.first_name}👋
+        </p>
       </div>
       <div className="w-[50%] flex justify-end gap-10 text-[15px]">
         {props.isSearchBarVisible ? (
@@ -58,7 +66,7 @@ export default function Navbar(props: NavbarProps) {
           </Link>
         </div>
         <div className="flex gap-2 items-center">
-          <p className="text-black font-semibold">Ahsan</p>
+          <p className="text-black font-semibold">{currentUser?.first_name}</p>
           <div className="relative">
             <Image
               onClick={() => setIsprofileClicked(!isprofileClicked)}
@@ -66,6 +74,7 @@ export default function Navbar(props: NavbarProps) {
               alt="Icon"
               height={40}
               width={40}
+              className="cursor-pointer"
             />
             {isprofileClicked && (
               <div className="bg-black rounded-2xl py-5 px-5 absolute top-full right-0 w-[200px] text-white">

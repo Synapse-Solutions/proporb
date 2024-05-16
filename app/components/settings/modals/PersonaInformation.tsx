@@ -35,13 +35,14 @@ export default function PersonaInformation({ onClose }: Props) {
 
   const getCurrent = () => {
     const user = JSON.parse(localStorage.getItem("user") || "");
+    let userDATa = user.Owner ? user.Owner : user.Tenant;
     setUserPayload({
-      first_name: user.Owner.first_name,
-      last_name: user.Owner.last_name,
-      email: user.Owner.email,
-      mobile: user.Owner.mobile,
-      address: user.Owner.address,
-      image: user.Owner.image,
+      first_name: userDATa.first_name,
+      last_name: userDATa.last_name,
+      email: userDATa.email,
+      mobile: userDATa.mobile,
+      address: userDATa.address,
+      image: userDATa.image,
     });
   };
 
@@ -72,11 +73,9 @@ export default function PersonaInformation({ onClose }: Props) {
     } else {
       const user = JSON.parse(localStorage.getItem("user") || "");
       let token = user.authToken;
-      const response = await putAPi(
-        "/v1/owner/" + user.Owner.id,
-        userPayload,
-        token
-      );
+      let path = user.Owner ? "/v1/owner/" : "/v1/tenant/";
+      let id = user.Owner ? user.Owner.id : user.Tenant.id;
+      const response = await putAPi(path + id, userPayload, token);
       if (response.success) {
         toast.success("Profile Updated successfully");
         updateLocalUser();

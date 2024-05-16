@@ -7,8 +7,8 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  onClickLogin?: any; 
-  setIsOwner: any
+  onClickLogin?: any;
+  handleChangeOwner: any;
 }
 export default function SignUpComponent(props: Props) {
   return (
@@ -20,7 +20,7 @@ export default function SignUpComponent(props: Props) {
           <div className="flex flex-col items-center">
             <p className="mt-4 mb-0 text-[19px]">Tenant</p>
             <button
-              onClick={() => props.setIsOwner("tenant")}
+              onClick={() => props.handleChangeOwner("tenant")}
               className="bg-[#1ED760] text-white rounded-full h-10 2xl:h-14 w-[90%] mt-5 hover:bg-[#4f9e6a]"
             >
               Continue as Tenant
@@ -29,7 +29,7 @@ export default function SignUpComponent(props: Props) {
           <div className="mt-0 flex flex-col items-center">
             <p className="mt-10 mb-0 text-[19px]">Property Owner</p>
             <button
-              onClick={() => { () => props.setIsOwner("owner") }}
+              onClick={() => props.handleChangeOwner("owner")}
               className="bg-[#1ED760] text-white rounded-full h-10 2xl:h-14 w-[90%] mt-5 hover:bg-[#4f9e6a]"
             >
               Continue as owner

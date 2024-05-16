@@ -1,97 +1,84 @@
-"use client"
-import RegisterTenantComponent from "@/app/components/auth/RegisterTenantComponent";
-import { useRouter } from "next/navigation";
-import { postApi, postApiWithToken } from "@/app/utils/AppApi";
+"use client";
+import PaymentDetails from "@/app/components/auth/PaymentDetails";
+import PaymentFail from "@/app/components/auth/PaymentFail";
+import PaymentSuccessfull from "@/app/components/auth/PaymentSuccessfull";
+import RegisterComponent from "@/app/components/auth/RegisterComponent";
+import SubscriptionDetails from "@/app/components/auth/SubscriptionDetails";
 import React, { useState } from "react";
+import { postApi, postApiWithToken } from "@/app/utils/AppApi";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
+import TenantRegister from "@/app/components/auth/TenantRegister";
 
+export default function Register() {
+  const router = useRouter();
+  const [userErrors, setUserErrors] = useState({
+    name: false,
+    email: false,
+    mobile: false,
+    password: false,
+  });
+  const [user, setuser] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
+  });
 
-export default function page() {
-    const router = useRouter();
-    const [screenName, setScreenName] = useState("signin");
-    const [token, setToken] = useState("");
-
-    const [userErrors, setUserErrors] = useState({
-        firstName: false,
-        lastName: false,
-        email: false,
-        mobile: false,
-        password: false,
-    });
-    const [user, setuser] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobile: "",
-        password: "",
-    });
-    const onClickRegister = async () => {
-        try {
-
-            if (user.firstName === "") {
-                setUserErrors({ ...userErrors, firstName: true });
-            } else {
-                setUserErrors({ ...userErrors, firstName: false });
-            }
-            if (user.lastName === "") {
-                setUserErrors({ ...userErrors, lastName: true });
-            } else {
-                setUserErrors({ ...userErrors, lastName: false });
-            }
-            if (user.email === "") {
-                setUserErrors({ ...userErrors, email: true });
-            } else {
-                setUserErrors({ ...userErrors, email: false });
-            }
-            if (user.mobile === "") {
-                setUserErrors({ ...userErrors, mobile: true });
-            } else {
-                setUserErrors({ ...userErrors, mobile: false });
-            }
-            if (user.password === "") {
-                setUserErrors({ ...userErrors, password: true });
-            } else {
-                setUserErrors({ ...userErrors, password: false });
-            }
-            if (user.firstName && user.lastName && user.email && user.mobile && user.password) {
-                setScreenName("signin");
-            }
-            const payload = {
-                first_name: user.firstName.split(" ")[0],
-                last_name: user.lastName.split(" ")[1],
-                email: user.email,
-                mobile: user.mobile,
-                password: user.password,
-                address: "",
-                image: "",
-              };
-        const res = await postApi("/v1/tenet", payload);
-        if (res.success) {
-            console.warn("login success")
-            toast.success("Login Successful");
-            localStorage.setItem("user", JSON.stringify(res.data));
-            setScreenName("getStarted");
-        }
-        else {
-            toast.error(res.data.message);
-            setScreenName("signup");
-          }
+  const onClickRegister = async () => {
+    if (user.name === "") {
+      setUserErrors({ ...userErrors, name: true });
+    } else {
+      setUserErrors({ ...userErrors, name: false });
     }
-        catch (e) {
-            return e
-        }
-
+    if (user.email === "") {
+      setUserErrors({ ...userErrors, email: true });
+    } else {
+      setUserErrors({ ...userErrors, email: false });
     }
+    if (user.mobile === "") {
+      setUserErrors({ ...userErrors, mobile: true });
+    } else {
+      setUserErrors({ ...userErrors, mobile: false });
+    }
+    if (user.password === "") {
+      setUserErrors({ ...userErrors, password: true });
+    } else {
+      setUserErrors({ ...userErrors, password: false });
+    }
+    if (user.name && user.email && user.mobile && user.password) {
+      onAddTenant();
+    }
+  };
 
-
-    return (
-        <RegisterTenantComponent
-            user={user}
-            setUser={setuser}
-            setScreenName={setScreenName}
-            onClickRegister={onClickRegister}
-            userErrors={userErrors}
-        />
-    )
-
-} 
+  const onAddTenant = async () => {
+    const payload = {
+      first_name: user.name.split(" ")[0],
+      last_name: user.name.split(" ")[1],
+      username: user.name.replace(" ", ""),
+      email: user.email,
+      mobile: user.mobile,
+      password: user.password,
+      address: "",
+      image: "",
+    };
+    const res = await postApi("/v1/tenet", payload);
+    if (res.success) {
+      toast.success("Tenant Added Successfully");
+      router.push("/signin");
+    } else {
+      toast.error(res.data.message);
+    }
+  };
+  return (
+    <>
+      <TenantRegister
+        user={user}
+        setUser={setuser}
+        onClickRegister={onClickRegister}
+        userErrors={userErrors}
+      />
+    </>
+  );
+}

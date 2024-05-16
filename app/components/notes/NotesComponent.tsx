@@ -31,7 +31,7 @@ export default function NotesComponent(props: Props) {
             <div className="flex items-center gap-5">
               <button
                 onClick={() => setIsTenantShow(true)}
-                className="text-[#1ED760] gap-2 items-center  flex"
+                className="text-[#1ED760] gap-2 items-center  flex hover:bg-[#84daa3] hover:text-white px-3 py-1 rounded-full"
               >
                 <Image
                   src="/plus_circle.webp"

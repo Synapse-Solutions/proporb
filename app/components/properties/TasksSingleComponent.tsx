@@ -8,7 +8,7 @@ export default function TasksSingleComponent() {
       <div className="flex justify-between w-full items-center">
         <SearchView width="w-[calc(35vw)]" />
         <div className="flex items-center gap-5">
-          <div className="bg-[#1ED760] px-4 py-2 rounded-full text-white h-12 flex items-center">
+          <div className="bg-[#1ED760] px-4 py-2 rounded-full text-white h-12 flex items-center hover:bg-[#418a5a]">
             + New Task
           </div>
           <div className="bg-[#1ED760] px-4 py-2 rounded-full text-white h-12 flex items-center">

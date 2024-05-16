@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function SignIn() {
   const router = useRouter();
-  const [isOwner,setIsOwner]=useState("")
+  const [isOwner, setIsOwner] = useState("");
   const [user, setuser] = useState({
     email: "",
     password: "",
@@ -22,13 +22,18 @@ export default function SignIn() {
         email: user.email,
         password: user.password,
       };
-      let path = isOwner ==="tenant" ?  "/v1/tenet/login":"/v1/owner/login"
+      let path = isOwner === "tenant" ? "/v1/tenet/login" : "/v1/owner/login";
       const response = await postApi(path, payload);
 
       if (response.success === true) {
         toast.success("Login Successful");
+        localStorage.setItem("isOwner", isOwner);
         localStorage.setItem("user", JSON.stringify(response.data));
-        router.push("/getStarted");
+        if (isOwner === "tenant") {
+          router.push("/rentals");
+        } else {
+          router.push("/getStarted");
+        }
       } else {
         toast.error(response.data.message);
       }
@@ -36,13 +41,22 @@ export default function SignIn() {
       console.log("🚀 ~ onClickLogin ~ error:", error);
     }
   };
+  const handleChangeOwner = (owner: string) => {
+    localStorage.setItem("isOwner", owner);
+    setIsOwner(owner);
+  };
   return (
     <>
-    {!isOwner  ? <SignUpComponent setIsOwner={setIsOwner}/>:
-    <SigninComponent
-      user={user}
-      setUser={setuser}
-      onClickLogin={onClickLogin}
-    />}</>
+      {!isOwner ? (
+        <SignUpComponent handleChangeOwner={handleChangeOwner} />
+      ) : (
+        <SigninComponent
+          user={user}
+          setUser={setuser}
+          isOwner={isOwner}
+          onClickLogin={onClickLogin}
+        />
+      )}
+    </>
   );
 }

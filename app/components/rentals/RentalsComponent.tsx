@@ -22,7 +22,7 @@ export default function () {
             <h1 className="text-black text-[30px]">Rentals</h1>
             <div className="flex items-center gap-5">
               <Link href="/newrental">
-                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white hover:bg-[#418a5a]">
                   + New Rentals
                 </div>
               </Link>
