@@ -32,7 +32,7 @@ export default function page() {
     };
 
     console.log("🚀 ~ onVerifyOtp ~ data:", data);
-    const response = await postApi("/v1/owner/verify-otp", data);
+    const response = await postApi("/v1/owner/verify-otp", data); 
     if (response.success) {
       toast.success("OTP verified successfully");
       setScreenName("enternewpassword");
