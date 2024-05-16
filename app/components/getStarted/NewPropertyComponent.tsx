@@ -736,35 +736,36 @@ export default function NewPropertyComponent(props: Props) {
                         Which account should we use as the main account for this
                         property
                       </p>
-                      <select
-                        onChange={(e) => {
-                          if (
-                            (e.target as HTMLSelectElement).value ===
-                            "newaccount"
-                          ) {
-                            setCreateAccountModal(true);
-                          } else {
-                            props.handleChangeBankAccount(e.target.value);
-                          }
-                        }}
-                        name="account"
-                        id=""
-                        className="border border-[gray] rounded-xl w-[50%] p-3 flex items-center justify-between px-5 mt-7 h-12"
-                      >
-                        {props.banksArray.map((item: any, index: number) => (
-                          <option key={index} value={index}>
-                            {item.bank_name} - {item.account_number}
-                          </option>
-                        ))}
-
-                        <option
-                          onClick={() => setCreateAccountModal(true)}
-                          value="newaccount"
-                          className="bg-[#1ED760] text-white py-2 px-5 rounded-xl"
+                      {props.banksArray.length > 0 && (
+                        <select
+                          onChange={(e) => {
+                            if (
+                              (e.target as HTMLSelectElement).value ===
+                              "newaccount"
+                            ) {
+                              setCreateAccountModal(true);
+                            } else {
+                              console.log(e.target.value);
+                              props.handleChangeBankAccount(e.target.value);
+                            }
+                          }}
+                          name="account"
+                          className="border border-[gray] rounded-xl w-[50%] p-3 flex items-center justify-between px-5 mt-7 h-12"
                         >
-                          + Create new account
-                        </option>
-                      </select>
+                          <option value="select">Select bank</option>
+                          {props.banksArray.map((item: any, index: number) => (
+                            <option key={index} value={index}>
+                              {item.bank_name} - {item.account_number}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                      <button
+                        onClick={() => setCreateAccountModal(true)}
+                        className="bg-[#1ED760] text-white py-2 px-5 rounded-xl mt-3"
+                      >
+                        + Create new account
+                      </button>
                     </div>
                   )}
                 </div>
