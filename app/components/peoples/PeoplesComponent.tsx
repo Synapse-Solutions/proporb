@@ -33,13 +33,13 @@ export default function PeoplesComponent(props: Props) {
             <h1 className="text-black text-[30px]">People</h1>
             <div className="flex items-center gap-5">
               <Link href="/newrental">
-                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white">
+                <div className="bg-[#1ED760] rounded-full px-7 py-2 text-white hover:bg-[#418a5a]">
                   + New Rentals
                 </div>
               </Link>
               <div
                 onClick={() => setAddTenantModal(true)}
-                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer"
+                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer hover:bg-[#418a5a]"
               >
                 + New Tenant
               </div>
@@ -82,7 +82,7 @@ export default function PeoplesComponent(props: Props) {
                   </p>
                   <button
                     onClick={() => setIsTenantShow(item)}
-                    className="bg-[#1ED760] rounded-full px-7 py-2 text-white mt-5"
+                    className="bg-[#1ED760] rounded-full px-7 py-2 text-white mt-5 hover:bg-[#418a5a]"
                   >
                     View Tenant
                   </button>

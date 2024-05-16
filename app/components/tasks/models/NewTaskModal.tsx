@@ -11,7 +11,7 @@ interface Props {
   onClose: () => void;
 }
 export default function NewTaskModal({ onClose }: Props) {
-  const [unitsArray, setUnitsArray] = useState([]);
+  const [unitsArray, setUnitsArray] = useState<any>([]);
   const [taskPayload, setTaskPayload] = useState({
     subject: "",
     request: "",
@@ -37,6 +37,12 @@ export default function NewTaskModal({ onClose }: Props) {
   };
 
   const onAddTask = async () => {
+    if (taskPayload.unit_id === "") {
+      taskPayload.unit_id = unitsArray[0]?.id;
+    }
+    if (taskPayload.subject === "" || taskPayload.request === "") {
+      return toast.error("Please fill all the fields");
+    }
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
     const response = await postApiWithToken(
@@ -111,13 +117,12 @@ export default function NewTaskModal({ onClose }: Props) {
                 <select
                   name=""
                   id=""
-                  value={taskPayload.unit_id}
-                  onChange={(e) =>
-                    setTaskPayload({ ...taskPayload, unit_id: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setTaskPayload({ ...taskPayload, unit_id: e.target.value });
+                  }}
                   className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                 >
-                  {unitsArray.map((unit: any, index) => (
+                  {unitsArray.map((unit: any, index: number) => (
                     <option key={index} value={unit.id}>
                       {unit.type}
                     </option>

@@ -33,7 +33,7 @@ export default function AllTasksComponent() {
             <div className="flex items-center gap-5">
               <div
                 onClick={() => setisTaskModalShow(true)}
-                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer"
+                className="bg-[#1ED760] rounded-full px-7 py-2 text-white cursor-pointer hover:bg-[#418a5a]"
               >
                 + New Task
               </div>

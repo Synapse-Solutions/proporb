@@ -148,7 +148,7 @@ export default function Sidebar(props: Props) {
           {isOwner && (
             <div className="flex flex-col gap-1 fixed bottom-0 pb-5">
               <Link href="/getStarted">
-                <button className="flex gap-2 items-center text-[#ffffff]">
+                <button className="flex gap-2 items-center text-[#ffffff] hover:text-[#1ED760]">
                   <Image
                     src="/getStartedIcon.webp"
                     alt="Icon"
@@ -156,7 +156,7 @@ export default function Sidebar(props: Props) {
                     height={20}
                   />
                   <p className="text-[12px] 2xl:text-[15px]">Get Started</p>
-                  <div className="flex gap-1 items-center text-[#ffffff] ml-1">
+                  <div className="flex gap-1 items-center text-[#ffffff] ml-1 hover:text-[#1ED760]">
                     <Image
                       src="/completePercentIcon.webp"
                       alt="Icon"
@@ -178,12 +178,14 @@ export default function Sidebar(props: Props) {
                     className="h-[16px] 2xl:h-[25px] object-contain"
                   />
 
-                  <p className="text-[12px] 2xl:text-[15px]">Setting</p>
+                  <p className="text-[12px] 2xl:text-[15px] hover:text-[#1ED760]">
+                    Setting
+                  </p>
                 </div>
               </Link>
               <Link
                 href={"/"}
-                className="flex gap-2 items-center text-[#ffffff]"
+                className="flex gap-2 items-center text-[#ffffff] hover:text-[#1ED760]"
               >
                 <Image
                   src="/logoutIcon.webp"
