@@ -13,8 +13,10 @@ export default function page() {
   const [Cpassword, setCpassword] = useState("");
 
   const onSendOtp = async () => {
+    let isOwner = localStorage.getItem("isOwner") || "owner";
     let data = {
       email: email,
+      is_owner :  isOwner !== "tenant"? true: false
     };
     console.log("🚀 ~ onSendOtp ~ data:", data);
     const response = await postApi("/v1/owner/send-email", data);
@@ -32,7 +34,7 @@ export default function page() {
     };
 
     console.log("🚀 ~ onVerifyOtp ~ data:", data);
-    const response = await postApi("/v1/owner/verify-otp", data);
+    const response = await postApi("/v1/owner/verify-otp", data); 
     if (response.success) {
       toast.success("OTP verified successfully");
       setScreenName("enternewpassword");
