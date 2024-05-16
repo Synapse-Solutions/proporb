@@ -27,8 +27,6 @@ export default function page() {
       console.log("🚀 ~ getAllNotes ~ error:", error);
     }
   };
-  if (isLoadingScreen) {
-    return <LoaderScreen />;
-  }
+
   return <NotesComponent notesArray={notesArray} />;
 }

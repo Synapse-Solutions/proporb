@@ -27,9 +27,5 @@ export default function page() {
     }
   };
 
-  if (isLoadingScreen) {
-    return <LoaderScreen />;
-  }
-
   return <PeoplesComponent tenantsArray={tenantsArray} />;
 }

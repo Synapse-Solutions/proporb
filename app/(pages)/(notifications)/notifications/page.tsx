@@ -19,9 +19,7 @@ export default function page() {
     setNotificationsArray(newNotifications);
     console.log(newNotifications);
   };
-  if (isLoadingScreen) {
-    return <LoaderScreen />;
-  }
+
   return (
     <NotificationsComponent
       activeTab={activeTab}

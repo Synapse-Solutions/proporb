@@ -29,7 +29,11 @@ export default function SignIn() {
         toast.success("Login Successful");
         localStorage.setItem("isOwner", isOwner);
         localStorage.setItem("user", JSON.stringify(response.data));
-        router.push("/getStarted");
+        if (isOwner === "tenant") {
+          router.push("/rentals");
+        } else {
+          router.push("/getStarted");
+        }
       } else {
         toast.error(response.data.message);
       }
@@ -37,10 +41,14 @@ export default function SignIn() {
       console.log("🚀 ~ onClickLogin ~ error:", error);
     }
   };
+  const handleChangeOwner = (owner: string) => {
+    localStorage.setItem("isOwner", owner);
+    setIsOwner(owner);
+  };
   return (
     <>
       {!isOwner ? (
-        <SignUpComponent setIsOwner={setIsOwner} />
+        <SignUpComponent handleChangeOwner={handleChangeOwner} />
       ) : (
         <SigninComponent
           user={user}

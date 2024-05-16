@@ -25,9 +25,7 @@ export default function page() {
       console.log("🚀 ~ getAllFiles ~ error", error);
     }
   };
-  if (isLoadingScreen) {
-    return <LoaderScreen />;
-  }
+
   return (
     <div>
       <FileComponent filesArray={filesArray} />
