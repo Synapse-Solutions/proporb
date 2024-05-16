@@ -10,7 +10,6 @@ interface NavbarProps {
 export default function Navbar(props: NavbarProps) {
   const [isprofileClicked, setIsprofileClicked] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>({});
-  console.log("🚀 ~ Navbar ~ currentUser:", currentUser);
   useEffect(() => {
     const user = localStorage.getItem("user") || "";
     setCurrentUser(JSON.parse(user)?.Owner || JSON.parse(user)?.Tenet);

@@ -108,9 +108,12 @@ export default function page() {
     try {
       const response = await postApiWithToken("/v1/bank", payload, token);
       if (response.success === true) {
-        toast.success("Bank Account Added Successfully");
+        toast.success(response.message);
+      } else {
+        toast.error(response.message);
       }
     } catch (error) {
+      toast.error("Something went wrong. Please try again");
       console.log("🚀 ~ onAddBankDetails ~ error:", error);
     }
   };
