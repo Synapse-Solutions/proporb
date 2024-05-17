@@ -4,7 +4,7 @@ import AuthLeftSide from "@/app/sharedcomponents/AuthLeftSide";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
   user: {
@@ -16,6 +16,21 @@ interface Props {
   isOwner: string;
 }
 export default function SigninComponent(props: Props) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleLoginClick = async () => {
+    setIsLoggingIn(true);
+    try {
+      await props.onClickLogin();
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+
   return (
     <div className="flex justify-between p-10 h-screen">
       <AuthLeftSide />
@@ -48,11 +63,24 @@ export default function SigninComponent(props: Props) {
               onChange={(e) =>
                 props.setUser({ ...props.user, password: e.target.value })
               }
-              type="password"
+              type={showPassword ? "text" : "password"}
             />
+             <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-24 top-100 text-sm text-gray-600"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+             
           </div>
           <div className="">
-            <AuthButton onClick={props.onClickLogin} text="Log in" />
+            <AuthButton
+             onClick={handleLoginClick}
+              text="Log in"
+              disabled={isLoggingIn}
+
+               />
 
             <p className="text-[#645D5D] text-center mt-5 2xl:mt-10">
               Forgot Password?
