@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const tabs = [
@@ -20,6 +20,7 @@ const tabs = [
 ];
 export default function LandingPageNavbar() {
   const pathname = usePathname();
+  const router= useRouter()
   const [isHeaderShow, setIsHeaderShow] = useState(false);
   let lastScrollTop = 0;
   useEffect(() => {
@@ -38,6 +39,10 @@ export default function LandingPageNavbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const onClickSignin =()=>{
+    localStorage.removeItem("isOwner")
+    router.push("signin")
+  }
   return (
     <div
       style={
@@ -81,7 +86,7 @@ export default function LandingPageNavbar() {
             ))}
           </div>
           <div className="w-[14%]">
-            <Link href="/signin">
+            <div  onClick={onClickSignin}>
               <button className="flex items-center gap-2 bg-[#1ED760] text-white px-5 py-2 rounded-md hover:bg-[#69af84]">
                 <Image
                   src={"/landingpage/user.webp"}
@@ -91,7 +96,7 @@ export default function LandingPageNavbar() {
                 />
                 <p>Sign In</p>
               </button>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

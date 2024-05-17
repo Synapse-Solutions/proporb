@@ -12,7 +12,7 @@ export default function Navbar(props: NavbarProps) {
   const [currentUser, setCurrentUser] = useState<any>({});
   useEffect(() => {
     const user = localStorage.getItem("user") || "";
-    setCurrentUser(JSON.parse(user)?.Owner || JSON.parse(user)?.Tenet);
+    setCurrentUser(JSON.parse(user)?.Owner || JSON.parse(user)?.Tenant);
   }, []);
   return (
     <div className="flex w-full items-center">
