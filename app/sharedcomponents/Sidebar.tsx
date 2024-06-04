@@ -291,7 +291,7 @@ export default function Sidebar(props: Props) {
                   props.setSelectedSidebarTab(index)
                 }
                 key={index}
-                className={`flex gap-3 items-center mt-5
+                className={`flex gap-1 items-center mt-5 
                 ${props.selectedSidebarTab === index ? "text-[#1ED760]" : ""}
                 `}
               >

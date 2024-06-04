@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { postApiWithToken } from "@/app/utils/AppApi";
+import { getApiWithToken, postApiWithToken } from "@/app/utils/AppApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,10 +14,22 @@ export default function AddNoteModal({ onClose }: Props) {
     title: "",
     note: "",
     image: "djkljio",
+    unit_id : ''
   });
+  const [unitsArray, setUnitsArray] = useState<any>([]);
   const uploadPhotoRef = React.useRef<HTMLInputElement>(null);
   const onClickuploadPhoto = () => {
     uploadPhotoRef.current?.click();
+  };
+  useEffect(() => {
+    getAllUnits();
+  }, []);
+
+  const getAllUnits = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const response = await getApiWithToken("/v1/unit", token);
+    setUnitsArray(response.data.result);
   };
   const onSave = async () => {
     const user = localStorage.getItem("user") || "";
@@ -73,6 +85,26 @@ export default function AddNoteModal({ onClose }: Props) {
                 />
               </div>
               <div className="w-[100%]">
+              <select
+                        name=""
+                        id=""
+                        
+                          onChange={(e) =>
+                            setNotePayload({ ...notePayload, 
+                              unit_id: e.target.value,
+                            })
+                        }
+                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                      >
+                        <option value="">Select Unit</option>
+                          {unitsArray.map((unit: any, index: number) => (
+                    <option key={index} value={unit.id}>
+                      {unit.unit_no}
+                    </option>
+                  ))}
+                      </select>
+                      </div>
+              <div className="w-[100%]">
                 <p>Note*</p>
                 <textarea
                   name=""
@@ -84,7 +116,10 @@ export default function AddNoteModal({ onClose }: Props) {
                   rows={10}
                   className="border border-black rounded-lg  w-full pl-3 mt-4"
                 ></textarea>
+              
               </div>
+
+
             </div>
 
             <div className="mt-10 flex justify-center">

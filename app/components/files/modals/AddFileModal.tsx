@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { postApiWithToken, uploadImageToS3 } from "@/app/utils/AppApi";
+import { getApiWithToken, postApiWithToken, uploadImageToS3 } from "@/app/utils/AppApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,14 +11,26 @@ interface Props {
 }
 export default function AddFileModal({ onClose }: Props) {
   const uploadPhotoRef = React.useRef<HTMLInputElement>(null);
+  const [unitsArray, setUnitsArray] = useState<any>([]);
   const [filePayload, setFilePayload] = useState({
     file_name: "",
     description: "",
     file: "",
+    unit_id : ""
   });
 
   const onClickuploadPhoto = () => {
     uploadPhotoRef.current?.click();
+  };
+  useEffect(() => {
+    getAllUnits();
+  }, []);
+
+  const getAllUnits = async () => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const response = await getApiWithToken("/v1/unit", token);
+    setUnitsArray(response.data.result);
   };
 
   const handleUploadImage = async (file: any) => {
@@ -118,6 +130,26 @@ export default function AddFileModal({ onClose }: Props) {
                   className="border border-black rounded-lg h-10 w-full pl-3 mt-4"
                 />
               </div>
+              <div className="w-[100%]">
+              <select
+                        name=""
+                        id=""
+                          onChange={(e) =>
+                            setFilePayload({ ...filePayload, 
+                              unit_id: e.target.value,
+                            })
+                        }
+                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                      >
+                        <option value="">Select Unit</option>
+                          {unitsArray.map((unit: any, index: number) => (
+                    <option key={index} value={unit.id}>
+                      {unit.unit_no}
+                    </option>
+                  ))}
+                      </select>
+                      </div>
+
               <div className="w-[100%]">
                 <p>Description*</p>
                 <textarea

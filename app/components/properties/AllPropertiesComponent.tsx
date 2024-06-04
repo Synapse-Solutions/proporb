@@ -25,9 +25,9 @@ const communityProperties = [
 
 const nestedMenuItems = [
   "All Properties",
-  "Resedential Properties",
-  "Commercial Properties",
-  "Community Association",
+  "Resedential ",
+  "Commercial ",
+  "Community ",
 ];
 
 interface Props {
@@ -103,7 +103,7 @@ export default function AllPropertiesComponent(props: Props) {
                   <div className="flex flex-col justify-between">
                     <div>
                       <h1 className="text-[#1ED760] text-[26px] 2xl:text-[32px] font-bold ">
-                        PKR {item.Units[0].rent}
+                        PKR {item.Units[0]?.rent}
                       </h1>
                       <p className="text-black text-[18px] 2xl:text-[20px] ">
                         10 Marla House For Sale
