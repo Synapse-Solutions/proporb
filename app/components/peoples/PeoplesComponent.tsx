@@ -72,7 +72,7 @@ export default function PeoplesComponent(props: Props) {
                   <p className="text-[#000] text-[16px] mt-3">
                     {item.first_name + item.last_name}
                   </p>
-                  <p className="text-[#000] text-[15px]">{item.address}</p>
+                  {/* <p className="text-[#000] text-[15px]">{item.address}</p> */}
 
                   <p className="text-[#1ED760] text-[14px] mt-3">
                     {item.mobile}

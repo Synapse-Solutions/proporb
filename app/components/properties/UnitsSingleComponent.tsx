@@ -8,7 +8,7 @@ export default function UnitsSingleComponent() {
     <div>
       <div className="flex justify-between w-full items-center">
         <SearchView />
-        <div className="bg-[#1ED760] px-4 py-2 rounded-full text-white h-12 flex items-center">
+        <div className="bg-[#1ED760] px-4 py-2 rounded-full text-white h-12 flex items-center mt-5">
           + New Unit
         </div>
       </div>

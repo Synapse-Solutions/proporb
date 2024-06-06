@@ -106,7 +106,7 @@ export default function AllPropertiesComponent(props: Props) {
                         PKR {item.Units[0]?.rent}
                       </h1>
                       <p className="text-black text-[18px] 2xl:text-[20px] ">
-                        10 Marla House For Sale
+                        {item.street}
                       </p>
                       <div className="flex items-center">
                         <Image
@@ -117,7 +117,7 @@ export default function AllPropertiesComponent(props: Props) {
                           style={{ filter: "invert(1)" }}
                         />
                         <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
-                          F-11 Markaz, Islamabad
+                          {item.city + "," + item.state + "," + item.country}
                         </p>
                       </div>
                     </div>
@@ -130,7 +130,7 @@ export default function AllPropertiesComponent(props: Props) {
                           height={25}
                         />
                         <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
-                          3
+                          {item?.Units[0]?.rooms || 0}
                         </p>
                       </div>
                       <div className="flex space-x-3">
@@ -141,13 +141,13 @@ export default function AllPropertiesComponent(props: Props) {
                           height={25}
                         />
                         <p className="text-black text-[18px] 2xl:text-[20px] ml-2">
-                          3
+                          {item?.Units[0]?.bathroom || 0}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>{" "}
-                <Link href={"/newproperty"}>
+                <Link href={"/singleproperty"}>
                   <div className="flex gap-2 p-3 border border-gray-400 rounded-2xl h-12  cursor-pointer">
                     <Image
                       src={"/notepencil.webp"}

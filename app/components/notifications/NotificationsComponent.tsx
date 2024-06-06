@@ -88,7 +88,7 @@ export default function NotificationsComponent(props: Props) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  {/* <div className="flex items-center space-x-3">
                     <p className="bg-[#1ED760] text-[#fff] p-2 rounded">New</p>
                     <div
                       onClick={() => props.onDelete(index)}
@@ -102,7 +102,7 @@ export default function NotificationsComponent(props: Props) {
                       />
                       <p>Delete</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>

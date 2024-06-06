@@ -26,13 +26,13 @@ export default function SearchView(props: Props) {
           />
         </div>
       </div>
-      {/* <Image
+      <Image
         src="/option_icon.webp"
         alt="filterIcon"
         height={50}
         width={50}
         className=" cursor-pointer object-contain"
-      /> */}
+      />
     </div>
   );
 }

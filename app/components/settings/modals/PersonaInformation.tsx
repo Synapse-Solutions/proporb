@@ -131,7 +131,11 @@ export default function PersonaInformation({ onClose }: Props) {
               </div>
               <div className="flex gap-5 items-center mt-5">
                 <Image
-                  src={userPayload.image ?? "/default.webp"}
+                  src={
+                    userPayload?.image?.includes("http")
+                      ? userPayload.image
+                      : "/default.webp"
+                  }
                   alt="Icon"
                   width={100}
                   height={100}
