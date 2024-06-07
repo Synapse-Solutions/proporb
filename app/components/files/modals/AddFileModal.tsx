@@ -2,7 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { getApiWithToken, postApiWithToken, uploadImageToS3 } from "@/app/utils/AppApi";
+import {
+  getApiWithToken,
+  postApiWithToken,
+  uploadImageToS3,
+} from "@/app/utils/AppApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,7 +20,7 @@ export default function AddFileModal({ onClose }: Props) {
     file_name: "",
     description: "",
     file: "",
-    unit_id : ""
+    unit_id: "",
   });
 
   const onClickuploadPhoto = () => {
@@ -37,7 +41,6 @@ export default function AddFileModal({ onClose }: Props) {
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
     const response = await uploadImageToS3(file, token);
-    console.log("🚀 ~ handleUploadImage ~ response:", response);
     setFilePayload({ ...filePayload, file: response });
   };
 
@@ -131,24 +134,22 @@ export default function AddFileModal({ onClose }: Props) {
                 />
               </div>
               <div className="w-[100%]">
-              <select
-                        name=""
-                        id=""
-                          onChange={(e) =>
-                            setFilePayload({ ...filePayload, 
-                              unit_id: e.target.value,
-                            })
-                        }
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      >
-                        <option value="">Select Unit</option>
-                          {unitsArray.map((unit: any, index: number) => (
+                <select
+                  name=""
+                  id=""
+                  onChange={(e) =>
+                    setFilePayload({ ...filePayload, unit_id: e.target.value })
+                  }
+                  className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                >
+                  <option value="">Select Unit</option>
+                  {unitsArray.map((unit: any, index: number) => (
                     <option key={index} value={unit.id}>
                       {unit.unit_no}
                     </option>
                   ))}
-                      </select>
-                      </div>
+                </select>
+              </div>
 
               <div className="w-[100%]">
                 <p>Description*</p>
@@ -163,7 +164,7 @@ export default function AddFileModal({ onClose }: Props) {
                     })
                   }
                   rows={10}
-                  className="border border-black rounded-lg  w-full pl-3 mt-4"
+                  className="border border-black rounded-lg  w-full p-3 mt-4"
                 ></textarea>
               </div>
             </div>

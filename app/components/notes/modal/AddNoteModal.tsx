@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { getApiWithToken, postApiWithToken } from "@/app/utils/AppApi";
+import {
+  getApiWithToken,
+  postApiWithToken,
+  uploadImageToS3,
+} from "@/app/utils/AppApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,8 +17,8 @@ export default function AddNoteModal({ onClose }: Props) {
   const [notePayload, setNotePayload] = useState({
     title: "",
     note: "",
-    image: "djkljio",
-    unit_id : ''
+    image: "",
+    unit_id: "",
   });
   const [unitsArray, setUnitsArray] = useState<any>([]);
   const uploadPhotoRef = React.useRef<HTMLInputElement>(null);
@@ -44,6 +48,16 @@ export default function AddNoteModal({ onClose }: Props) {
     } catch (error) {
       console.log("🚀 ~ onSave ~ error:", error);
     }
+  };
+
+  const handleChangeNote = async (file: any) => {
+    const user = localStorage.getItem("user") || "";
+    let token = JSON.parse(user).authToken;
+    const url = await uploadImageToS3(file, token);
+    setNotePayload({
+      ...notePayload,
+      image: url,
+    });
   };
   return (
     <div
@@ -85,25 +99,22 @@ export default function AddNoteModal({ onClose }: Props) {
                 />
               </div>
               <div className="w-[100%]">
-              <select
-                        name=""
-                        id=""
-                        
-                          onChange={(e) =>
-                            setNotePayload({ ...notePayload, 
-                              unit_id: e.target.value,
-                            })
-                        }
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      >
-                        <option value="">Select Unit</option>
-                          {unitsArray.map((unit: any, index: number) => (
+                <select
+                  name=""
+                  id=""
+                  onChange={(e) =>
+                    setNotePayload({ ...notePayload, unit_id: e.target.value })
+                  }
+                  className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                >
+                  <option value="">Select Unit</option>
+                  {unitsArray.map((unit: any, index: number) => (
                     <option key={index} value={unit.id}>
                       {unit.unit_no}
                     </option>
                   ))}
-                      </select>
-                      </div>
+                </select>
+              </div>
               <div className="w-[100%]">
                 <p>Note*</p>
                 <textarea
@@ -114,12 +125,9 @@ export default function AddNoteModal({ onClose }: Props) {
                     setNotePayload({ ...notePayload, note: e.target.value })
                   }
                   rows={10}
-                  className="border border-black rounded-lg  w-full pl-3 mt-4"
+                  className="border border-black rounded-lg  w-full  mt-4 p-3"
                 ></textarea>
-              
               </div>
-
-
             </div>
 
             <div className="mt-10 flex justify-center">
@@ -140,7 +148,16 @@ export default function AddNoteModal({ onClose }: Props) {
                     DOC or PDF | 10MB max
                   </p>
                 </div>
-                <input type="file" className="hidden" ref={uploadPhotoRef} />
+                <input
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      handleChangeNote(e.target.files[0]);
+                    }
+                  }}
+                  type="file"
+                  className="hidden"
+                  ref={uploadPhotoRef}
+                />
                 <button className="bg-[#1ED760] rounded text-white px-5 py-2 ml-7">
                   Upload
                 </button>

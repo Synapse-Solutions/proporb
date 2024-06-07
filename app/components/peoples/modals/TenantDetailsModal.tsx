@@ -7,6 +7,7 @@ interface Props {
   isTenantShow: any;
 }
 export default function TenantDetailsModal({ onClose, isTenantShow }: Props) {
+  console.log("🚀 ~ TenantDetailsModal ~ isTenantShow:", isTenantShow);
   return (
     <div
       style={{

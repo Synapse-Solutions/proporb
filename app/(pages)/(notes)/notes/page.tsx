@@ -6,27 +6,27 @@ import React, { useEffect, useState } from "react";
 
 export default function page() {
   const [notesArray, setNotesArray] = useState([]);
-  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getAllNotes();
-    setTimeout(() => {
-      setIsLoadingScreen(false);
-    }, 1000);
   }, []);
 
   const getAllNotes = async () => {
+    setIsLoading(true);
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
     console.log("🚀 ~ getAllNotes ~ token:", token);
     try {
       const response = await getApiWithToken("/v1/notes", token);
       console.log("🚀 ~ getAllNotes ~ response:", response);
+      setIsLoading(false);
       setNotesArray(response.data.result);
     } catch (error) {
+      setIsLoading(false);
       console.log("🚀 ~ getAllNotes ~ error:", error);
     }
   };
 
-  return <NotesComponent notesArray={notesArray} />;
+  return <NotesComponent notesArray={notesArray} isLoading={isLoading} />;
 }

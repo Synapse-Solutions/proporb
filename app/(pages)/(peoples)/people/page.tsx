@@ -6,26 +6,26 @@ import React, { useEffect, useState } from "react";
 
 export default function page() {
   const [tenantsArray, setTenantsArray] = useState([]);
-  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getAllTenants();
-    setTimeout(() => {
-      setIsLoadingScreen(false);
-    }, 1000);
   }, []);
 
   const getAllTenants = async () => {
+    setIsLoading(true);
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
 
     try {
       const response = await getApiWithToken("/v1/tenet", token);
       setTenantsArray(response.data.result);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log("🚀 ~ getAllTenants ~ error:", error);
     }
   };
 
-  return <PeoplesComponent tenantsArray={tenantsArray} />;
+  return <PeoplesComponent tenantsArray={tenantsArray} isLoading={isLoading} />;
 }

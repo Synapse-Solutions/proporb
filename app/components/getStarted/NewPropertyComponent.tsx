@@ -12,6 +12,7 @@ import BasicInfoModal from "./modals/BasicInfoModal";
 import UnitConfigurationModal from "./modals/UnitConfigurationModal";
 import OwnerShipModal from "./modals/OwnerShipModal";
 import LeasingInfoModal from "./modals/LeasingInfoModal";
+import AddOwnerEmailModal from "./modals/AddOwnerEmailModal";
 
 let tabs = [
   {
@@ -39,113 +40,136 @@ let tabs = [
 let properties = [
   {
     name: "House",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Apartment",
+    icon: "/apartment_icon.webp",
   },
   {
     name: "Farm House",
+    icon: "/farmhouse_inactive.webp",
   },
 ];
 let propertyTypes = [
   {
     name: "Residential Property",
-    ActiveIcon: "/green_outlilne_home.webp",
-    InactiveIcon: "/gray_outline_home.webp",
+    ActiveIcon: "/residential_active.webp",
+    InactiveIcon: "/residential_inactive.webp",
   },
   {
     name: "Commercial Property",
-    ActiveIcon: "/property_green.webp",
-    InactiveIcon: "/property_gray.webp",
+    ActiveIcon: "/commercial_active.webp",
+    InactiveIcon: "/commercial_inactive.webp",
   },
   {
     name: "Student Housing",
     ActiveIcon: "/property_green.webp",
-    InactiveIcon: "/property_gray.webp",
+    InactiveIcon: "/studenthousing_inactive.webp",
     isDisabled: true,
   },
   {
     name: "Vocational Rentals",
     ActiveIcon: "/property_green.webp",
-    InactiveIcon: "/property_gray.webp",
+    InactiveIcon: "/vocational_inactive.webp",
     isDisabled: true,
   },
   {
     name: "Community association",
-    ActiveIcon: "/property_green.webp",
-    InactiveIcon: "/property_gray.webp",
+    ActiveIcon: "/community_active.webp",
+    InactiveIcon: "/community_inactive.webp",
   },
 ];
 let commercialProperties = [
   {
     name: "Office",
+    iocn: "/office_hzdyaatvs2w9 1.png",
   },
   {
     name: "Rental Space",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Buildings",
+    icon: "/apartment_icon.webp",
   },
   {
     name: "Warehouse",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Factory",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Restaurant",
+    icon: "/cafe_0wbcefac4yhc 1.png",
   },
 ];
 const studentProperties = [
   {
     name: "Dormitories",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Apartment",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Housing",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Private House",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Single Room",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Others",
+    icon: "/mdi_house.webp",
   },
 ];
 const vocationalProperties = [
   {
     name: "Resorts",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Vocation Homes",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Bed & Breakfast",
+    icon: "/mdi_house.webp",
   },
   {
     name: "Others",
+    icon: "/mdi_house.webp",
   },
 ];
 const communityProperties = [
   {
     name: "Residential Homes",
     isDisabled: true,
+    icon: "/mdi_house.webp",
   },
   {
     name: "Apartments",
     isDisabled: false,
+    icon: "/apartment_icon.webp",
   },
   {
     name: "Villas",
     isDisabled: true,
+    icon: "/mdi_house.webp",
   },
   {
     name: "Others",
     isDisabled: true,
+    icon: "/mdi_house.webp",
   },
 ];
 const bankDetails = [
@@ -170,6 +194,19 @@ const reserveFunds = [
     name: "Don’t Set Property Reserve",
     ActiveIcon: "/dollar_active.webp",
     InactiveIcon: "/dollar_inactive.webp",
+  },
+];
+
+const questionForOwner = [
+  {
+    name: "Yes",
+    ActiveIcon: "/term_active.webp",
+    InactiveIcon: "/term_inactive.webp",
+  },
+  {
+    name: "No",
+    ActiveIcon: "/term_active.webp",
+    InactiveIcon: "/term_inactive.webp",
   },
 ];
 
@@ -213,6 +250,9 @@ export default function NewPropertyComponent(props: Props) {
   const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
   const [multipleUnitsModal, setMultipleUnitsModal] = useState(false);
   const [communityModal, setCommunityModal] = useState(0);
+  const [selectedOwnerType, setSelectedOwnerType] = useState(0);
+  const [isOwenerEmailModalShow, setIsOwenerEmailModalShow] = useState(false);
+  const [ownerEmail, setOwnerEmail] = useState("");
 
   const onAddSingleUnit = () => {
     setUnitsArray((prev) => [...prev, { beds: 0 }]);
@@ -228,8 +268,10 @@ export default function NewPropertyComponent(props: Props) {
       }
     }
     if (activeTab === 1) {
-      if (!props.payload.owner_id) {
-        return;
+      if (selectedOwnerType === 1) {
+        if (!ownerEmail) {
+          return;
+        }
       }
     }
     if (activeTab === 2) {
@@ -402,7 +444,7 @@ export default function NewPropertyComponent(props: Props) {
                           } px-4 p-2 rounded-xl flex gap-3 items-center`}
                         >
                           <Image
-                            src={"/mdi_house.webp"}
+                            src={item?.icon ?? "/mdi_house.webp"}
                             alt="Icon"
                             width={30}
                             height={30}
@@ -419,31 +461,42 @@ export default function NewPropertyComponent(props: Props) {
                   <p className="font-bold text-black text-[18px]  2xl:text-[23px]">
                     Property owner information
                   </p>
-                  <div className="mt-5 flex gap-5 w-full justify-between">
-                    <div className="w-[47%]">
-                      <p>Select the owner of property</p>
-                      <select
-                        name=""
-                        id=""
-                        onChange={(e) => {
-                          props.setPayload({
-                            ...props.payload,
-                            owner_id: e.target.value,
-                          });
-                          props.setUnitPayload({
-                            ...props.unitPayload,
-                            owner_id: e.target.value,
-                          });
+
+                  <div className="flex gap-7 justify-start mt-12 w-full">
+                    {questionForOwner.map((item: any, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setSelectedOwnerType(index);
+                          if (index === 1) setIsOwenerEmailModalShow(true);
                         }}
-                        className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
+                        className={`border ${
+                          selectedOwnerType === index
+                            ? "border-[#1ED760]"
+                            : "border-gray-400"
+                        } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
                       >
-                        {props.ownersAray.map((item: any, index: number) => (
-                          <option key={index} value={item.id}>
-                            {item.first_name + " " + item.last_name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                        {selectedOwnerType === index && (
+                          <Image
+                            src={"/completedIcon.webp"}
+                            alt="tick"
+                            height={100}
+                            width={100}
+                            className="absolute top-3 right-[15px] h-[40px] object-contain w-[30px]"
+                          />
+                        )}
+                        <div
+                          className={`h-[50px] w-[50px] flex items-center justify-center rounded-full ${
+                            selectedOwnerType === index
+                              ? "bg-[#e8fbef]"
+                              : "bg-[#eaeaea]"
+                          }`}
+                        >
+                          {index === 0 ? <p> ✔ </p> : <p>✕</p>}
+                        </div>
+                        <p className="mt-3 text-black font-bold">{item.name}</p>
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
@@ -502,8 +555,8 @@ export default function NewPropertyComponent(props: Props) {
                     </div>
                     <div className="w-[47%]">
                       <p>Province</p>
-                      <input
-                        type="text"
+
+                      <select
                         value={props.payload.state}
                         onChange={(e) =>
                           props.setPayload({
@@ -511,9 +564,13 @@ export default function NewPropertyComponent(props: Props) {
                             state: e.target.value,
                           })
                         }
-                        placeholder="Enter your province name"
                         className="w-full rouned border border-gray-400 px-3 rounded-xl h-12 mt-3"
-                      />
+                      >
+                        <option value="KpK">Kpk</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Sindh">Sindh</option>
+                        <option value="Balochistan">Balochistan</option>
+                      </select>
                     </div>
                   </div>
                   <div className="mt-5 flex gap-5 w-full justify-between">
@@ -548,6 +605,9 @@ export default function NewPropertyComponent(props: Props) {
                       />
                     </div>
                   </div>
+                  <button className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl mt-10 self-center">
+                    + Add Images
+                  </button>
                 </div>
               )}
               {activeTab === 3 && (
@@ -876,6 +936,13 @@ export default function NewPropertyComponent(props: Props) {
           </div>
         </div>
       </div>
+      {isOwenerEmailModalShow && (
+        <AddOwnerEmailModal
+          setIsOwenerEmailModalShow={setIsOwenerEmailModalShow}
+          ownerEmail={ownerEmail}
+          setOwnerEmail={setOwnerEmail}
+        />
+      )}
       {createAccountModal && (
         <CreateAccountModal
           setIsCreateAccountModal={setCreateAccountModal}

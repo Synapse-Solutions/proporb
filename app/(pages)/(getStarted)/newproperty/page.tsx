@@ -16,7 +16,7 @@ export default function page() {
     state: "",
     address: "",
     zip_code: "",
-    country: "",
+    country: "Pakistan",
     house_no: "",
     owner_id: "",
   });

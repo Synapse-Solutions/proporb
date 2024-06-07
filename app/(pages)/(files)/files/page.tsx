@@ -6,14 +6,12 @@ import React, { useEffect, useState } from "react";
 
 export default function page() {
   const [filesArray, setFilesArray] = useState([]);
-  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     getAllFiles();
-    setTimeout(() => {
-      setIsLoadingScreen(false);
-    }, 1000);
   }, []);
   const getAllFiles = async () => {
+    setIsLoading(true);
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
     try {
@@ -21,14 +19,16 @@ export default function page() {
       if (response.success) {
         setFilesArray(response.data.result);
       }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log("🚀 ~ getAllFiles ~ error", error);
     }
   };
 
   return (
     <div>
-      <FileComponent filesArray={filesArray} />
+      <FileComponent isLoading={isLoading} filesArray={filesArray} />
     </div>
   );
 }

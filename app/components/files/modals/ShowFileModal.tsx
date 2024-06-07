@@ -1,7 +1,16 @@
+import moment from "moment";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-export default function ShowFileModal({ onClose }: { onClose: any }) {
+export default function ShowFileModal({
+  onClose,
+  selectedfile,
+}: {
+  onClose: any;
+  selectedfile: any;
+}) {
+  const pathname = usePathname();
   return (
     <div
       style={{
@@ -25,7 +34,10 @@ export default function ShowFileModal({ onClose }: { onClose: any }) {
           />
         </div>
         <div className="flex justify-between  w-full mt-10">
-          <p className="text-[14px] text-[#808191]">27 June, 2017</p>
+          <p className="text-[14px] text-[#808191]">
+            {" "}
+            {moment(selectedfile.createdAt).format("DD MMMM, YYYY")}
+          </p>
           <div className="flex gap-5 items-center">
             {/* <Image
               src="/tag.webp"
@@ -39,27 +51,33 @@ export default function ShowFileModal({ onClose }: { onClose: any }) {
         </div>
         <div className="flex items-center gap-3">
           <div className="h-3 w-3 bg-[#1ED760] rounded-full"></div>
-          <p> Go to Town Hall</p>
+          <p>
+            {pathname === "/files"
+              ? selectedfile.file_name
+              : selectedfile.title}
+          </p>
         </div>
         <p className="text-[15px] text-[#808191]">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's
+          {" "}
+          {pathname === "/files" ? selectedfile.description : selectedfile.note}
         </p>
         <div className="flex justify-center gap-5 mb-5">
-          <Image
+          {selectedfile?.file && (
+            <Image
+              src={selectedfile?.file}
+              alt="File"
+              width={1000}
+              height={1000}
+              className="w-[250px] h-auto mt-10"
+            />
+          )}
+          {/* <Image
             src="/house.webp"
             alt="File"
             width={1000}
             height={1000}
             className="w-[250px] h-auto mt-10"
-          />
-          <Image
-            src="/house.webp"
-            alt="File"
-            width={1000}
-            height={1000}
-            className="w-[250px] h-auto mt-10"
-          />
+          /> */}
         </div>
       </div>
     </div>

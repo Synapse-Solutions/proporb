@@ -32,6 +32,7 @@ export default function PersonaInformation({ onClose }: Props) {
   useEffect(() => {
     getCurrent();
   }, []);
+  console.log("🚀 ~ PersonaInformation ~ userPayload:", userPayload);
 
   const getCurrent = () => {
     const user = JSON.parse(localStorage.getItem("user") || "");
