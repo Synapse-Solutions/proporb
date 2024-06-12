@@ -109,7 +109,7 @@ export default function Sidebar(props: Props) {
               + Create
             </button>
           </div>
-          <div className="flex flex-col gap-3 2xl:gap-5">
+          <div className="flex flex-col gap-1 2xl:gap-2">
             {muneItems.map((item, index) => (
               <Link key={index} href={item.link}>
                 <button
@@ -117,7 +117,11 @@ export default function Sidebar(props: Props) {
                   style={{
                     color: pathname === item.link ? "#1ED760" : "",
                   }}
-                  className="flex gap-3 items-center px-1 "
+                  className={`flex gap-3 items-center px-1 hover:bg-[#3f4441] w-full p-2 rounded-md hover:text-[#1ED760] ${
+                    pathname === item.link
+                      ? "text-[#1ED760] bg-[#3f4441]"
+                      : "text-white"
+                  }`}
                 >
                   <Image
                     src={item.icon}
@@ -135,9 +139,7 @@ export default function Sidebar(props: Props) {
                     }
                   />
                   <p
-                    className={`${
-                      pathname === item.link ? "text-[#1ED760]" : "text-white"
-                    } text-[12px] 2xl:text-[15px] hover:text-[#1ED760] cursor-pointer text-start`}
+                    className={`text-[12px] 2xl:text-[15px]  cursor-pointer text-start`}
                   >
                     {item.name}
                   </p>

@@ -5,6 +5,8 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 interface Props {
   user: {
@@ -29,7 +31,6 @@ export default function SigninComponent(props: Props) {
       setIsLoggingIn(false);
     }
   };
-
 
   return (
     <div className="flex justify-between p-10 h-screen">
@@ -58,29 +59,33 @@ export default function SigninComponent(props: Props) {
           </div>
           <div className="mt-6">
             <p>Password</p>
-            <AuthInput
-              value={props.user.password}
-              onChange={(e) =>
-                props.setUser({ ...props.user, password: e.target.value })
-              }
-              type={showPassword ? "text" : "password"}
-            />
-             <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-24 top-100 text-sm text-gray-600"
+            <div
+              className={`border-[1px] ${"border-[#d0d5dd]"} rounded h-10 2xl:h-14 w-[100%] px-3 hover:border-[#1ED760] flex items-center justify-between`}
             >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-             
+              <input
+                type={showPassword ? "text" : "password"}
+                value={props.user.password}
+                onChange={(e) =>
+                  props.setUser({ ...props.user, password: e.target.value })
+                }
+                placeholder={"Password"}
+                className="bg-transparent w-[90%] h-10 2xl:h-14 outline-none"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className=" text-sm text-gray-600"
+              >
+                {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
+              </button>
+            </div>
           </div>
           <div className="">
             <AuthButton
-             onClick={handleLoginClick}
+              onClick={handleLoginClick}
               text="Log in"
               disabled={isLoggingIn}
-
-               />
+            />
 
             <p className="text-[#645D5D] text-center mt-5 2xl:mt-10">
               Forgot Password?

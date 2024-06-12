@@ -636,8 +636,8 @@ export default function NewPropertyComponent(props: Props) {
                   </div>
                   {/* {unitsArray.map((item, index) => ( */}
                   <div className="flex items-center justify-between w-full mt-10">
-                    <div className="w-[12%]">
-                      <p>Number of Beds</p>
+                    <div className="w-[15%]">
+                      <p>No of Beds</p>
                       <input
                         type="number"
                         value={props.unitPayload.rooms}
@@ -651,7 +651,7 @@ export default function NewPropertyComponent(props: Props) {
                       />
                     </div>
                     <div className="w-[15%]">
-                      <p>Number of Bathrooms</p>
+                      <p>No of Bathrooms</p>
                       <input
                         type="number"
                         value={props.unitPayload.bathroom}
@@ -664,7 +664,7 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div className="w-[12%]">
+                    <div className="w-[15%]">
                       <p>Floor number</p>
                       <input
                         type="number"
@@ -678,7 +678,7 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div className="w-[12%]">
+                    <div className="w-[15%]">
                       <p>Area (sq feet)</p>
                       <input
                         type="number"
@@ -692,7 +692,7 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div>
+                    <div className="w-[15%]">
                       <p>Unit No</p>
                       <input
                         type="number"
@@ -706,7 +706,7 @@ export default function NewPropertyComponent(props: Props) {
                         className="rounded-xl w-[100%] border border-gray-400 px-3 h-12 mt-3"
                       />
                     </div>
-                    <div>
+                    <div className="w-[15%]">
                       <p>Market Rent</p>
                       <input
                         type="number"
@@ -925,12 +925,21 @@ export default function NewPropertyComponent(props: Props) {
                     Back
                   </button>
                 )}
-                <button
-                  onClick={onPressNext}
-                  className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
-                >
-                  Next
-                </button>
+                {activeTab === 4 ? (
+                  <button
+                    onClick={onPressNext}
+                    className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
+                  >
+                    Submit
+                  </button>
+                ) : (
+                  <button
+                    onClick={onPressNext}
+                    className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
+                  >
+                    Next
+                  </button>
+                )}
               </div>
             </div>
           </div>
