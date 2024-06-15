@@ -66,7 +66,6 @@ interface Props {
 export default function NewRentalsComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
   const [propertyType, setPropertyType] = useState(0);
-  const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [addTenantModal, setAddTenantModal] = useState(false);
   const uploadPhotoRef = React.createRef<HTMLInputElement>();
@@ -240,10 +239,10 @@ export default function NewRentalsComponent(props: Props) {
                       {props.tenantsArray.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className={`border ${
+                          className={` ${
                             props.rentalPayload.tenet_id === item.id
-                              ? "border-[#1ED760]"
-                              : "border-gray-400"
+                              ? "border-[3px] border-[#1ED760] "
+                              : "border-gray-400 border"
                           } p-5 w-[23%] 2xl:w-[20%] rounded-md flex flex-col items-center text-center`}
                         >
                           <Image
@@ -412,14 +411,14 @@ export default function NewRentalsComponent(props: Props) {
                 ) : (
                   <button
                     onClick={() => setActiveTab(activeTab - 1)}
-                    className="border-[#1ED760] border text-black text-base font-semibold px-8 py-2 rounded-3xl"
+                    className="border-[#1ED760] hover:bg-[#1ED760]  border text-black text-base font-semibold px-8 py-2 rounded-3xl"
                   >
                     Back
                   </button>
                 )}
                 <button
                   onClick={onClickNext}
-                  className="bg-[#1ED760] text-white text-base font-semibold px-8 py-2 rounded-3xl"
+                  className="bg-[#1ED760] hover:bg-[#58a874] text-white text-base font-semibold px-8 py-2 rounded-3xl"
                 >
                   Next
                 </button>

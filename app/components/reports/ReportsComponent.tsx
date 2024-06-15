@@ -25,7 +25,6 @@ interface Props {
   maintenanceRequestArr: any;
   tenantsArr: any;
   rentalCollectionArr: any;
-  handleTenantClick: (index: number) => void;
   handleMaintenanceRequestClick: (index: number) => void;
   handleRentalCollectionClick: (index: number) => void;
 }
@@ -41,20 +40,6 @@ export default function ReportsComponent(props: Props) {
           <div className="bg-white rounded-lg mb-10 p-10 mt-5">
             <div>
               <div className="mt-5">
-                <h1 className="font-bold text-[24px]">Tenants</h1>
-                <div className="h-[2px] bg-[#1ED760] w-[70px]" />
-                <div className="flex mt-5 justify-between flex-wrap">
-                  {props.tenantsArr.map((favourite: any, index: number) => (
-                    <SingleRow
-                      key={index}
-                      onClick={() => props.handleTenantClick(index)}
-                      title={favourite.title}
-                      isFavourite={favourite.isFavourite}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="mt-20">
                 <h1 className="font-bold text-[24px]">Rental Collection</h1>
                 <div className="h-[2px] bg-[#1ED760] w-[70px]" />
                 <div className="flex mt-5 justify-between flex-wrap">
@@ -62,16 +47,17 @@ export default function ReportsComponent(props: Props) {
                     (favourite: any, index: number) => (
                       <SingleRow
                         key={index}
-                        title={favourite.title}
                         onClick={() => props.handleRentalCollectionClick(index)}
+                        title={favourite.title}
                         isFavourite={favourite.isFavourite}
                       />
                     )
                   )}
                 </div>
               </div>
+
               <div className="mt-20">
-                <h1 className="font-bold text-[24px]">Maintenance Requets</h1>
+                <h1 className="font-bold text-[24px]">Maintenance Requests</h1>
                 <div className="h-[2px] bg-[#1ED760] w-[70px]" />
                 <div className="flex mt-5 justify-between flex-wrap">
                   {props.maintenanceRequestArr.map(

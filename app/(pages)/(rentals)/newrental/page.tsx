@@ -9,6 +9,8 @@ export default function page() {
   const [propertiesArray, setPropertiesArray] = useState([]);
   const [tenantsArray, setTenantsArray] = useState([]);
   const [unitsArray, setUnitsArray] = useState([]);
+  const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
+
   const [rentalPayload, setRentalPayload] = useState({
     property_id: 1,
     unit_id: 1,

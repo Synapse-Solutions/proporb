@@ -240,6 +240,10 @@ interface Props {
   banksArray: any;
   handleChangeBankAccount: any;
   ownersAray: any;
+  setSelectedBank: any;
+  selectedBank: any;
+  isSuccessModalShow: boolean;
+  setIsSuccessModalShow: any;
 }
 export default function NewPropertyComponent(props: Props) {
   const [activeTab, setActiveTab] = useState(0);
@@ -247,7 +251,6 @@ export default function NewPropertyComponent(props: Props) {
   const [selectedPropertyName, setSelectedPropertyName] = useState("Home");
   const [unitsArray, setUnitsArray] = useState([{ beds: 0 }]);
   const [createAccountModal, setCreateAccountModal] = useState(false);
-  const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
   const [multipleUnitsModal, setMultipleUnitsModal] = useState(false);
   const [communityModal, setCommunityModal] = useState(0);
   const [selectedOwnerType, setSelectedOwnerType] = useState(0);
@@ -268,10 +271,23 @@ export default function NewPropertyComponent(props: Props) {
       }
     }
     if (activeTab === 1) {
-      if (selectedOwnerType === 1) {
-        if (!ownerEmail) {
-          return;
+      if (propertyType === 4) {
+        if (selectedOwnerType === 1) {
+          if (!ownerEmail) {
+            return;
+          }
         }
+      } else {
+        const user = localStorage.getItem("user") || "{}";
+        let jsonUser = JSON.parse(user);
+        props.setPayload({
+          ...props.payload,
+          owner_id: jsonUser.Owner.id,
+        });
+        props.setUnitPayload({
+          ...props.unitPayload,
+          owner_id: jsonUser.Owner.id,
+        });
       }
     }
     if (activeTab === 2) {
@@ -302,6 +318,9 @@ export default function NewPropertyComponent(props: Props) {
     }
 
     if (activeTab === 4) {
+      if (props.selectedBank) {
+        props.handleChangeBankAccount();
+      }
       return;
       // if (selectedPropertyName === "Apartments") {
       //   setCommunityModal(1);
@@ -463,40 +482,50 @@ export default function NewPropertyComponent(props: Props) {
                   </p>
 
                   <div className="flex gap-7 justify-start mt-12 w-full">
-                    {questionForOwner.map((item: any, index) => (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          setSelectedOwnerType(index);
-                          if (index === 1) setIsOwenerEmailModalShow(true);
-                        }}
-                        className={`border ${
-                          selectedOwnerType === index
-                            ? "border-[#1ED760]"
-                            : "border-gray-400"
-                        } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
-                      >
-                        {selectedOwnerType === index && (
-                          <Image
-                            src={"/completedIcon.webp"}
-                            alt="tick"
-                            height={100}
-                            width={100}
-                            className="absolute top-3 right-[15px] h-[40px] object-contain w-[30px]"
-                          />
-                        )}
-                        <div
-                          className={`h-[50px] w-[50px] flex items-center justify-center rounded-full ${
-                            selectedOwnerType === index
-                              ? "bg-[#e8fbef]"
-                              : "bg-[#eaeaea]"
-                          }`}
-                        >
-                          {index === 0 ? <p> ✔ </p> : <p>✕</p>}
-                        </div>
-                        <p className="mt-3 text-black font-bold">{item.name}</p>
-                      </button>
-                    ))}
+                    {propertyType === 4 ? (
+                      <>
+                        {questionForOwner.map((item: any, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setSelectedOwnerType(index);
+                              if (index === 1) setIsOwenerEmailModalShow(true);
+                            }}
+                            className={`border ${
+                              selectedOwnerType === index
+                                ? "border-[#1ED760]"
+                                : "border-gray-400"
+                            } p-5 flex flex-col items-center justify-center rounded-lg  px-20 relative`}
+                          >
+                            {selectedOwnerType === index && (
+                              <Image
+                                src={"/completedIcon.webp"}
+                                alt="tick"
+                                height={100}
+                                width={100}
+                                className="absolute top-3 right-[15px] h-[40px] object-contain w-[30px]"
+                              />
+                            )}
+                            <div
+                              className={`h-[50px] w-[50px] flex items-center justify-center rounded-full ${
+                                selectedOwnerType === index
+                                  ? "bg-[#e8fbef]"
+                                  : "bg-[#eaeaea]"
+                              }`}
+                            >
+                              {index === 0 ? <p> ✔ </p> : <p>✕</p>}
+                            </div>
+                            <p className="mt-3 text-black font-bold">
+                              {item.name}
+                            </p>
+                          </button>
+                        ))}
+                      </>
+                    ) : (
+                      <div>
+                        <p>You are the Owner of the property</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -806,7 +835,7 @@ export default function NewPropertyComponent(props: Props) {
                               setCreateAccountModal(true);
                             } else {
                               console.log(e.target.value);
-                              props.handleChangeBankAccount(e.target.value);
+                              props.setSelectedBank(e.target.value);
                             }
                           }}
                           name="account"
@@ -959,9 +988,9 @@ export default function NewPropertyComponent(props: Props) {
           setBankDetails={props.setBankDetails}
         />
       )}
-      {isSuccessModalShow && (
+      {props.isSuccessModalShow && (
         <PropertyAddedSuccessModal
-          setIsPropertyAddedModal={setIsSuccessModalShow}
+          setIsPropertyAddedModal={props.setIsSuccessModalShow}
           title="Property Added Successfully"
         />
       )}
@@ -974,7 +1003,7 @@ export default function NewPropertyComponent(props: Props) {
       {communityModal === 2 && (
         <CommunityRulesModal
           setCommunityModal={setCommunityModal}
-          setIsSuccessModalShow={setIsSuccessModalShow}
+          setIsSuccessModalShow={props.setIsSuccessModalShow}
         />
       )}
       {communityModal === 3 && (

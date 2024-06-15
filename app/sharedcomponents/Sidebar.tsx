@@ -36,11 +36,7 @@ const ownerArray = [
     name: "Accounting",
     link: "/accounting",
   },
-  {
-    icon: "/communicationIcon.webp",
-    name: "Communication",
-    link: "/communicationslogs",
-  },
+
   {
     icon: "/notesIcon.webp",
     name: "Notes",
@@ -297,7 +293,7 @@ export default function Sidebar(props: Props) {
                 ${props.selectedSidebarTab === index ? "text-[#1ED760]" : ""}
                 `}
               >
-                <p className="text-[13px]">{item}</p>
+                <p className="text-[13px] hover:text-[#1ED760]">{item}</p>
               </button>
             ))}
           </div>

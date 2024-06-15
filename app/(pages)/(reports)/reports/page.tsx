@@ -14,21 +14,45 @@ const tenantsArray = [
 ];
 const RentalCollectionArray = [
   {
-    title: "Current Rent",
+    title: "Total Rent Collected",
     isFavourite: false,
   },
   {
-    title: "Previous Rent",
+    title: "Total Rent Collected",
+    isFavourite: false,
+  },
+  {
+    title: "Rent Collected By Quarter",
+    isFavourite: false,
+  },
+  {
+    title: "Rent Collected By Year",
+    isFavourite: false,
+  },
+  {
+    title: "Rent Collected By Tenant",
+    isFavourite: false,
+  },
+  {
+    title: "Rent Collected By Property",
     isFavourite: false,
   },
 ];
 const maintenanceRequestArray = [
   {
-    title: "Current Request",
+    title: "All Maintenance Requests",
     isFavourite: false,
   },
   {
-    title: "Previous Request",
+    title: "Pending Maintenance Requests",
+    isFavourite: false,
+  },
+  {
+    title: "Maintenance Cheque Paid By Month",
+    isFavourite: false,
+  },
+  {
+    title: "Maintenance Cheque Paid By Quarter",
     isFavourite: false,
   },
 ];
@@ -41,16 +65,12 @@ export default function page() {
     maintenanceRequestArray
   );
 
-  const handleTenantClick = (index: number) => {
-    let copy = [...tenantsArr];
-    copy[index].isFavourite = !copy[index].isFavourite;
-    setTenantsArr(copy);
-  };
   const handleMaintenanceRequestClick = (index: number) => {
-    let copy = [...maintenanceRequestArray];
+    let copy = [...maintenanceRequestArr];
     copy[index].isFavourite = !copy[index].isFavourite;
     setMaintenanceRequestArr(copy);
   };
+
   const handleRentalCollectionClick = (index: number) => {
     let copy = [...rentalCollectionArr];
     copy[index].isFavourite = !copy[index].isFavourite;
@@ -62,7 +82,6 @@ export default function page() {
       tenantsArr={tenantsArr}
       rentalCollectionArr={rentalCollectionArr}
       maintenanceRequestArr={maintenanceRequestArr}
-      handleTenantClick={handleTenantClick}
       handleMaintenanceRequestClick={handleMaintenanceRequestClick}
       handleRentalCollectionClick={handleRentalCollectionClick}
     />

@@ -13,7 +13,7 @@ export default function page() {
     subtype: "",
     street: "",
     city: "",
-    state: "",
+    state: "KpK",
     address: "",
     zip_code: "",
     country: "Pakistan",
@@ -39,6 +39,8 @@ export default function page() {
     bank_name: "",
     account_type: "",
   });
+  const [selectedBank, setSelectedBank] = useState<any>(null);
+  const [isSuccessModalShow, setIsSuccessModalShow] = useState(false);
 
   useEffect(() => {
     getAllBankAccounts();
@@ -92,10 +94,10 @@ export default function page() {
     }
   };
 
-  const handleChangeBankAccount = async (index: number) => {
+  const handleChangeBankAccount = async () => {
     const user = localStorage.getItem("user") || "";
     let token = JSON.parse(user).authToken;
-    let item = banksArray[index];
+    let item = banksArray[selectedBank];
     let payload = {
       ...bankDetails,
       receipt_type: item?.receipt_type || "",
@@ -107,8 +109,10 @@ export default function page() {
     };
     try {
       const response = await postApiWithToken("/v1/bank", payload, token);
+      console.log("DATA=========", response);
       if (response.success === true) {
         toast.success(response.message);
+        setIsSuccessModalShow(true);
       } else {
         toast.error(response.message);
       }
@@ -139,6 +143,10 @@ export default function page() {
       banksArray={banksArray}
       handleChangeBankAccount={handleChangeBankAccount}
       ownersAray={ownersArray}
+      setSelectedBank={setSelectedBank}
+      selectedBank={selectedBank}
+      isSuccessModalShow={isSuccessModalShow}
+      setIsSuccessModalShow={setIsSuccessModalShow}
     />
   );
 }
